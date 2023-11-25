@@ -6,14 +6,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestClient;
 
 import java.math.BigInteger;
+import java.net.URI;
 import java.util.List;
 
 @Controller
@@ -37,21 +36,28 @@ public class BookmarksController {
 	public String page(HttpServletRequest request, Model model) {
 
 		RestClient restClient = RestClient.create();
-		var domain = "https://programmingpercy.tech";
-		String url = domain + "/blog/opengraph-protocol-how-and-why";
+		URI uri = URI.create("https://programmingpercy.tech/blog/opengraph-protocol-how-and-why");
+		var domain = "%s://%s".formatted(uri.getScheme(), uri.getHost());
+		String url = "%s/%s".formatted(domain, uri.getPath());
 		String html = restClient.get().uri(url).retrieve().body(String.class);
 
 		Document doc = Jsoup.parse(html);
-		Element select = doc.select("head meta[property='og:image']").first();
-		var ogImage = select.attributes().get("content");
-//		ogImage = "https://programmingpercy.tech/_app/immutable/assets/img0-346f98ae.webp";
 
-		String s = "<img src='%s' alt='Open Graph Image'>".formatted(domain + "/" + ogImage);
-		var card = new Card(url, domain + "/" + ogImage);
+		var card = new Card(
+			url,
+			uri.getHost(),
+			"%s/%s".formatted(domain, getOpenGraphElementsContent(doc, "og:image")),
+			getOpenGraphElementsContent(doc, "og:title"),
+			getOpenGraphElementsContent(doc, "og:description")
+		);
 		model.addAttribute("card", card);
 		return "bookmarks/card";
 	}
 
+	private static String getOpenGraphElementsContent(Document doc, String ogName) {
+		Element select = doc.select("head meta[property='%s']".formatted(ogName)).first();
+		return select.attributes().get("content");
+	}
 
 
 }

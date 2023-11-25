@@ -7,10 +7,10 @@ content = @`
 
 	<div>
 	@for(Bookmark bm : urls)
-		<article>
+		<div class="bm-box">
 			<div id="ogimg_${bm.id()}"></div>
 			<div hx-trigger="revealed" hx-get="/page" hx-target="#ogimg_${bm.id()}"></div>
-		</article>
+		</div>
 	@endfor
 	</div>
 

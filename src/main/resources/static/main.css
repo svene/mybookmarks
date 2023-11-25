@@ -1,3 +1,36 @@
-.bm-list {
+.bm-box {
+    width: 50%;
+    border-width: 1px;
     border-style: solid;
+    border-color: lightgray;
+    border-radius: 10px;
+}
+.bm-box + .bm-box {
+    margin-top: 5px;
+}
+.bm-link {
+    text-decoration: none;
+    color: black;
+}
+.bm-image {
+    width: 50%;
+    padding: 5px;
+}
+.bm-text {
+    /*width: 50%;*/
+    padding: 10px;
+    border-top-width: 1px;
+    border-top-style: solid;
+    border-color: lightgray;
+}
+.bm-host {
+    font-size: small;
+    font-family: monospace;
+}
+.bm-title {
+    font-size: medium;
+    font-weight: bold;
+}
+.bm-description {
+    font-size: small;
 }

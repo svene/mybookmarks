@@ -1,3 +1,7 @@
+body {
+    padding: 1em;
+}
+
 .bm-box {
     width: 50%;
     border-width: 1px;
@@ -7,6 +11,18 @@
 }
 .bm-box + .bm-box {
     margin-top: 5px;
+}
+.bm-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+}
+.bm-card-loading {
+    width: 2em;
+    height: 2em;
+    background-image: var(--pico-icon-loading);
+    background-position: center;
 }
 .bm-link {
     text-decoration: none;

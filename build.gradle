@@ -39,6 +39,7 @@ dependencies {
     implementation 'org.webjars.npm:htmx.org:1.9.8'
     implementation 'org.webjars.npm:picocss__pico:2.0.0-alpha1'
     implementation 'org.jsoup:jsoup:1.15.3'
+    implementation 'io.vavr:vavr:0.10.4'
 }
 
 tasks.named('test') {

@@ -1,6 +1,7 @@
 package org.svenehrke.mybookmarks;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestClient;
 
 import java.math.BigInteger;
@@ -24,22 +27,32 @@ import java.util.List;
 @Slf4j
 public class BookmarksController {
 
+	public static final String KEY_BOOKMARKS_CSV = "bookmarks-csv";
+	public static final String KEY_BOOKMARKS = "bookmarks";
 	private final BookmarkService bookmarkService;
 
+	@GetMapping("/main")
+	public String main(HttpServletRequest request, Model model) {
+		HttpSession session = request.getSession(true);
+		session.setAttribute(KEY_BOOKMARKS_CSV, bookmarkService.readCsvAsString());
+		return "bookmarks/main";
+	}
 	@GetMapping("/bookmarks")
 	public String bookmarks(HttpServletRequest request, Model model) {
-		var urls = List.of(
-			new Bookmark(BigInteger.valueOf(1), "https://programmingpercy.tech" + "/blog/opengraph-protocol-how-and-why"),
-			new Bookmark(BigInteger.valueOf(2), "https://programmingpercy.tech" + "/blog/opengraph-protocol-how-and-why")
-		);
-		model.addAttribute("urls", bookmarkService.getAllBookmarks());
+		HttpSession session = request.getSession(false);
+		String csv = (String) session.getAttribute(KEY_BOOKMARKS_CSV);
+		List<Bookmark> bookmarks = bookmarkService.readCsv(csv);
+		session.setAttribute(KEY_BOOKMARKS, bookmarks);
+		model.addAttribute("urls", bookmarks);
 
 		return "bookmarks/bookmarks";
 	}
 
 	@GetMapping("/page/{id}")
 	public String page(HttpServletRequest request, @PathVariable BigInteger id, Model model) {
-		Bookmark bookmark = bookmarkService.getById(id);
+		HttpSession session = request.getSession(false);
+		var bookmarks = (List<Bookmark>) session.getAttribute(KEY_BOOKMARKS);
+		Bookmark bookmark = bookmarkService.getById(id, bookmarks);
 
 		URI uri = URI.create(bookmark.url());
 		String html = makeHttpCall(uri, true);
@@ -57,33 +70,50 @@ public class BookmarksController {
 		return "bookmarks/card";
 	}
 
+	@PostMapping("/bookmarks")
+	public String reload(HttpServletRequest request, Model model) {
+		bookmarkService.reload();
+		return "bookmarks/bookmarks";
+	}
+
+	@GetMapping("/csv")
+	@ResponseBody
+	public String csv(HttpServletRequest request, Model model) {
+		String csv = String.join(System.lineSeparator(), Arrays.asList(
+			"9;https://programmingpercy.tech/blog/opengraph-protocol-how-and-why",
+			"9;https://youtu.be/c7pgqHNTXQM?si=GnOyPeJzK_tBgp4c",
+			"9;https://www.youtube.com/watch?v=qsk2JZT_vIc",
+			"9;https://medium.com/@nuno.mt.sousa/part-ii-creating-a-kafka-cluster-test-extension-569ed750d137",
+			"9;https://www.heise.de"
+			));
+		return csv;
+	}
+
+
 	private String makeHttpCall(URI uri, boolean followRedirect) {
 		List<HttpStatusCode> redirectHttpStatusCodes = Arrays.asList(301, 303).stream().map(it -> HttpStatusCode.valueOf(it)).toList();
 		RestClient restClient = RestClient.create();
-		System.out.println("uri = " + uri);
-		String url = "%s/%s".formatted(getDomain(uri), uri.getPath());
+		log.debug("uri = {0}", uri);
 		ResponseEntity<String> result = restClient
 			.get()
 			.uri(uri)
 			.retrieve()
 			.toEntity(String.class);
-		System.out.println("status = " + result.getStatusCode());
+		log.debug("status = {0}", result.getStatusCode());
 
-		String html = "";
 		if (redirectHttpStatusCodes.contains(result.getStatusCode())) {
 			if (followRedirect) {
 				var hs = result.getHeaders();
 				String location = hs.get("location").get(0);
 				location = newUrlFromPossiblyRelativeUrl(uri, location);
-				System.out.println(location);
-				html = makeHttpCall(URI.create(location), false);
+				log.debug("location = {0}", location);
+				return makeHttpCall(URI.create(location), false);
 			} else {
-				html = "";
+				return "";
 			}
 		} else {
-			html = result.getBody();
+			return result.getBody();
 		}
-		return html;
 	}
 
 	private static String newUrlFromPossiblyRelativeUrl(URI baseUri, String url) {

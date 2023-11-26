@@ -1,5 +1,6 @@
 @import gg.jte.Content
 
+@param String init
 @param Content content
 
 <!doctype html>
@@ -15,11 +16,13 @@
         htmx.logAll();
 	</script>
 
+<%--
 	<style>
         body {
             padding: 1em;
         }
 	</style>
+--%>
 
 </head>
 <body hx-boost="true">
@@ -31,4 +34,9 @@
 	${content}
 </main>
 </body>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        htmx.trigger("body", "${init}");
+    });
+</script>
 </html>

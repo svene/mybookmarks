@@ -9,9 +9,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.math.BigInteger;
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.function.Supplier;
 
 @Slf4j
@@ -63,7 +61,13 @@ public class BookmarkService {
 		var csvBookmarks = io.vavr.collection.Stream
 			.ofAll(records)
 			.zipWithIndex()
-			.map(it -> new Bookmark(BigInteger.valueOf(Long.valueOf(it._2)), it._1.get(1)))
+			.map(it -> {
+				var id = BigInteger.valueOf(Long.valueOf(it._2));
+				String url = it._1.get(0);
+				String tagsString = it._1.get(1);
+				List<String> tags = Arrays.asList(tagsString.split(","));
+				return new Bookmark(id, url, tags);
+			})
 			.toList()
 			.asJava();
 
@@ -84,7 +88,12 @@ public class BookmarkService {
 	}
 
 	public Bookmark getById(BigInteger id, List<Bookmark> bookmarks) {
-		return bookmarks.stream().filter(it -> id.equals(it.id())).findFirst().orElse(new Bookmark(BigInteger.ZERO, "https://www.heise.de"));
+		return bookmarks
+			.stream()
+			.filter(it -> id.equals(it.id()))
+			.findFirst()
+			.orElse(new Bookmark(BigInteger.ZERO, "https://www.heise.de", Collections.emptyList())
+			);
 	}
 
 }

@@ -13,6 +13,7 @@ content = @`
 	</div>
 
 	<div id="preview-card" class="bm-box"></div>
+	<a hx-boost="false" href="/page/csv" >CSV Preview</a>
 
 `
 )

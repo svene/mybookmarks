@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.math.BigInteger;
-import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -20,22 +19,21 @@ import java.util.List;
 @Slf4j
 public class BookmarksController {
 
-	public static final String KEY_BOOKMARKS_CSV = "bookmarks-csv";
-	public static final String KEY_BOOKMARKS = "bookmarks";
 	private final BookmarkService bookmarkService;
+	private final BookmarksWebHelper bookmarksWebHelper;
 
 	@GetMapping("/main")
 	public String main(HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession(true);
-		session.setAttribute(KEY_BOOKMARKS_CSV, bookmarkService.readCsvAsString());
+		session.setAttribute(BookmarksWebHelper.KEY_BOOKMARKS_CSV, bookmarkService.readCsvAsString());
 		return "bookmarks/main";
 	}
 	@GetMapping("/bookmarks")
 	public String bookmarks(HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession(false);
-		String csv = (String) session.getAttribute(KEY_BOOKMARKS_CSV);
+		String csv = bookmarksWebHelper.getCsvStringFromSession(session);
 		List<Bookmark> bookmarks = bookmarkService.readCsv(csv);
-		session.setAttribute(KEY_BOOKMARKS, bookmarks);
+		session.setAttribute(BookmarksWebHelper.KEY_BOOKMARKS, bookmarks);
 		model.addAttribute("urls", bookmarks);
 
 		return "bookmarks/bookmarks";
@@ -44,7 +42,7 @@ public class BookmarksController {
 	@GetMapping("/page/{id}")
 	public String page(HttpServletRequest request, @PathVariable BigInteger id, Model model) {
 		HttpSession session = request.getSession(false);
-		var bookmarks = (List<Bookmark>) session.getAttribute(KEY_BOOKMARKS);
+		var bookmarks = bookmarksWebHelper.getBookmarksFromSession(session);
 		Bookmark bookmark = bookmarkService.getById(id, bookmarks);
 
 		BookmarkRetriever bookmarkRetriever = new BookmarkRetriever(bookmark);
@@ -61,23 +59,13 @@ public class BookmarksController {
 	@GetMapping("/csv")
 	@ResponseBody
 	public String csv(HttpServletRequest request, Model model) {
-		String csv = String.join(System.lineSeparator(), Arrays.asList(
-			"https://www.freecodecamp.org/news/what-is-tailwind-css-a-beginners-guide/;read",
-			"https://elanna.me/blog/2023/11/time-for-a-change-switching-to-analog;read",
-			"https://www.youtube.com/watch?v=cgnrB5PkaBo;read",
-			"https://htmx.org/essays/why-tend-not-to-use-content-negotiation/;read",
-			"https://docs.localstack.cloud/academy/;read",
-			"https://www.youtube.com/watch?v=h8Jth_ijZyY&t=1s;read",
-			"https://thenewstack.io/how-to-use-databases-inside-github-actions/;read",
-			"https://odrotbohm.de/2023/07/sliced-onion-architecture/;read",
+		return bookmarkService.getCsvAsString();
+	}
 
-			"https://programmingpercy.tech/blog/opengraph-protocol-how-and-why;sweng",
-			"https://youtu.be/c7pgqHNTXQM?si=GnOyPeJzK_tBgp4c;sweng",
-			"https://www.youtube.com/watch?v=qsk2JZT_vIc;sweng",
-			"https://medium.com/@nuno.mt.sousa/part-ii-creating-a-kafka-cluster-test-extension-569ed750d137;sweng",
-			"https://www.heise.de;news"
-			));
-		return csv;
+	@GetMapping("/page/csv")
+	public String csvPage(HttpServletRequest request, Model model) {
+		model.addAttribute("csvString", bookmarkService.getCsvAsString());
+		return "bookmarks/csvpage";
 	}
 
 

@@ -1,7 +1,6 @@
 package org.svenehrke.mybookmarks;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -20,20 +19,18 @@ import java.util.List;
 public class BookmarksController {
 
 	private final BookmarkService bookmarkService;
-	private final BookmarksWebHelper bookmarksWebHelper;
+	private final BookmarkSessionStore bookmarkSessionStore;
 
 	@GetMapping("/main")
 	public String main(HttpServletRequest request, Model model) {
-		HttpSession session = request.getSession(true);
-		session.setAttribute(BookmarksWebHelper.KEY_BOOKMARKS_CSV, bookmarkService.readCsvAsString());
+		bookmarkSessionStore.setBookmarksCSV(bookmarkService.readCsvAsString());
 		return "bookmarks/main";
 	}
 	@GetMapping("/bookmarks")
 	public String bookmarks(HttpServletRequest request, Model model) {
-		HttpSession session = request.getSession(false);
-		String csv = bookmarksWebHelper.getCsvStringFromSession(session);
+		String csv = bookmarkSessionStore.getBookmarksCSV();
 		List<Bookmark> bookmarks = bookmarkService.readCsv(csv);
-		session.setAttribute(BookmarksWebHelper.KEY_BOOKMARKS, bookmarks);
+		bookmarkSessionStore.setBookmarks(bookmarks);
 		model.addAttribute("urls", bookmarks);
 
 		return "bookmarks/bookmarks";
@@ -41,8 +38,7 @@ public class BookmarksController {
 
 	@GetMapping("/page/{id}")
 	public String page(HttpServletRequest request, @PathVariable BigInteger id, Model model) {
-		HttpSession session = request.getSession(false);
-		var bookmarks = bookmarksWebHelper.getBookmarksFromSession(session);
+		var bookmarks = bookmarkSessionStore.getBookmarks();
 		Bookmark bookmark = bookmarkService.getById(id, bookmarks);
 
 		BookmarkRetriever bookmarkRetriever = new BookmarkRetriever(bookmark);
@@ -67,9 +63,5 @@ public class BookmarksController {
 		model.addAttribute("csvString", bookmarkService.getCsvAsString());
 		return "bookmarks/csvpage";
 	}
-
-
-
-
 
 }

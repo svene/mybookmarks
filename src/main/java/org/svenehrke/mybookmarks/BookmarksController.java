@@ -1,17 +1,16 @@
 package org.svenehrke.mybookmarks;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigInteger;
-import java.util.List;
 
 @Controller
 @AllArgsConstructor
@@ -23,17 +22,15 @@ public class BookmarksController {
 
 	@GetMapping("/main")
 	public String main(HttpServletRequest request, Model model) {
-		bookmarkSessionStore.setBookmarksCSV(bookmarkService.readCsvAsString());
+		bookmarkService.loadBookmarksIntoSessionIfNecessary();
 		return "bookmarks/main";
 	}
 	@GetMapping("/bookmarks")
 	public String bookmarks(HttpServletRequest request, Model model) {
-		String csv = bookmarkSessionStore.getBookmarksCSV();
-		List<Bookmark> bookmarks = bookmarkService.readCsv(csv);
-		bookmarkSessionStore.setBookmarks(bookmarks);
-		model.addAttribute("urls", bookmarks);
+		bookmarkService.loadBookmarksIntoSessionIfNecessary();
+		model.addAttribute("urls", bookmarkSessionStore.getBookmarks());
 
-		return "bookmarks/bookmarks";
+		return "bookmarks/bookmarkspage";
 	}
 
 	@GetMapping("/page/{id}")
@@ -49,18 +46,34 @@ public class BookmarksController {
 	@PostMapping("/bookmarks")
 	public String reload(HttpServletRequest request, Model model) {
 		bookmarkService.reload();
-		return "bookmarks/bookmarks";
+		return "bookmarks/bookmarkspage";
+	}
+
+	@PostMapping(path = "/bookmark", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+	@ResponseBody
+	public String addBookmark(@RequestParam(required = true, name = "bm-url") String bmUrl, HttpServletResponse response) {
+		bookmarkService.loadBookmarksIntoSessionIfNecessary();
+		var newLine = bmUrl + ";todo" + System.lineSeparator();
+		var csv = newLine + bookmarkSessionStore.getBookmarksCSV();
+		bookmarkSessionStore.setBookmarksCSV(csv);
+		bookmarkService.reCreateBookmarks();
+
+		response.setHeader("HX-Trigger", "bookmarkAdded");
+		response.setStatus(HttpStatus.CREATED.value());
+		return "";
 	}
 
 	@GetMapping("/csv")
 	@ResponseBody
 	public String csv(HttpServletRequest request, Model model) {
-		return bookmarkService.getCsvAsString();
+		String csv = bookmarkSessionStore.getBookmarksCSV();
+		return csv;
 	}
 
 	@GetMapping("/page/csv")
 	public String csvPage(HttpServletRequest request, Model model) {
-		model.addAttribute("csvString", bookmarkService.getCsvAsString());
+		bookmarkService.loadBookmarksIntoSessionIfNecessary();
+		model.addAttribute("csvString", bookmarkSessionStore.getBookmarksCSV());
 		return "bookmarks/csvpage";
 	}
 

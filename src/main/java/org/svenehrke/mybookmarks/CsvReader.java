@@ -36,6 +36,7 @@ public class CsvReader {
 		log.debug("records = {0}", records);
 		var csvBookmarks = io.vavr.collection.Stream
 			.ofAll(records)
+			.reverse()
 			.zipWithIndex()
 			.map(it -> {
 				var id = BigInteger.valueOf(Long.valueOf(it._2));
@@ -44,6 +45,7 @@ public class CsvReader {
 				List<String> tags = Arrays.asList(tagsString.split(","));
 				return new Bookmark(id, url, tags);
 			})
+			.reverse()
 			.toList()
 			.asJava();
 

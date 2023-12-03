@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.math.BigInteger;
 
@@ -20,17 +21,30 @@ public class BookmarksController {
 	private final BookmarkService bookmarkService;
 	private final BookmarkSessionStore bookmarkSessionStore;
 
-	@GetMapping("/main")
-	public String main(HttpServletRequest request, Model model) {
-		bookmarkService.loadBookmarksIntoSessionIfNecessary();
-		return "bookmarks/main";
+	@GetMapping("/")
+	public RedirectView index() {
+		return new RedirectView("/bookmarkspage");
 	}
-	@GetMapping("/bookmarks")
-	public String bookmarks(HttpServletRequest request, Model model) {
-		bookmarkService.loadBookmarksIntoSessionIfNecessary();
-		model.addAttribute("urls", bookmarkSessionStore.getBookmarks());
 
+	@GetMapping("/bookmarkspage")
+	public String bookmarkspage(
+		@RequestParam(required = false, name = "search_by_tags") String searchByTags,
+		@RequestParam(required = false, name = "search_by_title") String searchByTitle,
+		Model model
+	) {
+		model.addAttribute("bookmarks", bookmarkService.findByTag(searchByTags));
 		return "bookmarks/bookmarkspage";
+
+	}
+
+	@GetMapping("/bookmarks")
+	public String bookmarks(
+		@RequestParam(required = false, name = "search_by_tags") String searchByTags,
+		@RequestParam(required = false, name = "search_by_title") String searchByTitle,
+		Model model
+	) {
+		model.addAttribute("bookmarks", bookmarkService.findByTag(searchByTags));
+		return "bookmarks/bookmark_rows";
 	}
 
 	@GetMapping("/page/{id}")
@@ -55,8 +69,7 @@ public class BookmarksController {
 		bookmarkService.loadBookmarksIntoSessionIfNecessary();
 		var newLine = bmUrl + ";todo" + System.lineSeparator();
 		var csv = newLine + bookmarkSessionStore.getBookmarksCSV();
-		bookmarkSessionStore.setBookmarksCSV(csv);
-		bookmarkService.reCreateBookmarks();
+		bookmarkService.reCreateBookmarks(csv);
 
 		response.setHeader("HX-Trigger", "bookmarkAdded");
 		response.setStatus(HttpStatus.CREATED.value());
@@ -74,6 +87,7 @@ public class BookmarksController {
 	public String csvPage(HttpServletRequest request, Model model) {
 		bookmarkService.loadBookmarksIntoSessionIfNecessary();
 		model.addAttribute("csvString", bookmarkSessionStore.getBookmarksCSV());
+		model.addAttribute("csvInfo", bookmarkSessionStore.getBookmarksCsvInfo());
 		return "bookmarks/csvpage";
 	}
 

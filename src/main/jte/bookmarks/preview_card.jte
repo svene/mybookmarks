@@ -1,13 +1,10 @@
 @import org.svenehrke.mybookmarks.Card;
 
 @param Card card
-
 <div class="w50 bm-box">
 	<a href="${card.url()}" target="_blank" class="bm-link">
 		<div class="bm-image">
-			<%--	<a href="${card.url()}" target="_blank">--%>
 			<img src="${card.ogImageUrl()}" alt='Open Graph Image'>
-			<%--	</a>--%>
 		</div>
 		<div class="bm-text">
 			<div class="bm-host">${card.host()}</div>
@@ -16,3 +13,5 @@
 		</div>
 	</a>
 </div>
+<button type="submit" hx-post="/bookmark" hx-swap="none" hx-include="#bm-url">Add</button>
+

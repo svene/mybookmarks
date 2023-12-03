@@ -26,7 +26,7 @@
 
 </head>
 <body hx-boost="true">
-<main class="ui container">
+<main class="container">
 	<header>
 		<h1 class="ui header">Bookmarks App</h1>
 	</header>

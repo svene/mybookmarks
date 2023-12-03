@@ -18,20 +18,12 @@ public class PreviewController {
 
 	private final BookmarkService bookmarkService;
 
-	@GetMapping("/preview")
-	public String main(HttpServletRequest request, Model model) {
-		bookmarkService.loadBookmarksIntoSessionIfNecessary();
-		var session = request.getSession();
-		BookmarkSessionStore st = (BookmarkSessionStore) session.getAttribute("scopedTarget.bookmarkSessionStore");
-		return "bookmarks/previewpage";
-	}
-
 	@GetMapping("/preview-result")
 	public String previewResult(HttpServletRequest request, @RequestParam("bm-url") String bmUrl, Model model) {
 		var bookmark = new Bookmark(BigInteger.valueOf(1L), bmUrl, Collections.emptyList());
 		BookmarkRetriever bookmarkRetriever = new BookmarkRetriever(bookmark);
 		model.addAttribute("card", bookmarkRetriever.getCard());
-		return "bookmarks/card";
+		return "bookmarks/preview_card";
 	}
 
 }

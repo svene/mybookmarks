@@ -2,8 +2,10 @@ body {
     padding: 1em;
 }
 
-.bm-box {
+.w50 {
     width: 50%;
+}
+.bm-box {
     border-width: 1px;
     border-style: solid;
     border-color: lightgray;

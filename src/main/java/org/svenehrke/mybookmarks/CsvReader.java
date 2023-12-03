@@ -8,17 +8,31 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 @Slf4j
 public class CsvReader {
-	@SneakyThrows
-	public List<Bookmark> convertCsvToBookmarks(String csv) {
-		List<List<String>> records = new ArrayList<>();
+
+	public CsvInfo getCsvInfo(String csv) {
+		List<String> records = new ArrayList<>();
+		int maxLength = 0;
 		try (Scanner scanner = new Scanner(csv)) {
 			while (scanner.hasNextLine()) {
-				records.add(getRecordFromLine(scanner.nextLine()));
+				String line = scanner.nextLine();
+				records.add(line);
+				maxLength = Math.max(maxLength, line.length());
 			}
 		}
+		return new CsvInfo(records, maxLength);
+	}
+
+
+	@SneakyThrows
+	public List<Bookmark> convertCsvToBookmarks(List<String> lines) {
+		List<List<String>> records = lines.stream()
+			.map(this::getRecordFromLine)
+			.collect(Collectors.toList());
+
 		log.debug("records = {0}", records);
 		var csvBookmarks = io.vavr.collection.Stream
 			.ofAll(records)

@@ -3,6 +3,7 @@ package org.svenehrke.mybookmarks;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.math.BigInteger;
 import java.util.Collections;
@@ -17,10 +18,8 @@ public class BookmarkService {
 	public void reload() {
 	}
 
-	public void reCreateBookmarks() {
-		var csv = bookmarkSessionStore.getBookmarksCSV();
-		List<Bookmark> bookmarks = new CsvReader().convertCsvToBookmarks(csv);
-		bookmarkSessionStore.setBookmarks(bookmarks);
+	public void reCreateBookmarks(String csv) {
+		bookmarkSessionStore.handleNewCsvString(csv);
 	}
 
 	public Bookmark getById(BigInteger id, List<Bookmark> bookmarks) {
@@ -36,9 +35,17 @@ public class BookmarkService {
 		var bookmarks = bookmarkSessionStore.getBookmarks();
 		if (bookmarks == null || bookmarks.isEmpty()) {
 			String csv = new InitialDataLoader().readCsvAsString();
-			bookmarkSessionStore.setBookmarksCSV(csv);
-			bookmarkSessionStore.setBookmarks(new CsvReader().convertCsvToBookmarks(csv));
+			bookmarkSessionStore.handleNewCsvString(csv);
 		}
+	}
+
+	public List<Bookmark> findByTag(String tag) {
+		loadBookmarksIntoSessionIfNecessary();
+		var bookmarks = switch (tag) {
+			case String s when StringUtils.hasLength(s) -> bookmarkSessionStore.getBookmarks().subList(0, 1);
+			case null, default -> bookmarkSessionStore.getBookmarks();
+		};
+		return bookmarks;
 	}
 
 }

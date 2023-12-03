@@ -12,5 +12,14 @@ import java.util.List;
 @Data
 public class BookmarkSessionStore {
 	private String bookmarksCSV;
+	private CsvInfo bookmarksCsvInfo;
 	private List<Bookmark> bookmarks = new LinkedList<>();
+
+	public void handleNewCsvString(String csv) {
+		setBookmarksCSV(csv);
+		CsvInfo csvInfo = new CsvReader().getCsvInfo(csv);
+		setBookmarksCsvInfo(csvInfo);
+		setBookmarks(new CsvReader().convertCsvToBookmarks(csvInfo.records()));
+	}
+
 }

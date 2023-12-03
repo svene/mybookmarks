@@ -1,4 +1,7 @@
+@import org.svenehrke.mybookmarks.CsvInfo
+
 @param String csvString
+@param CsvInfo csvInfo
 
 <!doctype html>
 <html lang="">
@@ -6,6 +9,6 @@
 <head>
 </head>
 <body>
-	<textarea rows="50" cols="150" class="preview-csv">${csvString}</textarea>
+	<textarea rows="${csvInfo.records().size() + 2}" cols="${csvInfo.maxCol() + 2}" class="preview-csv">${csvString}</textarea>
 </body>
 </html>

@@ -33,6 +33,8 @@ public class BookmarksController {
 		Model model
 	) {
 		model.addAttribute("bookmarks", bookmarkService.findByTag(searchByTags));
+		String csv = bookmarkSessionStore.getBookmarksCSV();
+		model.addAttribute("bookmarksCsv", csv);
 		return "bookmarks/bookmarkspage";
 
 	}
@@ -57,10 +59,12 @@ public class BookmarksController {
 		return "bookmarks/card";
 	}
 
-	@PostMapping("/bookmarks")
-	public String reload(HttpServletRequest request, Model model) {
+	@PostMapping("/reload")
+	@ResponseBody
+	public String reload(HttpServletResponse response, Model model) {
 		bookmarkService.reload();
-		return "bookmarks/bookmarkspage";
+		response.setHeader("HX-Trigger", "bookmarkAdded");
+		return "";
 	}
 
 	@PostMapping(path = "/bookmark", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
@@ -74,21 +78,6 @@ public class BookmarksController {
 		response.setHeader("HX-Trigger", "bookmarkAdded");
 		response.setStatus(HttpStatus.CREATED.value());
 		return "";
-	}
-
-	@GetMapping("/csv")
-	@ResponseBody
-	public String csv(HttpServletRequest request, Model model) {
-		String csv = bookmarkSessionStore.getBookmarksCSV();
-		return csv;
-	}
-
-	@GetMapping("/page/csv")
-	public String csvPage(HttpServletRequest request, Model model) {
-		bookmarkService.loadBookmarksIntoSessionIfNecessary();
-		model.addAttribute("csvString", bookmarkSessionStore.getBookmarksCSV());
-		model.addAttribute("csvInfo", bookmarkSessionStore.getBookmarksCsvInfo());
-		return "bookmarks/csvpage";
 	}
 
 }

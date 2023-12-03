@@ -16,20 +16,18 @@
         htmx.logAll();
 	</script>
 
-<%--
-	<style>
-        body {
-            padding: 1em;
-        }
-	</style>
---%>
-
 </head>
 <body hx-boost="true">
 <main class="container">
-	<header>
-		<h1 class="ui header">Bookmarks App</h1>
-	</header>
+	<nav class="w50">
+		<ul>
+			<li><strong>Bookmarks App</strong></li>
+		</ul>
+		<ul>
+			<li><button onclick="copyCsvToClipboard()">Copy CSV</button></li>
+			<li><button hx-post="/reload" hx-swap="none">Reload</button></li>
+		</ul>
+	</nav>
 
 	${content}
 </main>
@@ -38,5 +36,16 @@
     document.addEventListener("DOMContentLoaded", function() {
         htmx.trigger("body", "${init}");
     });
+
+    function copyCsvToClipboard() {
+        // Get the text field
+        var copyText = document.getElementById("csvString");
+        // Select the text field
+        copyText.select();
+        copyText.setSelectionRange(0, 99999); // For mobile devices
+
+        // Copy the text inside the text field
+        navigator.clipboard.writeText(copyText.value);
+    }
 </script>
 </html>

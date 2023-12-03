@@ -18,10 +18,6 @@ content = @`
 	</div>
 	<div id="preview-card"></div>
 
-	<div>
-		<a href="/page/csv" target="_blank">CSV</a>
-	</div>
-
 	<hr class="w50">
 	<form class="w50">
 		<div class="grid">
@@ -44,7 +40,9 @@ content = @`
 		</div>
 	</form>
 
-	<div id="search-result">
+	<div id="csvTextfield" hx-trigger="init from:body, bookmarkAdded from:body" hx-get="/csvtextfield"></div>
+
+	<div id="search-result" hx-trigger="init from:body, bookmarkAdded from:body" hx-get="/bookmarks">
 		@template.bookmarks.bookmark_rows(bookmarks = bookmarks)
 	</div>
 `

@@ -15,9 +15,6 @@ import java.util.List;
 public class BookmarkService {
 	private final BookmarkSessionStore bookmarkSessionStore;
 
-	public void reload() {
-	}
-
 	public void reCreateBookmarks(String csv) {
 		bookmarkSessionStore.handleNewCsvString(csv);
 	}
@@ -34,10 +31,15 @@ public class BookmarkService {
 	public void loadBookmarksIntoSessionIfNecessary() {
 		var bookmarks = bookmarkSessionStore.getBookmarks();
 		if (bookmarks == null || bookmarks.isEmpty()) {
-			String csv = new InitialDataLoader().readCsvAsString();
-			bookmarkSessionStore.handleNewCsvString(csv);
+			reload();
 		}
 	}
+
+	public void reload() {
+		String csv = new InitialDataLoader().readCsvAsString();
+		bookmarkSessionStore.handleNewCsvString(csv);
+	}
+
 
 	public List<Bookmark> findByTag(String tag) {
 		loadBookmarksIntoSessionIfNecessary();

@@ -23,7 +23,7 @@ public class BookmarkRetriever {
 		String html = makeHttpCall(uri, true);
 		Document doc = Jsoup.parse(html);
 
-		String ogImageContent = getOpenGraphElementsContent(doc, "og:image", "https://placehold.co/250x100/png?text=:-)");
+		String ogImageContent = getOpenGraphElementsContent(doc, "og:image", "https://placehold.co/250x100/png?text=NO PREVIEW");
 		String title = getOpenGraphElementsContent(doc, "og:title", null);
 		if (title == null) {
 			title = getTitle(doc, bookmark.url());

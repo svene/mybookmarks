@@ -6,17 +6,8 @@
 init = "init",
 content = @`
 
-	<div class="w50">
-		<input
-			id="bm-url"
-			name="bm-url"
-			hx-get="/preview-result"
-			hx-target="#preview-card"
-			hx-trigger="keyup delay:800ms changed"
-			placeholder="Insert URL"
-		>
-	</div>
-	<div id="preview-card"></div>
+	<div hx-trigger="init from:body, bookmarkAdded from:body" hx-get="/search"></div>
+	<div hx-trigger="newPreview from:body, bookmarkAdded from:body" hx-get="/preview-result"></div>
 
 	<hr class="w50">
 	<form class="w50">

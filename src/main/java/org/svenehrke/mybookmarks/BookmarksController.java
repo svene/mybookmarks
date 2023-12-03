@@ -26,6 +26,11 @@ public class BookmarksController {
 		return new RedirectView("/bookmarkspage");
 	}
 
+	@GetMapping("/search")
+	public String search() {
+		return "bookmarks/fragment/search";
+	}
+
 	@GetMapping("/bookmarks")
 	public String bookmarks(
 		@RequestParam(required = false, name = "search_by_tags") String searchByTags,
@@ -61,8 +66,9 @@ public class BookmarksController {
 		var newLine = bmUrl + ";todo" + System.lineSeparator();
 		var csv = newLine + bookmarkSessionStore.getBookmarksCSV();
 		bookmarkService.reCreateBookmarks(csv);
+		bookmarkSessionStore.setPreviewBookmark(null);
 
-		response.setHeader("HX-Trigger", "bookmarkAdded");
+		response.setHeader("HX-Trigger", "bookmarkAdded, newPreview");
 		response.setStatus(HttpStatus.CREATED.value());
 		return "";
 	}

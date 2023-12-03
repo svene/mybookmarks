@@ -6,5 +6,5 @@ import java.math.BigInteger;
 import java.util.List;
 
 @RecordBuilder
-public record Bookmark(BigInteger id, String url, List<String> tags) {
+public record Bookmark(BigInteger id, String url, List<String> tags) implements BookmarkBuilder.With {
 }

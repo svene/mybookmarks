@@ -1,6 +1,8 @@
 @import org.svenehrke.mybookmarks.Card;
 
 @param Card card
+
+@if(card != null)
 <div class="w50 bm-box">
 	<a href="${card.url()}" target="_blank" class="bm-link">
 		<div class="bm-image">
@@ -14,4 +16,5 @@
 	</a>
 </div>
 <button type="submit" hx-post="/bookmark" hx-swap="none" hx-include="#bm-url">Add</button>
+@endif
 

@@ -14,6 +14,7 @@ public class BookmarkSessionStore {
 	private String bookmarksCSV;
 	private CsvInfo bookmarksCsvInfo;
 	private List<Bookmark> bookmarks = new LinkedList<>();
+	private Bookmark previewBookmark;
 
 	public void handleNewCsvString(String csv) {
 		setBookmarksCSV(csv);

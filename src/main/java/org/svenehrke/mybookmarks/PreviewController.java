@@ -23,7 +23,7 @@ public class PreviewController {
 		var bookmark = new Bookmark(BigInteger.valueOf(1L), bmUrl, Collections.emptyList());
 		BookmarkRetriever bookmarkRetriever = new BookmarkRetriever(bookmark);
 		model.addAttribute("card", bookmarkRetriever.getCard());
-		return "bookmarks/preview_card";
+		return "bookmarks/fragment/preview_card";
 	}
 
 }

@@ -17,6 +17,7 @@
 	</script>
 
 </head>
+
 <body hx-boost="true">
 <main class="container">
 	<nav class="w50">

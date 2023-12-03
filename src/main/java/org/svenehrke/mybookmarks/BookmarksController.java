@@ -26,19 +26,6 @@ public class BookmarksController {
 		return new RedirectView("/bookmarkspage");
 	}
 
-	@GetMapping("/bookmarkspage")
-	public String bookmarkspage(
-		@RequestParam(required = false, name = "search_by_tags") String searchByTags,
-		@RequestParam(required = false, name = "search_by_title") String searchByTitle,
-		Model model
-	) {
-		model.addAttribute("bookmarks", bookmarkService.findByTag(searchByTags));
-		String csv = bookmarkSessionStore.getBookmarksCSV();
-		model.addAttribute("bookmarksCsv", csv);
-		return "bookmarks/bookmarkspage";
-
-	}
-
 	@GetMapping("/bookmarks")
 	public String bookmarks(
 		@RequestParam(required = false, name = "search_by_tags") String searchByTags,
@@ -46,7 +33,7 @@ public class BookmarksController {
 		Model model
 	) {
 		model.addAttribute("bookmarks", bookmarkService.findByTag(searchByTags));
-		return "bookmarks/bookmark_rows";
+		return "bookmarks/fragment/bookmark_rows";
 	}
 
 	@GetMapping("/page/{id}")
@@ -56,7 +43,7 @@ public class BookmarksController {
 
 		BookmarkRetriever bookmarkRetriever = new BookmarkRetriever(bookmark);
 		model.addAttribute("card", bookmarkRetriever.getCard());
-		return "bookmarks/card";
+		return "bookmarks/fragment/card";
 	}
 
 	@PostMapping("/reload")

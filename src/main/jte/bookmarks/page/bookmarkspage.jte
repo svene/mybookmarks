@@ -2,7 +2,7 @@
 
 @param java.util.List<Bookmark> bookmarks
 
-@template.layout.page(
+@template.bookmarks.page.layout(
 init = "init",
 content = @`
 
@@ -12,8 +12,8 @@ content = @`
 			name="bm-url"
 			hx-get="/preview-result"
 			hx-target="#preview-card"
-			hx-trigger="keyup delay:600ms changed"
-			placeholder="Paste a URL"
+			hx-trigger="keyup delay:800ms changed"
+			placeholder="Insert URL"
 		>
 	</div>
 	<div id="preview-card"></div>
@@ -43,7 +43,6 @@ content = @`
 	<div id="csvTextfield" hx-trigger="init from:body, bookmarkAdded from:body" hx-get="/csvtextfield"></div>
 
 	<div id="search-result" hx-trigger="init from:body, bookmarkAdded from:body" hx-get="/bookmarks">
-		@template.bookmarks.bookmark_rows(bookmarks = bookmarks)
+		@template.bookmarks.fragment.bookmark_rows(bookmarks = bookmarks)
 	</div>
-`
-)
+`)

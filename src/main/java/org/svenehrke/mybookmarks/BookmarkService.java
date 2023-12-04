@@ -6,8 +6,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.math.BigInteger;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @AllArgsConstructor
@@ -24,7 +26,8 @@ public class BookmarkService {
 			.stream()
 			.filter(it -> id.equals(it.id()))
 			.findFirst()
-			.orElse(new Bookmark(BigInteger.ZERO, "https://www.heise.de", Collections.emptyList())
+			.orElse(
+				BookmarkBuilder.builder().id(BigInteger.ZERO).url("https://www.heise.de").tags(Collections.emptyList()).build()
 			);
 	}
 
@@ -41,13 +44,19 @@ public class BookmarkService {
 	}
 
 
-	public List<Bookmark> findByTag(String tag) {
+	public List<Bookmark> findByTag(String tagsString) {
+		List<Bookmark> result;
 		loadBookmarksIntoSessionIfNecessary();
-		var bookmarks = switch (tag) {
-			case String s when StringUtils.hasLength(s) -> bookmarkSessionStore.getBookmarks().subList(0, 1);
-			case null, default -> bookmarkSessionStore.getBookmarks();
-		};
-		return bookmarks;
+		if (StringUtils.hasLength(tagsString)) {
+			String[] split = tagsString.split(",");
+			List<String> tags = Arrays.stream(split).map(String::trim).toList();
+			result = bookmarkSessionStore.getBookmarks().stream()
+				.filter(it -> !Collections.disjoint(it.tags(), tags))
+				.collect(Collectors.toList());
+		} else {
+			result = bookmarkSessionStore.getBookmarks();
+		}
+		return result;
 	}
 
 }

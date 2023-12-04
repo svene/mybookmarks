@@ -43,7 +43,7 @@ public class CsvReader {
 				String url = it._1.get(0);
 				String tagsString = it._1.get(1);
 				List<String> tags = Arrays.asList(tagsString.split(","));
-				return new Bookmark(id, url, tags);
+				return BookmarkBuilder.builder().id(id).url(url).tags(tags).build();
 			})
 			.reverse()
 			.toList()

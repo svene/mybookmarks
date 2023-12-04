@@ -42,12 +42,15 @@ public class BookmarksController {
 	}
 
 	@GetMapping("/page/{id}")
-	public String page(HttpServletRequest request, @PathVariable BigInteger id, Model model) {
+	public String page(@PathVariable BigInteger id, Model model) {
 		var bookmarks = bookmarkSessionStore.getBookmarks();
 		Bookmark bookmark = bookmarkService.getById(id, bookmarks);
 
-		BookmarkRetriever bookmarkRetriever = new BookmarkRetriever(bookmark);
-		model.addAttribute("card", bookmarkRetriever.getCard());
+		var ex = bookmarkSessionStore.getBookmarkExs().computeIfAbsent(
+			bookmark.url(),
+			s -> new BookmarkRetriever().buildBookmarkEx(bookmark)
+		);
+		model.addAttribute("card", new BookmarkRetriever().getCard(bookmark.url(), ex));
 		return "bookmarks/fragment/card";
 	}
 
@@ -55,20 +58,20 @@ public class BookmarksController {
 	@ResponseBody
 	public String reload(HttpServletResponse response, Model model) {
 		bookmarkService.reload();
-		response.setHeader("HX-Trigger", "bookmarkAdded");
+		response.setHeader("HX-Trigger", "bookmarksChanged");
 		return "";
 	}
 
 	@PostMapping(path = "/bookmark", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
 	@ResponseBody
-	public String addBookmark(@RequestParam(required = true, name = "bm-url") String bmUrl, HttpServletResponse response) {
+	public String addBookmark(@RequestParam(name = "bm-url") String bmUrl, HttpServletResponse response) {
 		bookmarkService.loadBookmarksIntoSessionIfNecessary();
 		var newLine = bmUrl + ";todo" + System.lineSeparator();
 		var csv = newLine + bookmarkSessionStore.getBookmarksCSV();
 		bookmarkService.reCreateBookmarks(csv);
 		bookmarkSessionStore.setPreviewBookmark(null);
 
-		response.setHeader("HX-Trigger", "bookmarkAdded, newPreview");
+		response.setHeader("HX-Trigger", "bookmarksChanged, newPreview");
 		response.setStatus(HttpStatus.CREATED.value());
 		return "";
 	}

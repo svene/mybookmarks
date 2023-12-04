@@ -16,26 +16,34 @@ import java.util.List;
 @AllArgsConstructor
 @Slf4j
 public class BookmarkRetriever {
-	private final Bookmark bookmark;
 
-	public Card getCard() {
-		URI uri = URI.create(bookmark.url());
+	public Card getCard(String url, BookmarkEx bmx) {
+		var card = new Card(
+			url,
+			bmx.uri().getHost(),
+			bmx.imageUrl(),
+			bmx.title(),
+			bmx.description()
+		);
+		return card;
+	}
+	public BookmarkEx buildBookmarkEx(Bookmark bm) {
+		URI uri = URI.create(bm.url());
 		String html = makeHttpCall(uri, true);
 		Document doc = Jsoup.parse(html);
 
 		String ogImageContent = getOpenGraphElementsContent(doc, "og:image", "https://placehold.co/250x100/png?text=NO PREVIEW");
 		String title = getOpenGraphElementsContent(doc, "og:title", null);
 		if (title == null) {
-			title = getTitle(doc, bookmark.url());
+			title = getTitle(doc, bm.url());
 		}
-		var card = new Card(
-			bookmark.url(),
-			uri.getHost(),
-			newUrlFromPossiblyRelativeUrl(uri, ogImageContent),
-			title,
-			getOpenGraphElementsContent(doc, "og:description", "")
-		);
-		return card;
+		BookmarkEx ex = BookmarkExBuilder.builder()
+			.uri(uri)
+			.imageUrl(newUrlFromPossiblyRelativeUrl(uri, ogImageContent))
+			.title(title)
+			.description(getOpenGraphElementsContent(doc, "og:description", ""))
+			.build();
+		return ex;
 	}
 
 	private String makeHttpCall(URI uri, boolean followRedirect) {

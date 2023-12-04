@@ -23,7 +23,11 @@ public class PreviewController {
 	@PutMapping(path = "/preview-url", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
 	@ResponseBody
 	public String previewUrl(HttpServletResponse response, @RequestParam("bm-url") String bmUrl) {
-		var previewBookmark = new Bookmark(BigInteger.valueOf(1L), bmUrl, List.of("todo"));
+		var previewBookmark = BookmarkBuilder.builder()
+			.id(BigInteger.valueOf(1L))
+			.url(bmUrl)
+			.tags(List.of("todo"))
+			.build();
 		bookmarkSessionStore.setPreviewBookmark(previewBookmark);
 		response.setHeader("HX-Trigger", "newPreview");
 		return "";
@@ -32,7 +36,12 @@ public class PreviewController {
 	@GetMapping("/preview-result")
 	public String previewResult(Model model) {
 		Bookmark bm = bookmarkSessionStore.getPreviewBookmark();
-		var card = bm == null ? null : new BookmarkRetriever(bm).getCard();
+		Card card;
+		if (bm == null) {
+			card = null;
+		} else {
+			card = new BookmarkRetriever().getCard(bm.url(), bookmarkSessionStore.getBookmarkEx(bm));
+		}
 		model.addAttribute("card", card);
 		return "bookmarks/fragment/preview_card";
 	}

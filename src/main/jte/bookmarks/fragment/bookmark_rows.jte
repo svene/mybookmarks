@@ -8,7 +8,7 @@
 <div id="ogcard_${bm.id()}"
 	 class="bm-card"
 	 hx-trigger="revealed"
-	 hx-get="/page/${bm.id()}"
+	 hx-get="/card/${bm.id()}"
 	 hx-vals='{"id": "${bm.id()}"}"}'
 	 hx-swap="outerHTML"
 >

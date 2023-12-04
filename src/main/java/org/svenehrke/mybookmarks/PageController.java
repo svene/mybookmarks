@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Slf4j
 public class PageController {
 
-	@GetMapping("/pagex/{page}")
+	@GetMapping("/page/{page}")
 	public String page(@PathVariable String page) {
 		return "bookmarks/page/" + page;
 	}

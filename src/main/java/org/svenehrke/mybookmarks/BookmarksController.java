@@ -23,7 +23,7 @@ public class BookmarksController {
 
 	@GetMapping("/")
 	public RedirectView index() {
-		return new RedirectView("/pagex/bookmarks");
+		return new RedirectView("/page/bookmarks");
 	}
 
 	@PutMapping("/search/tags")
@@ -37,7 +37,7 @@ public class BookmarksController {
 		return "";
 	}
 
-	@GetMapping("/page/{id}")
+	@GetMapping("/card/{id}")
 	public String page(@PathVariable BigInteger id, Model model) {
 		bookmarkService.loadBookmarksIntoSessionIfNecessary();
 		model.addAttribute("cardModel", FragmentHelper.CardModel.build(fh, id));

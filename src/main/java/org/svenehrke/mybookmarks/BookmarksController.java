@@ -1,6 +1,5 @@
 package org.svenehrke.mybookmarks;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,22 +22,18 @@ public class BookmarksController {
 
 	@GetMapping("/")
 	public RedirectView index() {
-		return new RedirectView("/bookmarkspage");
+		return new RedirectView("/pagex/bookmarks");
 	}
 
-	@GetMapping("/search")
-	public String search() {
-		return "bookmarks/fragment/search";
-	}
-
-	@GetMapping("/bookmarks")
-	public String bookmarks(
+	@PutMapping("/search/tags")
+	@ResponseBody
+	public String searchTags(
 		@RequestParam(required = false, name = "search_by_tags") String searchByTags,
-		@RequestParam(required = false, name = "search_by_title") String searchByTitle,
-		Model model
+		HttpServletResponse response
 	) {
-		model.addAttribute("bookmarks", bookmarkService.findByTag(searchByTags));
-		return "bookmarks/fragment/bookmark_rows";
+		bookmarkSessionStore.setSearchTags(searchByTags);
+		response.setHeader("HX-Trigger", "searchTagsChanged");
+		return "";
 	}
 
 	@GetMapping("/page/{id}")
@@ -46,11 +41,8 @@ public class BookmarksController {
 		var bookmarks = bookmarkSessionStore.getBookmarks();
 		Bookmark bookmark = bookmarkService.getById(id, bookmarks);
 
-		var ex = bookmarkSessionStore.getBookmarkExs().computeIfAbsent(
-			bookmark.url(),
-			s -> new BookmarkRetriever().buildBookmarkEx(bookmark)
-		);
-		model.addAttribute("card", new BookmarkRetriever().getCard(bookmark.url(), ex));
+		bookmarkService.createBookmarkExIfNecessary(bookmark);
+		model.addAttribute("card", new BookmarkRetriever().getCard(bookmark.url(), bookmarkSessionStore.getBookmarkEx(bookmark)));
 		return "bookmarks/fragment/card";
 	}
 

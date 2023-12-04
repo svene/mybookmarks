@@ -1,6 +1,7 @@
-@import org.svenehrke.mybookmarks.Card;
+@import org.svenehrke.mybookmarks.FragmentHelper
 
-@param Card card
+@param FragmentHelper fragmentHelper
+!{var card = FragmentHelper.PreviewCardModel.build(fragmentHelper).card(); }
 
 @if(card != null)
 <div class="w50 bm-box">

@@ -1,13 +1,11 @@
 @import org.svenehrke.mybookmarks.Bookmark
 
-@param java.util.List<Bookmark> bookmarks
-
 @template.bookmarks.page.layout(
 init = "init",
 content = @`
 
-	<div hx-trigger="init from:body, bookmarksChanged from:body" hx-get="/search"></div>
-	<div hx-trigger="newPreview from:body, bookmarksChanged from:body" hx-get="/preview-result"></div>
+	<div hx-trigger="init from:body, bookmarksChanged from:body, searchTagsChanged from:body" hx-get="/fragment?path=new-url"></div>
+	<div hx-trigger="newPreview from:body, bookmarksChanged from:body" hx-get="/fragment?path=preview_card"></div>
 
 	<hr class="w50">
 	<form class="w50">
@@ -17,10 +15,9 @@ content = @`
 				type="search"
 				name="search_by_tags"
 				placeholder="tag,tag,..."
-				hx-get="/bookmarks"
-				hx-target="#search-result"
+				hx-put="/search/tags"
+				hx-swap="none"
 				hx-trigger="keyup delay:800ms changed"
-				data-tooltip="sweng,news"
 			/>
 			<input
 				type="search"
@@ -33,12 +30,10 @@ content = @`
 		</div>
 	</form>
 
-	<small>Tags</small>
+	<div hx-trigger="init from:body, bookmarksChanged from:body" hx-get="/fragment?path=existing_tags">Tags</div>
 	<hr class="w50">
 
 	<div id="csvTextfield" hx-trigger="init from:body, bookmarksChanged from:body" hx-get="/csvtextfield"></div>
 
-	<div id="search-result" hx-trigger="init from:body, bookmarksChanged from:body" hx-get="/bookmarks">
-		@template.bookmarks.fragment.bookmark_rows(bookmarks = bookmarks)
-	</div>
+	<div id="search-result" hx-trigger="init from:body, bookmarksChanged from:body" hx-get="/fragment?path=bookmark_rows"></div>
 `)

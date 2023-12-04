@@ -4,10 +4,7 @@ import lombok.Data;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @SessionScope
 @Component
@@ -17,23 +14,14 @@ public class BookmarkSessionStore {
 	private CsvInfo bookmarksCsvInfo;
 	private List<Bookmark> bookmarks = new LinkedList<>();
 	private Bookmark previewBookmark;
-	private Map<String, BookmarkEx> bookmarkExs = new HashMap<>();
+	private Map<String, BookmarkEx> bookmarkExs = Collections.synchronizedMap(new HashMap<>());
+	private String searchTags;
 
 	public void handleNewCsvString(String csv) {
 		setBookmarksCSV(csv);
 		CsvInfo csvInfo = new CsvReader().getCsvInfo(csv);
 		setBookmarksCsvInfo(csvInfo);
 		setBookmarks(new CsvReader().convertCsvToBookmarks(csvInfo.records()));
-		updateExs();
-	}
-
-	private void updateExs() {
-		getBookmarks().forEach(it -> {
-			bookmarkExs.computeIfAbsent(
-				it.url(),
-				k -> new BookmarkRetriever().buildBookmarkEx(it)
-			);
-		});
 	}
 
 	public BookmarkEx getBookmarkEx(Bookmark bm) {

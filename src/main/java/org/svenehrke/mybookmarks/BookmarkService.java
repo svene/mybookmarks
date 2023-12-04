@@ -43,6 +43,14 @@ public class BookmarkService {
 		bookmarkSessionStore.handleNewCsvString(csv);
 	}
 
+	public void createBookmarkExIfNecessary(Bookmark bookmark) {
+		var ex = bookmarkSessionStore.getBookmarkExs().get(bookmark.url());
+		if (ex == null) {
+			ex = new BookmarkRetriever().buildBookmarkEx(bookmark);
+			bookmarkSessionStore.getBookmarkExs().putIfAbsent(bookmark.url(), ex);
+		}
+	}
+
 
 	public List<Bookmark> findByTag(String tagsString) {
 		List<Bookmark> result;

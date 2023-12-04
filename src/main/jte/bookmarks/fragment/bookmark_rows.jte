@@ -1,6 +1,8 @@
+@import org.svenehrke.mybookmarks.FragmentHelper
 @import org.svenehrke.mybookmarks.Bookmark
 
-@param java.util.List<Bookmark> bookmarks
+@param FragmentHelper fragmentHelper
+!{var bookmarks = FragmentHelper.BookmarkRowsModel.build(fragmentHelper).bookmarks(); }
 
 @for(Bookmark bm : bookmarks)
 <div id="ogcard_${bm.id()}"

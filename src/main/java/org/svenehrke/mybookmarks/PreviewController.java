@@ -33,17 +33,5 @@ public class PreviewController {
 		return "";
 	}
 
-	@GetMapping("/preview-result")
-	public String previewResult(Model model) {
-		Bookmark bm = bookmarkSessionStore.getPreviewBookmark();
-		Card card;
-		if (bm == null) {
-			card = null;
-		} else {
-			card = new BookmarkRetriever().getCard(bm.url(), bookmarkSessionStore.getBookmarkEx(bm));
-		}
-		model.addAttribute("card", card);
-		return "bookmarks/fragment/preview_card";
-	}
 
 }

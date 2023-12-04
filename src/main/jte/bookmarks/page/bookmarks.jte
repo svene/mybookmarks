@@ -33,7 +33,7 @@ content = @`
 	<div hx-trigger="init from:body, bookmarksChanged from:body" hx-get="/fragment?path=existing_tags">Tags</div>
 	<hr class="w50">
 
-	<div id="csvTextfield" hx-trigger="init from:body, bookmarksChanged from:body" hx-get="/csvtextfield"></div>
+	<div id="csvTextfield" hx-trigger="init from:body, bookmarksChanged from:body" hx-get="/fragment?path=csv_textfield"></div>
 
 	<div id="search-result" hx-trigger="init from:body, bookmarksChanged from:body" hx-get="/fragment?path=bookmark_rows"></div>
 `)

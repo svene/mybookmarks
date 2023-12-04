@@ -69,4 +69,19 @@ public class BookmarkService {
 		return result;
 	}
 
+	public void addBookmark(String bmUrl) {
+		loadBookmarksIntoSessionIfNecessary();
+		var newLine = bmUrl + ";todo" + System.lineSeparator();
+		var csv = newLine + bookmarkSessionStore.getBookmarksCSV();
+		reCreateBookmarks(csv);
+		bookmarkSessionStore.setPreviewBookmark(null);
+	}
+	public void setPreviewBookmark(String bmUrl) {
+		var previewBookmark = BookmarkBuilder.builder()
+			.id(BigInteger.valueOf(1L))
+			.url(bmUrl)
+			.tags(List.of("todo"))
+			.build();
+		bookmarkSessionStore.setPreviewBookmark(previewBookmark);
+	}
 }

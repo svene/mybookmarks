@@ -52,4 +52,9 @@ public class FragmentHelper {
 		}
 	}
 
+	public record CsvTextfieldModel(String csvString) {
+		public static CsvTextfieldModel build(FragmentHelper fh) {
+			return new CsvTextfieldModel(fh.getBookmarkSessionStore().getBookmarksCSV());
+		}
+	}
 }

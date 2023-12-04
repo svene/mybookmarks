@@ -1,4 +1,6 @@
+@import org.svenehrke.mybookmarks.FragmentHelper
 
-@param String bookmarksCsv
+@param FragmentHelper fragmentHelper
+!{var M = FragmentHelper.CsvTextfieldModel.build(fragmentHelper); }
 
-<textarea id="csvString" hidden class="preview-csv">${bookmarksCsv}</textarea>
+<textarea id="csvString" hidden class="preview-csv">${M.csvString()}</textarea>

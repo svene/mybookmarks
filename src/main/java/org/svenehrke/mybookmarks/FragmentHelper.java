@@ -3,6 +3,7 @@ package org.svenehrke.mybookmarks;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
+import java.math.BigInteger;
 import java.util.List;
 
 @Component
@@ -40,5 +41,15 @@ public class FragmentHelper {
 		}
 	}
 
+	public record CardModel(Card card) {
+		public static CardModel build(FragmentHelper fh, BigInteger id) {
+			var bookmarks = fh.getBookmarkSessionStore().getBookmarks();
+			Bookmark bookmark = fh.getBookmarkService().getById(id, bookmarks);
+
+			fh.bookmarkService.createBookmarkExIfNecessary(bookmark);
+			Card card = new BookmarkRetriever().getCard(bookmark.url(), fh.getBookmarkSessionStore().getBookmarkEx(bookmark));
+			return new CardModel(card);
+		}
+	}
 
 }

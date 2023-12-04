@@ -32,9 +32,11 @@ public class BookmarkService {
 	}
 
 	public void loadBookmarksIntoSessionIfNecessary() {
-		var bookmarks = bookmarkSessionStore.getBookmarks();
-		if (bookmarks == null || bookmarks.isEmpty()) {
-			reload();
+		synchronized (bookmarkSessionStore.getBookmarks()) {
+			var bookmarks = bookmarkSessionStore.getBookmarks();
+			if (bookmarks == null || bookmarks.isEmpty()) {
+				reload();
+			}
 		}
 	}
 

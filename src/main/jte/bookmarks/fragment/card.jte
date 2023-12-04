@@ -1,13 +1,12 @@
-@import org.svenehrke.mybookmarks.Card;
+@import org.svenehrke.mybookmarks.FragmentHelper.CardModel;
 
-@param Card card
+@param CardModel cardModel
+!{var card = cardModel.card(); }
 
 <div class="w50 bm-box">
 	<a href="${card.url()}" target="_blank" class="bm-link">
 		<div class="bm-image">
-			<%--	<a href="${card.url()}" target="_blank">--%>
 			<img src="${card.ogImageUrl()}" alt='Open Graph Image'>
-			<%--	</a>--%>
 		</div>
 		<div class="bm-text">
 			<div class="bm-host">${card.host()}</div>

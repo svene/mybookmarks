@@ -19,6 +19,7 @@ public class BookmarksController {
 
 	private final BookmarkService bookmarkService;
 	private final BookmarkSessionStore bookmarkSessionStore;
+	private final FragmentHelper fh;
 
 	@GetMapping("/")
 	public RedirectView index() {
@@ -38,11 +39,8 @@ public class BookmarksController {
 
 	@GetMapping("/page/{id}")
 	public String page(@PathVariable BigInteger id, Model model) {
-		var bookmarks = bookmarkSessionStore.getBookmarks();
-		Bookmark bookmark = bookmarkService.getById(id, bookmarks);
-
-		bookmarkService.createBookmarkExIfNecessary(bookmark);
-		model.addAttribute("card", new BookmarkRetriever().getCard(bookmark.url(), bookmarkSessionStore.getBookmarkEx(bookmark)));
+		bookmarkService.loadBookmarksIntoSessionIfNecessary();
+		model.addAttribute("cardModel", FragmentHelper.CardModel.build(fh, id));
 		return "bookmarks/fragment/card";
 	}
 

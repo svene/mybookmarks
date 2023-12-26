@@ -50,12 +50,20 @@ public class BookmarkRetriever {
 		List<HttpStatusCode> redirectHttpStatusCodes = Arrays.asList(301, 303).stream().map(it -> HttpStatusCode.valueOf(it)).toList();
 		RestClient restClient = RestClient.create();
 		log.debug("uri = {0}", uri);
-		ResponseEntity<String> result = restClient
-			.get()
-			.uri(uri)
-			.retrieve()
-			.toEntity(String.class);
-		log.debug("status = {0}", result.getStatusCode());
+		ResponseEntity<String> result = null;
+		try {
+			result = restClient
+				.get()
+				.uri(uri)
+				.retrieve()
+				.toEntity(String.class);
+		} catch (RuntimeException e) {
+			log.error("cannot retrieve URL %s".formatted(uri));
+			throw e;
+		}
+		if (result.getStatusCode() != HttpStatusCode.valueOf(200)) {
+			throw new RuntimeException("cannot retrieve URL %s. Status code: %s".formatted(uri, result.getStatusCode()));
+		}
 
 		if (redirectHttpStatusCodes.contains(result.getStatusCode())) {
 			if (followRedirect) {

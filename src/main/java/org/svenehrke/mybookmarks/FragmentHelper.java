@@ -13,9 +13,9 @@ public class FragmentHelper {
 	private final BookmarkService bookmarkService;
 	private final BookmarkSessionStore bookmarkSessionStore;
 
-	public record ExistingTagsModel(String tags) {
-		public static ExistingTagsModel build() {
-			return new ExistingTagsModel("STUB: <existing tags>");
+	public record ExistingTagsModel(List<String> tags) {
+		public static ExistingTagsModel build(FragmentHelper fragmentHelper) {
+			return new ExistingTagsModel(fragmentHelper.bookmarkSessionStore.getTags());
 		}
 	}
 

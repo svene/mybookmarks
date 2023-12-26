@@ -1,5 +1,13 @@
 @import org.svenehrke.mybookmarks.FragmentHelper
 
-!{var M = FragmentHelper.ExistingTagsModel.build(); }
+@param FragmentHelper fragmentHelper
+!{var M = FragmentHelper.ExistingTagsModel.build(fragmentHelper); }
 
-<small>${M.tags()}</small>
+<details class="w50">
+	<summary>Tags</summary>
+	<ul>
+		@for(String tag : M.tags())
+			<li>${tag}</li>
+		@endfor
+	</ul>
+</details>

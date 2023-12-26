@@ -16,12 +16,20 @@ public class BookmarkSessionStore {
 	private Bookmark previewBookmark;
 	private Map<String, BookmarkEx> bookmarkExs = Collections.synchronizedMap(new HashMap<>());
 	private String searchTags;
+	private List<String> tags;
 
 	public void handleNewCsvString(String csv) {
 		setBookmarksCSV(csv);
 		CsvInfo csvInfo = new CsvReader().getCsvInfo(csv);
 		setBookmarksCsvInfo(csvInfo);
-		setBookmarks(new CsvReader().convertCsvToBookmarks(csvInfo.records()));
+		List<Bookmark> newBookmarks = new CsvReader().convertCsvToBookmarks(csvInfo.records());
+		setBookmarks(newBookmarks);
+		List<String> tags = newBookmarks.stream()
+			.flatMap(it -> it.tags().stream())
+			.distinct()
+			.sorted()
+			.toList();
+		setTags(tags);
 	}
 
 	public BookmarkEx getBookmarkEx(Bookmark bm) {

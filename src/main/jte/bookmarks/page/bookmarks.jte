@@ -4,7 +4,7 @@
 init = "init",
 content = @`
 
-	<div hx-trigger="init from:body, bookmarksChanged from:body, searchTagsChanged from:body" hx-get="/fragment?path=new-url"></div>
+	<div hx-trigger="init from:body, bookmarksChanged from:body" hx-get="/fragment?path=new-url"></div>
 	<div hx-trigger="newPreview from:body, bookmarksChanged from:body" hx-get="/fragment?path=preview_card"></div>
 
 	<hr class="w50">
@@ -30,10 +30,10 @@ content = @`
 		</div>
 	</form>
 
-	<div hx-trigger="init from:body, bookmarksChanged from:body" hx-get="/fragment?path=existing_tags">Tags</div>
+	<div hx-trigger="init from:body, bookmarksChanged from:body" hx-get="/fragment?path=existing_tags">[Tags]</div>
 	<hr class="w50">
 
 	<div id="csvTextfield" hx-trigger="init from:body, bookmarksChanged from:body" hx-get="/fragment?path=csv_textfield"></div>
 
-	<div id="search-result" hx-trigger="init from:body, bookmarksChanged from:body" hx-get="/fragment?path=bookmark_rows"></div>
+	<div id="search-result" hx-trigger="init from:body, bookmarksChanged from:body, searchTagsChanged from:body" hx-get="/fragment?path=bookmark_rows"></div>
 `)

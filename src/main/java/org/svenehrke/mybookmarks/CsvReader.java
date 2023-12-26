@@ -30,6 +30,8 @@ public class CsvReader {
 	@SneakyThrows
 	public List<Bookmark> convertCsvToBookmarks(List<String> lines) {
 		List<List<String>> records = lines.stream()
+			// only take valid records:
+			.filter(line -> line.chars().filter(ch -> ch == ';').count() == 1)
 			.map(this::getRecordFromLine)
 			.collect(Collectors.toList());
 
@@ -39,11 +41,16 @@ public class CsvReader {
 			.reverse()
 			.zipWithIndex()
 			.map(it -> {
-				var id = BigInteger.valueOf(Long.valueOf(it._2));
-				String url = it._1.get(0);
-				String tagsString = it._1.get(1);
-				List<String> tags = Arrays.asList(tagsString.split(","));
-				return BookmarkBuilder.builder().id(id).url(url).tags(tags).build();
+				try {
+					var id = BigInteger.valueOf(Long.valueOf(it._2));
+					String url = it._1.get(0);
+					String tagsString = it._1.get(1);
+					List<String> tags = Arrays.asList(tagsString.split(","));
+					return BookmarkBuilder.builder().id(id).url(url).tags(tags).build();
+				} catch (RuntimeException e) {
+					log.error("parsing problems with: " + it._1.get(0));
+					throw e;
+				}
 			})
 			.reverse()
 			.toList()

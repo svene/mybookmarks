@@ -18,14 +18,13 @@ import java.util.List;
 public class BookmarkRetriever {
 
 	public Card getCard(String url, BookmarkEx bmx) {
-		var card = new Card(
-			url,
-			bmx.uri().getHost(),
-			bmx.imageUrl(),
-			bmx.title(),
-			bmx.description()
-		);
-		return card;
+		return CardBuilder.builder()
+			.url(url)
+			.host(bmx.uri().getHost())
+			.ogImageUrl(bmx.imageUrl())
+			.ogTitle(bmx.title())
+			.ogDescription(bmx.description())
+			.build();
 	}
 	public BookmarkEx buildBookmarkEx(Bookmark bm) {
 		URI uri = URI.create(bm.url());

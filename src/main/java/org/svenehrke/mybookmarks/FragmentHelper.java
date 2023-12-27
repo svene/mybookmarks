@@ -47,7 +47,8 @@ public class FragmentHelper {
 			Bookmark bookmark = fh.getBookmarkService().getById(id, bookmarks);
 
 			fh.bookmarkService.createBookmarkExIfNecessary(bookmark);
-			Card card = new BookmarkRetriever().getCard(bookmark.url(), fh.getBookmarkSessionStore().getBookmarkEx(bookmark));
+			Card card = new BookmarkRetriever().getCard(bookmark.url(), fh.getBookmarkSessionStore().getBookmarkEx(bookmark))
+				.withTagString(String.join(",", bookmark.tags()));
 			return new CardModel(card);
 		}
 	}

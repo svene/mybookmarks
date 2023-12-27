@@ -9,6 +9,7 @@ import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -60,8 +61,13 @@ public class BookmarkService {
 		if (StringUtils.hasLength(tagsString)) {
 			String[] split = tagsString.split(",");
 			List<String> tags = Arrays.stream(split).map(String::trim).toList();
+			List<String> plusTags = tagsHoldingPredicate(tags, it -> it.startsWith("+")).stream().map(it -> it.substring(1)).toList();
+			List<String> minusTags = tagsHoldingPredicate(tags, it -> it.startsWith("-")).stream().map(it -> it.substring(1)).toList();
+			List<String> normalTags = tagsHoldingPredicate(tags, s -> !s.startsWith("+") && !s.startsWith("-"));
+
 			result = bookmarkSessionStore.getBookmarks().stream()
-				.filter(it -> !Collections.disjoint(it.tags(), tags))
+				.filter(it -> normalTags.isEmpty() || !Collections.disjoint(it.tags(), normalTags))
+				.filter(it -> minusTags.isEmpty() || it.tags().stream().noneMatch(minusTags::contains)) // Check that it.tags() does not contain any item from minusTags
 				.collect(Collectors.toList());
 		} else {
 			result = bookmarkSessionStore.getBookmarks();
@@ -83,5 +89,16 @@ public class BookmarkService {
 			.tags(List.of("todo"))
 			.build();
 		bookmarkSessionStore.setPreviewBookmark(previewBookmark);
+	}
+
+	public void ttt() {
+		List<String> items = List.of("lkj");
+
+	}
+
+	private static List<String> tagsHoldingPredicate(List<String> tags, Predicate<String> stringPredicate) {
+		return tags.stream()
+			.filter(stringPredicate)
+			.collect(Collectors.toList());
 	}
 }

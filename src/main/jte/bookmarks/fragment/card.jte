@@ -3,7 +3,7 @@
 @param CardModel cardModel
 !{var card = cardModel.card(); }
 
-<div class="w50 bm-box">
+<div class="w50 bm-box" data-tooltip="${card.tagString()}" data-placement="right">
 	<a href="${card.url()}" target="_blank" class="bm-link">
 		<div class="bm-image">
 			<img src="${card.ogImageUrl()}" alt='Open Graph Image'>

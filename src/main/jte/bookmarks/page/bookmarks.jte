@@ -21,15 +21,6 @@ content = @`
 		</div>
 	</div>
 
-    <%-- New URL --%>
-<%--
-	<div class="row">
-		<div class="col offset-s3 s6">
-			<div hx-trigger="init from:body, bookmarksChanged from:body" hx-get="/fragment?path=new-url"></div>
-		</div>
-	</div>
---%>
-
     <%-- Preview --%>
 	<div class="row">
 		<div class="col s12">

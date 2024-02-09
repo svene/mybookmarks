@@ -6,14 +6,10 @@
 <div class="row" hx-on:htmx:load="window.mbm.initSelect('#tag-select')">
 	<div class="input-field col s4 offset-s3">
 		<select id="tag-select" name="tag" multiple hx-put="/search/taglist" hx-swap="none">
-			<option value="htmx">HTMX</option>
-			<option value="sql">SQL</option>
-			<option value="3">Option 3</option>
-			<option value="4">Option 4</option>
-			<option value="5">Option 5</option>
-			<option value="6">Option 6</option>
-			<option value="7">Option 7</option>
-			<option value="8">Option 8</option>
+			@for(String tag : M.tags())
+				<option value="${tag}">${tag}</option>
+				<li>${tag}</li>
+			@endfor
 		</select>
 		<label for="form-select-2">Select Tags</label>
 	</div>

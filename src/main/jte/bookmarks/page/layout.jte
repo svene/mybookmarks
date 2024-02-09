@@ -7,14 +7,9 @@
 <html lang="">
 <head>
 	<title>Bookmarks App</title>
-<%--
-	<link rel="stylesheet" href="/webjars/picocss__pico/2.0.0-alpha1/css/pico.css"/>
-	<link rel="stylesheet" href="/main.css"/>
---%>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@materializecss/materialize@2.0.3-alpha/dist/css/materialize.min.css"/>
-<%--	<link rel="stylesheet" href="/main.css"/>--%>
-	<link rel="stylesheet" href="/main2.css"/>
+	<link rel="stylesheet" href="/main.css"/>
 
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@materializecss/materialize@2.0.3-alpha/dist/js/materialize.min.js"></script>
 	<script src="/main.js"></script>

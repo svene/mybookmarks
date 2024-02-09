@@ -18,14 +18,3 @@
 		<label for="form-select-2">Select Tags</label>
 	</div>
 </div>
-
-<%--
-<details class="w50">
-	<summary>Tags</summary>
-	<ul>
-		@for(String tag : M.tags())
-			<li>${tag}</li>
-		@endfor
-	</ul>
-</details>
---%>

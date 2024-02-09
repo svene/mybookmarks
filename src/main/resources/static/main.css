@@ -1,57 +1,24 @@
-body {
-    padding: 1em;
+.bm-rows {
+    display: grid;
+    gap: 10px
+}
+.bm-row {
+    /*gap: 5px*/
+}
+.card .card-image img.og-image {
+    max-width: 100%; /* Set the maximum width to 100% of its container */
+    height: auto;    /* Maintain aspect ratio */
+    display: block;  /* Remove any default inline spacing */
+    margin: auto;    /* Center the image horizontally (optional) */
+    width: auto;
 }
 
-.w50 {
-    width: 50%;
-}
-.bm-box {
-    border-width: 1px;
-    border-style: solid;
-    border-color: lightgray;
-    border-radius: 10px;
-}
-.bm-box + .bm-box {
-    margin-top: 5px;
-}
 .bm-card {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 200px;
+    /*margin-bottom: 5px;*/
+}
+.bm-row {
+    /*min-height: 200px;*/
 }
 .bm-card-loading {
-    /*width: 2em;*/
-    /*height: 2em;*/
-    min-width: 100px;
-    min-height: 200px;
-    /*background-image: var(--pico-icon-loading);*/
-    /*background-position: center;*/
-    display: block;
-}
-.bm-link {
-    text-decoration: none;
-    color: black;
-}
-.bm-image {
-    width: 50%;
-    padding: 5px;
-}
-.bm-text {
-    /*width: 50%;*/
-    padding: 10px;
-    border-top-width: 1px;
-    border-top-style: solid;
-    border-color: lightgray;
-}
-.bm-host {
-    font-size: small;
-    font-family: monospace;
-}
-.bm-title {
-    font-size: medium;
-    font-weight: bold;
-}
-.bm-description {
-    font-size: small;
+    min-height: 50px;
 }

@@ -1,0 +1,29 @@
+.bm-rows {
+    display: grid;
+    gap: 10px
+}
+.bm-row {
+    /*gap: 5px*/
+}
+.xxog-image {
+    /*max-width: 400px;*/
+    /*max-height: 200px;*/
+    object-fit: contain;
+}
+.card .card-image img.og-image {
+    max-width: 100%; /* Set the maximum width to 100% of its container */
+    height: auto;    /* Maintain aspect ratio */
+    display: block;  /* Remove any default inline spacing */
+    margin: auto;    /* Center the image horizontally (optional) */
+    width: auto;
+}
+
+.bm-card {
+    /*margin-bottom: 5px;*/
+}
+.bm-row {
+    /*min-height: 200px;*/
+}
+.bm-card-loading {
+    min-height: 50px;
+}

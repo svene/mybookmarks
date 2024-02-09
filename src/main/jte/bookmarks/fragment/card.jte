@@ -3,15 +3,15 @@
 @param CardModel cardModel
 !{var card = cardModel.card(); }
 
-<div class="w50 bm-box" data-tooltip="${card.tagString()}" data-placement="right">
-	<a href="${card.url()}" target="_blank" class="bm-link">
-		<div class="bm-image">
-			<img src="${card.ogImageUrl()}" alt='Open Graph Image'>
-		</div>
-		<div class="bm-text">
-			<div class="bm-host">${card.host()}</div>
-			<div class="bm-title">${card.ogTitle()}</div>
-			<div class="bm-description">${card.ogDescription()}</div>
-		</div>
-	</a>
+<div class="card bm-card hoverable tooltipped" data-position="bottom" data-tooltip="${card.tagString()}">
+	<div class="card-image">
+		<a href="${card.url()}" target="_blank" class="bm-link">
+		<img class="og-image" src="${card.ogImageUrl()}" alt='Open Graph Image'>
+		</a>
+	</div>
+	<div class="card-content">
+		<span class="card-title">${card.ogTitle()}</span>
+		<div class="bm-host">${card.host()}</div>
+		<div class="bm-description">${card.ogDescription()}</div>
+	</div>
 </div>

@@ -7,31 +7,60 @@
 <html lang="">
 <head>
 	<title>Bookmarks App</title>
+<%--
 	<link rel="stylesheet" href="/webjars/picocss__pico/2.0.0-alpha1/css/pico.css"/>
-
 	<link rel="stylesheet" href="/main.css"/>
+--%>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@materializecss/materialize@2.0.3-alpha/dist/css/materialize.min.css"/>
+<%--	<link rel="stylesheet" href="/main.css"/>--%>
+	<link rel="stylesheet" href="/main2.css"/>
 
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@materializecss/materialize@2.0.3-alpha/dist/js/materialize.min.js"></script>
+	<script src="/main.js"></script>
 	<script src="/webjars/htmx.org/1.9.8/dist/htmx.js"></script>
 	<script>
-        htmx.logAll();
+        //htmx.logAll();
 	</script>
 
 </head>
 
 <body hx-boost="true">
-<main class="container">
-	<nav class="w50">
-		<ul>
-			<li><strong>Bookmarks App</strong></li>
+<nav>
+	<div class="nav-wrapper">
+		<a href="#" class="brand-logo"><i class="material-icons">cloud</i>My Bookmarks</a>
+		<ul class="right hide-on-med-and-down">
+<%--			<button class="waves-effect waves-light btn" onclick="copyCsvToClipboard()">Copy CSV</button>--%>
+<%--			<li><a href="sass.html"><i class="material-icons">search</i></a></li>--%>
+			<li>
+				<a
+					href="#"
+					class="tooltipped"
+					data-position="bottom"
+					data-tooltip="Copy CSV"
+				>
+					<i class="material-icons" onclick="copyCsvToClipboard()">content_copy</i>
+				</a>
+			</li>
+			<li>
+				<a
+					href="#"
+					class="tooltipped"
+					data-position="bottom"
+					data-tooltip="Reload"
+					hx-post="/reload" hx-swap="none"
+				>
+					<i class="material-icons">refresh</i>
+				</a>
+			</li>
+<%--			<li><a href="mobile.html"><i class="material-icons">more_vert</i></a></li>--%>
 		</ul>
-		<ul>
-			<li><button onclick="copyCsvToClipboard()">Copy CSV</button></li>
-			<li><button hx-post="/reload" hx-swap="none">Reload</button></li>
-		</ul>
-	</nav>
+	</div>
+</nav>
 
+<div class="container mt-2">
 	${content}
-</main>
+</div>
 </body>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
@@ -48,5 +77,6 @@
         // Copy the text inside the text field
         navigator.clipboard.writeText(copyText.value);
     }
+
 </script>
 </html>

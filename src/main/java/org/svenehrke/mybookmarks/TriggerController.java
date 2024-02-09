@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Collections;
+import java.util.List;
+
 @Controller
 @AllArgsConstructor
 @Slf4j
@@ -21,6 +24,7 @@ public class TriggerController {
 	private final BookmarkSessionStore bookmarkSessionStore;
 	private final FragmentHelper fh;
 
+/*
 	@PutMapping("/search/tags")
 	@ResponseBody
 	public String searchTags(
@@ -28,6 +32,19 @@ public class TriggerController {
 		HttpServletResponse response
 	) {
 		bookmarkSessionStore.setSearchTags(searchByTags);
+		response.setHeader("HX-Trigger", "searchTagsChanged");
+		return "";
+	}
+
+*/
+	@PutMapping("/search/taglist")
+	@ResponseBody
+	public String search_taglist(
+		@RequestParam(required = false, name = "tag") List<String> tags,
+		HttpServletResponse response
+	) {
+		var list = (tags == null || tags.isEmpty()) ? Collections.<String>emptyList() : tags;
+		bookmarkSessionStore.setSearchTags(String.join(",", list));
 		response.setHeader("HX-Trigger", "searchTagsChanged");
 		return "";
 	}

@@ -21,10 +21,13 @@ body {
     height: 200px;
 }
 .bm-card-loading {
-    width: 2em;
-    height: 2em;
-    background-image: var(--pico-icon-loading);
-    background-position: center;
+    /*width: 2em;*/
+    /*height: 2em;*/
+    min-width: 100px;
+    min-height: 200px;
+    /*background-image: var(--pico-icon-loading);*/
+    /*background-position: center;*/
+    display: block;
 }
 .bm-link {
     text-decoration: none;

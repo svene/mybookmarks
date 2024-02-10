@@ -19,7 +19,11 @@
 					<div class="bm-description">${card.ogDescription()}</div>
 					<div class="right-align">
 						<a class="btn-small waves-effect waves-light">Cancel</a>
-						<a class="btn-small waves-effect waves-light">Add</a>
+						<a class="btn-small waves-effect waves-light"
+						   hx-post="/bookmark"
+						   hx-swap="none"
+						   hx-include="#bm-url"
+						>Add</a>
 					</div>
 
 				</div>

@@ -3,22 +3,16 @@ init = "init",
 content = @`
 
 	<div hx-trigger="init from:body, bookmarksChanged from:body" hx-get="/fragment?path=existing_tags">[Tags]</div>
-	<hr class="w50">
 
 	<div id="csvTextfield" hx-trigger="init from:body, bookmarksChanged from:body" hx-get="/fragment?path=csv_textfield"></div>
 
 
-	<%-- New URL --%>
-	<div class="row" id="add-or-preview">
-		<div class="col offset-s8 s1 mb-2">
-			<a class="btn-floating btn-large waves-effect waves-light"
-			   hx-trigger="click"
-			   hx-get="/fragment?path=new-url"
-			   hx-target="#add-or-preview"
-			>
-				<i class="material-icons">add</i>
-			</a>
-		</div>
+	<%-- Add button --%>
+	<div class="row"
+		 id="add-or-preview"
+		 hx-trigger="init from:body, bookmarksChanged from:body"
+		 hx-get="/fragment?path=add-button"
+	>
 	</div>
 
     <%-- Preview --%>

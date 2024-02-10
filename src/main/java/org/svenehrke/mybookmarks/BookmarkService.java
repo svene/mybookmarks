@@ -77,7 +77,7 @@ public class BookmarkService {
 
 	public void addBookmark(String bmUrl) {
 		loadBookmarksIntoSessionIfNecessary();
-		var newLine = bmUrl + ";todo" + System.lineSeparator();
+		var newLine = bmUrl + ";anew" + System.lineSeparator(); // TODO: remove 'anew' (only for dev purposes)
 		var csv = newLine + bookmarkSessionStore.getBookmarksCSV();
 		reCreateBookmarks(csv);
 		bookmarkSessionStore.setPreviewBookmark(null);

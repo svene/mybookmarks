@@ -91,9 +91,8 @@ public class BookmarkService {
 		bookmarkSessionStore.setPreviewBookmark(previewBookmark);
 	}
 
-	public void ttt() {
-		List<String> items = List.of("lkj");
-
+	public void removePreviewBookmark() {
+		bookmarkSessionStore.setPreviewBookmark(null);
 	}
 
 	private static List<String> tagsHoldingPredicate(List<String> tags, Predicate<String> stringPredicate) {

@@ -7,10 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.List;
@@ -73,5 +70,13 @@ public class TriggerController {
 		response.setHeader("HX-Trigger", "newPreview");
 		return "";
 	}
+	@DeleteMapping("/preview")
+	@ResponseBody
+	public String removePreview(HttpServletResponse response, Model model) {
+		bookmarkService.removePreviewBookmark();
+		response.setHeader("HX-Trigger", "bookmarksChanged");
+		return "";
+	}
+
 
 }

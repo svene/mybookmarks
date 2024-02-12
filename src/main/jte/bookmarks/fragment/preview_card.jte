@@ -18,7 +18,12 @@
 					<div class="bm-host">${card.host()}</div>
 					<div class="bm-description">${card.ogDescription()}</div>
 					<div class="right-align">
-						<a class="btn-small waves-effect waves-light">Cancel</a>
+						<%-- ======== Cancel =============== --%>
+						<a class="btn-small waves-effect waves-light"
+						   hx-delete="/preview"
+						   hx-swap="none"
+						>Cancel</a>
+						<%-- ======== Add =============== --%>
 						<a class="btn-small waves-effect waves-light"
 						   hx-post="/bookmark"
 						   hx-swap="none"

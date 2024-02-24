@@ -50,6 +50,7 @@ public class FragmentHelper {
 
 			fh.bookmarkService.createBookmarkExIfNecessary(bookmark);
 			Card card = new BookmarkRetriever().getCard(bookmark.url(), fh.getBookmarkSessionStore().getBookmarkEx(bookmark))
+				.withTags(bookmark.tags())
 				.withTagString(String.join(",", bookmark.tags()));
 			return new CardModel(card);
 		}

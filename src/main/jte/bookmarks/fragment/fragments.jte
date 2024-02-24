@@ -125,7 +125,7 @@
 @endif
 @if("card".equals(fragment))
 	!{var card = fragmentHelper.getBookmarkRequestStore().getCardModel().card(); }
-	<div class="card bm-card hoverable tooltipped" data-position="bottom" data-tooltip="${card.tagString()}">
+	<div class="card bm-card hoverable tooltipped pb-2" data-position="bottom" data-tooltip="${card.tagString()}">
 		<div class="card-image">
 			<a href="${card.url()}" target="_blank" class="bm-link">
 				<img class="og-image" src="${card.ogImageUrl()}" alt='Open Graph Image'>
@@ -135,6 +135,11 @@
 			<span class="card-title">${card.ogTitle()}</span>
 			<div class="bm-host">${card.host()}</div>
 			<div class="bm-description">${card.ogDescription()}</div>
+			<div class="mt-2 mb-2">
+				@for(String tag : card.tags())
+					<span class="badge new teal" data-badge-caption="${tag}"></span>
+				@endfor
+			</div>
 		</div>
 	</div>
 @endif

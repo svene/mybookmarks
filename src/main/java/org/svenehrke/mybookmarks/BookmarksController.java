@@ -15,9 +15,10 @@ import java.math.BigInteger;
 @Slf4j
 public class BookmarksController {
 
-	private final BookmarkService bookmarkService;
-	private final BookmarkSessionStore bookmarkSessionStore;
+	private final BookmarkRequestStore bookmarkRequestStore;
 	private final FragmentHelper fh;
+	private final FragmentsController fragmentsController;
+
 
 	@GetMapping("/")
 	public RedirectView index() {
@@ -26,9 +27,8 @@ public class BookmarksController {
 
 	@GetMapping("/card/{id}")
 	public String page(@PathVariable BigInteger id, Model model) {
-		bookmarkService.loadBookmarksIntoSessionIfNecessary();
-		model.addAttribute("cardModel", FragmentHelper.CardModel.build(fh, id));
-		return "bookmarks/fragment/card";
+		bookmarkRequestStore.setCardModel(FragmentHelper.CardModel.build(fh, id));
+		return fragmentsController.fragment("card", model);
 	}
 
 }

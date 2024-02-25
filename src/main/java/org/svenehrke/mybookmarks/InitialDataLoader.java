@@ -6,31 +6,32 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.URI;
-import java.util.function.Supplier;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 
 @Slf4j
 public class InitialDataLoader {
-	private final String BM_MODE = System.getenv("BM_MODE");
 
 	@SneakyThrows
 	public String readCsvAsString() {
-		Supplier<InputStream> inputStreamSupplier = switch (BM_MODE) {
-			case "local" -> this::getCsvInputStreamFromLocalFile;
-			default -> this::getCsvInputStreamFromURL;
-		};
-		return new String(inputStreamSupplier.get().readAllBytes());
+		String bmUrl = System.getenv("BM_URL");
+		if (bmUrl.contains("file:")) { // e.g: 'file:development/localonly/bookmarks.csv'
+			return new String(new FileInputStream(bmUrl.substring("file:".length())).readAllBytes());
+		} else {
+			return new String(getCsvInputStreamFromURL().readAllBytes());
+		}
 	}
 
 	@SneakyThrows
-	public InputStream getCsvInputStreamFromLocalFile() {
-		return new FileInputStream("development/localonly/bookmarks.csv");
-	}
-	@SneakyThrows
 	public InputStream getCsvInputStreamFromURL() {
 		String bmUrl = System.getenv("BM_URL");
-		URI uri = URI.create(bmUrl);
-		var conn = uri.toURL().openConnection();
-		return conn.getInputStream();
+		HttpRequest request = HttpRequest.newBuilder()
+			.uri(URI.create(bmUrl))
+			.GET()
+			.build();
+		return HttpClient.newHttpClient().send(
+			request, HttpResponse.BodyHandlers.ofInputStream()).body();
 	}
 
 }

@@ -22,7 +22,7 @@ public class BookmarksController {
 
 	@GetMapping("/")
 	public RedirectView index() {
-		return new RedirectView("/page/bookmarks");
+		return new RedirectView("/bookmarks");
 	}
 
 	@GetMapping("/card/{id}")

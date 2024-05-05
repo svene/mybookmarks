@@ -7,22 +7,13 @@
 <html lang="">
 <head>
 	<title>Bookmarks App</title>
-	<link
-		rel="stylesheet"
-		href="https://cdn.jsdelivr.net/npm/@baloise/design-system-css/css/baloise-design-system.css"
-	/>
-	<script
-		type="module"
-		src="https://cdn.jsdelivr.net/npm/@baloise/design-system-components/dist/design-system-components/design-system-components.esm.js"
-	></script>
-	<script type="module" src="https://cdn.jsdelivr.net/npm/@baloise/design-system-icons@15.2.4/dist/index.min.js"></script>
-	<script
-		nomodule
-		src="https://cdn.jsdelivr.net/npm/@baloise/design-system-components/dist/design-system-components/design-system-components.js"
-	></script>
-	<link rel="stylesheet" href="/main.css"/>
+	<link rel="stylesheet" href="/webjars/baloise-design-system/16.1.0/@baloise/ds-styles/css/all.min.css" />
+	<script type="module" src="/webjars/baloise-design-system/16.1.0/@baloise/ds-core/dist/baloise-design-system/baloise-design-system.esm.js"></script>
+	<script nomodule src="/webjars/baloise-design-system/16.1.0/@baloise/ds-core/dist/baloise-design-system/baloise-design-system.js"></script>
 
-	<script src="/main.js"></script>
+	<link rel="stylesheet" href="/assets/main.css"/>
+	<script type="module" src="/assets/main.js" defer></script>
+
 	<script src="/webjars/htmx.org/1.9.8/dist/htmx.js"></script>
 	<script>
         //htmx.logAll();
@@ -46,7 +37,9 @@
 					<bal-button-group>
 						<bal-button color="light" inverted="true" icon="date">Date</bal-button>
 						<bal-button color="light" inverted="true" icon="balIconCopy">Copy CSV</bal-button>
-						<bal-button square="" color="light" inverted="true" icon="call"></bal-button>
+						<bal-button id="star-button" square="" color="light" inverted="true" icon="star-full"></bal-button>
+						<bal-button id="date-button" square="" color="light" inverted="true" icon="date"></bal-button>
+						<bal-button id="call-button" square="" color="light" inverted="true" icon="call"></bal-button>
 					</bal-button-group>
 				</bal-navbar-menu-end>
 			</bal-navbar-menu>

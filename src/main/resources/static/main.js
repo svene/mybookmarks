@@ -12,9 +12,10 @@ import { balIconStarFull, balIconCall } from './webjars/baloise-design-system/16
 
 console.log('main.js');
 
+// this is for only activating a certain set of icons (I think):
 // initialize({
 //     icons: { balIconStarFull },
-// })
+// });
 
 
 console.log('main.js');

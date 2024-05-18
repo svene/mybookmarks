@@ -91,8 +91,22 @@
 @if("bookmark_rows".equals(fragment))
 	!{var bookmarks = FragmentHelper.BookmarkRowsModel.build(fragmentHelper).bookmarks(); }
 
-	<div class="bm-rows">
+	<bal-stack layout="vertical" align="center">
 		@for(Bookmark bm : bookmarks)
+			<bal-card style="max-width: 50%; min-width: 50%">
+				<bal-card-content id="ogcard_${bm.id()}"
+								  hx-trigger="revealed"
+								  hx-get="/card/${bm.id()}"
+								  hx-vals='{"id": "${bm.id()}"}"}'
+								  hx-swap="outerHTML"
+				>
+					<img class="mb-normal" src="https://placehold.co/640x336/png?text=LOADING...">
+					<bal-card-title level="x-large">${bm.id()}</bal-card-title>
+					<bal-card-subtitle>HOST</bal-card-subtitle>
+					<bal-card-subtitle>Description</bal-card-subtitle>
+				</bal-card-content>
+			</bal-card>
+<%--
 			<div class="row bm-row">
 				<div class="col s3"></div>
 				<div class="col s6">
@@ -120,11 +134,20 @@
 				</div>
 				<div class="col s3"></div>
 			</div>
+--%>
 		@endfor
-	</div>
+	</bal-stack>
 @endif
 @if("card".equals(fragment))
 	!{var card = fragmentHelper.getBookmarkRequestStore().getCardModel().card(); }
+	<bal-card-content
+	>
+		<img class="mb-normal" src="https://placehold.co/640x336/png?text=LOADING...">
+		<bal-card-title level="x-large">${card.ogTitle()}</bal-card-title>
+		<bal-card-subtitle bold="true">${card.host()}</bal-card-subtitle>
+		<bal-card-subtitle>${card.ogDescription()}</bal-card-subtitle>
+	</bal-card-content>
+<%--
 	<div class="card bm-card hoverable tooltipped pb-2" data-position="bottom" data-tooltip="${card.tagString()}">
 		<div class="card-image">
 			<a href="${card.url()}" target="_blank" class="bm-link">
@@ -142,4 +165,5 @@
 			</div>
 		</div>
 	</div>
+--%>
 @endif

@@ -7,7 +7,7 @@
 <html lang="">
 <head>
 	<title>Bookmarks App</title>
-	<link rel="stylesheet" href="/webjars/baloise-design-system/16.1.0/@baloise/ds-styles/css/all.min.css" />
+^^	<link rel="stylesheet" href="/webjars/baloise-design-system/16.1.0/@baloise/ds-styles/css/all.min.css" />
 	<script type="module" src="/webjars/baloise-design-system/16.1.0/@baloise/ds-core/dist/baloise-design-system/baloise-design-system.esm.js"></script>
 	<script nomodule src="/webjars/baloise-design-system/16.1.0/@baloise/ds-core/dist/baloise-design-system/baloise-design-system.js"></script>
 
@@ -45,20 +45,8 @@
 			</bal-navbar-menu>
 		</bal-navbar>
 	</header>
-	<bal-stage color="green" size="small">
-		<bal-stage-body>
-			<bal-heading>Welcome to the</bal-heading>
-			<bal-heading subtitle>Baloise Design System</bal-heading>
-		</bal-stage-body>
-	</bal-stage>
 	<main class="container mt-xx-large">
-		<p>
-			The Baloise Design System consists of UI components and a clearly defined visual style, released as both code
-			implementations and design artifacts to build any number of web applications.
-		</p>
-		<bal-button href="https://design.baloise.dev" target="_blank">
-			Check out the Documentation</bal-button
-		>
+		${content}
 	</main>
 </bal-app>
 @if(1 > 2)
@@ -100,7 +88,7 @@
 </body>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        //htmx.trigger("body", "${init}");
+        htmx.trigger("body", "${init}");
     });
 
     function copyCsvToClipboard() {

@@ -3,12 +3,12 @@
 //  .../dist/index.js
 //  -> import esm-es5/index.js: import{__awaiter,__extends,__generator} from "tslib";
 // :
-// import { initialize } from '/webjars/baloise-design-system/16.1.0/@baloise/ds-core/dist/index.js'
+// import { initialize } from '/webjars/baloise-design-system/@baloise/ds-core/dist/index.js'
 
 // Therefore: import from .../esm/index.js which is working:
-import { initialize, waitForDesignSystem, waitForComponent } from '/webjars/baloise-design-system/16.1.0/@baloise/ds-core/dist/esm/index.js'
+import { initialize, waitForDesignSystem, waitForComponent } from '/webjars/baloise-design-system/@baloise/ds-core/dist/esm/index.js'
 
-import { balIconStarFull, balIconCall } from './webjars/baloise-design-system/16.1.0/@baloise/ds-icons/index.esm.js'
+import { balIconStarFull, balIconCall } from './webjars/baloise-design-system/@baloise/ds-icons/index.esm.js'
 
 console.log('main.js');
 

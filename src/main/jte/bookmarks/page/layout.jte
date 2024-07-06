@@ -7,9 +7,9 @@
 <html lang="">
 <head>
 	<title>Bookmarks App</title>
-^^	<link rel="stylesheet" href="/webjars/baloise-design-system/16.1.0/@baloise/ds-styles/css/all.min.css" />
-	<script type="module" src="/webjars/baloise-design-system/16.1.0/@baloise/ds-core/dist/baloise-design-system/baloise-design-system.esm.js"></script>
-	<script nomodule src="/webjars/baloise-design-system/16.1.0/@baloise/ds-core/dist/baloise-design-system/baloise-design-system.js"></script>
+	<link rel="stylesheet" href="/webjars/baloise-design-system/@baloise/ds-styles/css/all.min.css" />
+	<script type="module" src="/webjars/baloise-design-system/@baloise/ds-core/dist/baloise-design-system/baloise-design-system.esm.js"></script>
+	<script nomodule src="/webjars/baloise-design-system/@baloise/ds-core/dist/baloise-design-system/baloise-design-system.js"></script>
 
 	<link rel="stylesheet" href="/assets/main.css"/>
 	<script type="module" src="/assets/main.js" defer></script>

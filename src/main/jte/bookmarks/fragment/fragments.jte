@@ -91,6 +91,30 @@
 @if("bookmark_rows".equals(fragment))
 	!{var bookmarks = FragmentHelper.BookmarkRowsModel.build(fragmentHelper).bookmarks(); }
 
+	<dialog id="bookmarkDialog">
+		<bal-modal-header>Modal Title</bal-modal-header>
+<%--
+		<form method="dialog">
+			<h2>This is my dialog</h2>
+			<button type="submit">OK</button>
+		</form>
+--%>
+<%--
+		<bal-modal id="modal">
+			<bal-modal-header>Modal Title</bal-modal-header>
+			<bal-modal-body>
+--%>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing?</p>
+				<bal-button-group position="right" reverse="true">
+					<bal-button color="text">Cancel</bal-button>
+					<bal-button color="primary">Okay</bal-button>
+				</bal-button-group>
+<%--
+			</bal-modal-body>
+		</bal-modal>
+--%>
+	</dialog>
+
 	<bal-stack layout="vertical" align="center">
 		@for(Bookmark bm : bookmarks)
 			<bal-card style="max-width: 50%; min-width: 50%">
@@ -146,6 +170,14 @@
 		<bal-card-title level="x-large">${card.ogTitle()}</bal-card-title>
 		<bal-card-subtitle bold="true">${card.host()}</bal-card-subtitle>
 		<bal-card-subtitle>${card.ogDescription()}</bal-card-subtitle>
+		<bal-card-actions position="right">
+			<bal-button square="true" icon="edit" onclick="document.getElementById('bookmarkDialog').showModal()"></bal-button>
+		</bal-card-actions>
+<%--
+		<bal-button-group position"right">
+			<bal-button square="true" icon="edit"></bal-button>
+		</bal-button-group>
+--%>
 	</bal-card-content>
 <%--
 	<div class="card bm-card hoverable tooltipped pb-2" data-position="bottom" data-tooltip="${card.tagString()}">

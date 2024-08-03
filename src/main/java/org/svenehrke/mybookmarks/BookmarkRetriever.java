@@ -34,7 +34,8 @@ public class BookmarkRetriever {
 		String ogImageContent = getOpenGraphElementsContent(doc, "og:image", "https://placehold.co/1200x630/png?text=NO PREVIEW");
 		String title = getOpenGraphElementsContent(doc, "og:title", null);
 		if (title == null) {
-			title = getTitle(doc, bm.url());
+//			title = getTitle(doc, bm.url());
+			title = getTitle(doc, "-");
 		}
 		BookmarkEx ex = BookmarkExBuilder.builder()
 			.uri(uri)

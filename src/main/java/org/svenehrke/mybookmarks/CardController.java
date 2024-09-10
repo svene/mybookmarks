@@ -13,17 +13,12 @@ import java.math.BigInteger;
 @Controller
 @AllArgsConstructor
 @Slf4j
-public class BookmarksController {
+public class CardController {
 
 	private final BookmarkRequestStore bookmarkRequestStore;
 	private final FragmentHelper fh;
 	private final FragmentsController fragmentsController;
 
-
-	@GetMapping("/")
-	public RedirectView index() {
-		return new RedirectView("/bookmarks");
-	}
 
 	@GetMapping("/card/{id}")
 	public String page(@PathVariable BigInteger id, Model model) {

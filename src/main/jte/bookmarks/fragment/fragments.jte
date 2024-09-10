@@ -91,31 +91,30 @@
 @if("bookmark_rows".equals(fragment))
 	!{var bookmarks = FragmentHelper.BookmarkRowsModel.build(fragmentHelper).bookmarks(); }
 
-	<dialog id="bookmarkDialog">
-		<bal-modal-header>Modal Title</bal-modal-header>
-<%--
-		<form method="dialog">
-			<h2>This is my dialog</h2>
-			<button type="submit">OK</button>
-		</form>
---%>
-<%--
-		<bal-modal id="modal">
+	<bal-stack layout="vertical" align="center">
+		<bal-modal id="edit-modal" _="
+			on do_open_edit_modal open() me
+			on balModalWillDismiss log event
+			on 'edit_modal_ok' log event.detail.payload
+			"
+		>
 			<bal-modal-header>Modal Title</bal-modal-header>
 			<bal-modal-body>
---%>
 				<p>Lorem ipsum dolor sit amet, consectetur adipiscing?</p>
 				<bal-button-group position="right" reverse="true">
-					<bal-button color="text">Cancel</bal-button>
-					<bal-button color="primary">Okay</bal-button>
+					<bal-button color="text" _="on click dismiss() on #edit-modal">
+						Cancel
+					</bal-button>
+					<bal-button color="primary" _="
+						on click send 'edit_modal_ok'(payload: {name: 'Bart'}) to me
+						dismiss() on #edit-modal
+						"
+					>
+						Okay
+					</bal-button>
 				</bal-button-group>
-<%--
 			</bal-modal-body>
 		</bal-modal>
---%>
-	</dialog>
-
-	<bal-stack layout="vertical" align="center">
 		@for(Bookmark bm : bookmarks)
 			<bal-card style="max-width: 50%; min-width: 50%">
 				<bal-card-content id="ogcard_${bm.id()}"
@@ -171,7 +170,10 @@
 		<bal-card-subtitle bold="true">${card.host()}</bal-card-subtitle>
 		<bal-card-subtitle>${card.ogDescription()}</bal-card-subtitle>
 		<bal-card-actions position="right">
-			<bal-button square="true" icon="edit" onclick="document.getElementById('bookmarkDialog').showModal()"></bal-button>
+			<bal-button square="true"
+				_="on click send do_open_edit_modal to #edit-modal"
+				icon="edit"
+			></bal-button>
 		</bal-card-actions>
 <%--
 		<bal-button-group position"right">

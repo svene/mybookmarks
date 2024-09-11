@@ -22,7 +22,7 @@
 
 </head>
 
-<body hx-boost="true">
+<body hx-boost="false">
 <bal-app>
 	<header>
 		<bal-navbar>

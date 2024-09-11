@@ -92,59 +92,24 @@
 	!{var bookmarks = FragmentHelper.BookmarkRowsModel.build(fragmentHelper).bookmarks(); }
 
 	<bal-modal id="edit-modal" _="
-			on do_open_edit_modal open() me
+			on do_open_edit_modal
+				open() me
+			end
 			on balModalWillDismiss log event
 			on 'edit_modal_ok' log event.detail.payload
+			on htmx:afterRequest
+    			if event.detail.successful then
+        			-- dismiss() on #edit-modal
+    			end
+ 			end
 			"
 	>
 		<bal-modal-header>Modal Title</bal-modal-header>
 		<bal-modal-body>
 			<p>Lorem ipsum dolor sit amet, consectetur adipiscing?</p>
-			<bal-form native="true">
-				<bal-form-grid>
-					<bal-form-col>
-						<div class="field">
-							<label class="label">URL</label>
-							<div class="control">
-								<input class="input" placeholder="URL" type="tel">
-							</div>
-							<p class="help">This username is available</p>
-						</div>
-						<div>
-							<bal-field>
-								<bal-field-label>Tags</bal-field-label>
-								<bal-field-control>
-									<bal-input placeholder="Tags"></bal-input>
-								</bal-field-control>
-							</bal-field>
-						</div>
-						<bal-input-group class="mb-normal">
-							<bal-tag closable="true">Tag</bal-tag>
-							<bal-tag closable="true">Tag</bal-tag>
-							<bal-tag closable="true">Tag</bal-tag>
-							<bal-input placeholder="Enter text here"></bal-input>
-							<bal-icon name="date"></bal-icon>
-						</bal-input-group>
-
-					</bal-form-col>
-
-					<bal-form-col>
-						<bal-button-group position="right" reverse="true">
-							<bal-button color="text" _="on click dismiss() on #edit-modal">
-								Cancel
-							</bal-button>
-							<bal-button color="primary" _="
-						on click send 'edit_modal_ok'(payload: {name: 'Bart'}) to me
-						dismiss() on #edit-modal
-						"
-							>
-								Okay
-							</bal-button>
-						</bal-button-group>
-					</bal-form-col>
-
-				</bal-form-grid>
-			</bal-form>
+			<form hx-put="putbookmark">
+				@template.bookmarks.fragment.editform()
+			</form>
 
 		</bal-modal-body>
 	</bal-modal>
@@ -235,4 +200,12 @@
 		</div>
 	</div>
 --%>
+@endif
+
+@if("hello".equals(fragment))
+	<p>hello</p>
+@endif
+
+@if("editBookmarkForm".equals(fragment))
+	@template.bookmarks.fragment.editform()
 @endif

@@ -6,8 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.math.BigInteger;
 
@@ -25,17 +23,6 @@ public class CardController {
 	public String page(@PathVariable BigInteger id, Model model) {
 		bookmarkRequestStore.setCardModel(FragmentHelper.CardModel.build(fh, id));
 		return fragmentsController.fragment("card", model);
-	}
-
-	@PutMapping("/putbookmark")
-	public String putBookmark(Model model) {
-		return fragmentsController.fragment("editBookmarkForm", model);
-	}
-
-	@GetMapping("/fragment/editmodal")
-	public String editModal(@RequestParam BigInteger id, Model model) {
-		bookmarkRequestStore.setCardModel(FragmentHelper.CardModel.build(fh, id));
-		return fragmentsController.fragment("edit-modal", model);
 	}
 
 }

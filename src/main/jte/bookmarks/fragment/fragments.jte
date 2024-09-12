@@ -9,6 +9,9 @@
 	<p>hello</p>
 @endif
 
+@if("empty".equals(fragment))
+@endif
+
 @if("csv_textfield".equals(fragment))
 	!{var M = FragmentHelper.CsvTextfieldModel.build(fragmentHelper); }
 	<textarea id="csvString" hidden class="preview-csv">${M.csvString()}</textarea>
@@ -211,7 +214,7 @@
 		<bal-modal-header>Modal Title</bal-modal-header>
 		<bal-modal-body>
 			<p>Lorem ipsum dolor sit amet, consectetur adipiscing?</p>
-			<form hx-put="putbookmark">
+			<form hx-put="putbookmark" hx-target="#edit-modal-slot">
 				<bal-form-grid>
 					<bal-form-col>
 						<div class="field">

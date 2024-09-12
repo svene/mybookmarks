@@ -28,7 +28,7 @@ public class FragmentHelper {
 				card = null;
 			} else {
 				fragmentHelper.getBookmarkService().createBookmarkExIfNecessary(bm);
-				card = new BookmarkRetriever().getCard(bm.url(), fragmentHelper.getBookmarkSessionStore().getBookmarkEx(bm));
+				card = new BookmarkRetriever().getCard(bm, fragmentHelper.getBookmarkSessionStore().getBookmarkEx(bm));
 			}
 			return new PreviewCardModel(card);
 		}
@@ -49,7 +49,10 @@ public class FragmentHelper {
 			Bookmark bookmark = fh.getBookmarkService().getById(id, bookmarks);
 
 			fh.bookmarkService.createBookmarkExIfNecessary(bookmark);
-			Card card = new BookmarkRetriever().getCard(bookmark.url(), fh.getBookmarkSessionStore().getBookmarkEx(bookmark))
+			Card card = new BookmarkRetriever().getCard(
+					bookmark,
+					fh.getBookmarkSessionStore().getBookmarkEx(bookmark)
+			)
 				.withTags(bookmark.tags())
 				.withTagString(String.join(",", bookmark.tags()));
 			return new CardModel(card);

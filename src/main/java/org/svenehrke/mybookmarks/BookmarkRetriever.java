@@ -17,9 +17,10 @@ import java.util.List;
 @Slf4j
 public class BookmarkRetriever {
 
-	public Card getCard(String url, BookmarkEx bmx) {
+	public Card getCard(Bookmark bm, BookmarkEx bmx) {
 		return CardBuilder.builder()
-			.url(url)
+			.id(bm.id())
+			.url(bm.url())
 			.host(bmx.uri().getHost())
 			.ogImageUrl(bmx.imageUrl())
 			.ogTitle(bmx.title())

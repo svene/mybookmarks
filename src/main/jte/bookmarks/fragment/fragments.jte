@@ -152,6 +152,7 @@
 	<bal-card-content
 	>
 		<img class="mb-normal" src="https://placehold.co/640x336/png?text=LOADING...">
+		<div id="card-content-text-${card.id()}">
 		<bal-card-title level="x-large">${card.ogTitle()}</bal-card-title>
 		<bal-card-subtitle bold="true">${card.host()}</bal-card-subtitle>
 		<bal-card-subtitle>${card.ogDescription()}</bal-card-subtitle>
@@ -162,11 +163,27 @@
 				icon="edit"
 			></bal-button>
 --%>
+<%--
 			<bal-button
 				square="true"
 				icon="edit"
 				hx-get="/fragment/editmodal?id=${card.id()}"
 				hx-target="#edit-modal-slot"
+				X_="
+					on htmx:afterRequestX
+						if event.detail.successful then
+							open() on #edit-modal
+						end
+					end
+					"
+			></bal-button>
+--%>
+			<bal-button
+				square="true"
+				icon="edit"
+				hx-get="/edit/inline/form?id=${card.id()}"
+				hx-target="closest #card-content-text-${card.id()}"
+				hx-swap="innerHTML"
 			></bal-button>
 		</bal-card-actions>
 <%--
@@ -174,6 +191,7 @@
 			<bal-button square="true" icon="edit"></bal-button>
 		</bal-button-group>
 --%>
+		</div>
 	</bal-card-content>
 <%--
 	<div class="card bm-card hoverable tooltipped pb-2" data-position="bottom" data-tooltip="${card.tagString()}">
@@ -200,16 +218,17 @@
 	!{var card = fragmentHelper.getBookmarkRequestStore().getCardModel().card(); }
 
 	<bal-modal id="edit-modal" _="
-			on load open() me
-			on balModalWillDismiss log event
-			on 'edit_modal_ok' log event.detail.payload
-			on htmx:afterRequest
-    			if event.detail.successful then
-    				log event.detail
-        			-- dismiss() on #edit-modal
-    			end
- 			end
+			-- on htmx:afterSettle open() me
+			-- on balModalWillDismiss log event end
+			-- on balModalWillPresent log event end
 			"
+			   hx-on:xhtmx-after-settle="document.getElementById('edit-modal').open()"
+			   hx-on:htmx-after-settle="console.log('after settle');"
+			   hx-on:bal-modal-will-present="console.log('bal-modal-will-present');"
+			   hx-on:balModalWillPresent="console.log('bal-modal-will-present');"
+			   hx-trigger="balModalWillDismiss"
+			   hx-get="/fragments?fragment=empty"
+			   hx-target="#edit-modal-slot"
 	>
 		<bal-modal-header>Modal Title</bal-modal-header>
 		<bal-modal-body>
@@ -243,15 +262,11 @@
 
 					<bal-form-col>
 						<bal-button-group position="right" reverse="true">
-							<bal-button color="text" _="on click dismiss() on #edit-modal">
-								Cancel
-							</bal-button>
-							<bal-button color="primary" _="
-						on click send 'edit_modal_ok'(payload: {name: 'Bart'}) to me
-						dismiss() on #edit-modal
-						"
+							<bal-button
+								color="text"
+								_="on click dismiss() on #edit-modal"
 							>
-								Okay
+								Cancel
 							</bal-button>
 							<bal-button element-type="submit" color="primary">
 								Submit
@@ -265,4 +280,62 @@
 		</bal-modal-body>
 	</bal-modal>
 @endif
+
+@if("edit-inline-form".equals(fragment))
+	!{var card = fragmentHelper.getBookmarkRequestStore().getCardModel().card(); }
+	<form
+		hx-put="edit/inline/putbookmark"
+		hx-target="closest bal-card-content"
+		hx-swap="outerHTML"
+	>
+		<bal-form-grid>
+			<bal-form-col>
+				<input type="hidden" name="id" value="${card.id()}">
+				<div class="field">
+					<label class="label">URL</label>
+					<div class="control">
+						<input class="input" placeholder="URL" name="url" value="${card.url()}">
+					</div>
+					<p class="help">This username is available</p>
+				</div>
+				<div>
+					<bal-field>
+						<bal-field-label>Tags</bal-field-label>
+						<bal-field-control>
+							<bal-input
+								name="tags"
+								placeholder="Tags"
+								value="${card.tagString()}"
+							></bal-input>
+						</bal-field-control>
+					</bal-field>
+				</div>
+				<bal-input-group class="mb-normal" name="tags2">
+					<bal-tag closable="true">Tag</bal-tag>
+					<bal-tag closable="true">Tag</bal-tag>
+					<bal-tag closable="true">Tag</bal-tag>
+					<bal-input placeholder="Enter text here"></bal-input>
+				</bal-input-group>
+
+			</bal-form-col>
+
+			<bal-form-col>
+				<bal-button-group position="right" reverse="true">
+					<bal-button
+							color="text"
+							_="on click dismiss() on #edit-modal"
+					>
+						Cancel
+					</bal-button>
+					<bal-button element-type="submit" color="primary">
+						Submit
+					</bal-button>
+				</bal-button-group>
+			</bal-form-col>
+
+		</bal-form-grid>
+	</form>
+
+@endif
+
 

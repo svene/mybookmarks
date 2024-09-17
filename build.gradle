@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.2.0'
     id 'io.spring.dependency-management' version '1.1.4'
+    id("gg.jte.gradle") version("3.1.12")
 }
 
 group = 'org.svenehrke'
@@ -30,10 +31,14 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 
-    implementation group: 'gg.jte', name: 'jte', version: '3.0.3'
+    implementation 'gg.jte:jte:3.1.12'
     // https://lorefnon.me/2022/04/26/using-jte-kotlin-templates-in-spring-boot/
-    implementation("gg.jte:jte-spring-boot-starter-3:3.0.3")
+    implementation("gg.jte:jte-spring-boot-starter-3:3.1.12")
+    implementation 'de.tschuehly:spring-view-component-jte:0.8.4'
+
     implementation 'org.webjars.npm:htmx.org:1.9.8'
+    implementation 'org.webjars.npm:hyperscript.org:0.9.12'
+
     implementation 'org.webjars.npm:picocss__pico:2.0.0-alpha1'
     implementation 'org.jsoup:jsoup:1.15.3'
     implementation 'io.vavr:vavr:0.10.4'
@@ -43,4 +48,10 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+jte {
+    generate()
+//    sourceDirectory = java.nio.file.Path.of("src/main/java")
+    sourceDirectory = java.nio.file.Path.of("src/main/jte")
 }

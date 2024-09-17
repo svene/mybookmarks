@@ -31,7 +31,18 @@ public class InlineEditingController {
 	}
 
 	@PutMapping("/edit/inline/putbookmark")
-	public RedirectView putBookmark(HttpServletRequest request, @RequestParam BigInteger id) {
+	public RedirectView putBookmark(
+		HttpServletRequest request,
+		@RequestParam BigInteger id,
+		@RequestParam String tags
+	) {
+		var bookmarks = fh.getBookmarkSessionStore().getBookmarks();
+		var newBookmarks = bookmarks.stream()
+			.map(it -> it.id().equals(id) ?
+				it.withTags(BookmarkUtil.tagStringToList(tags))
+				: it).toList();
+		fh.getBookmarkSessionStore().setBookmarks(newBookmarks);
+
 		// make the browser redirect with a GET instead of a PUT:
 		request.setAttribute(
 			View.RESPONSE_STATUS_ATTRIBUTE, HttpStatus.SEE_OTHER); // 303 (See Other) instead of 302 (Found)

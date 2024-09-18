@@ -33,8 +33,7 @@ public class ComponentController {
 
 	@GetMapping("/edit/inline/form")
 	public ViewContext editInlineForm(@RequestParam BigInteger id) {
-		var cardModel = CardComponent.CardModel.build(bookmarkService, bookmarkSessionStore, id);
-		return editCardComponent.render(cardModel);
+		return editCardComponent.render(id);
 	}
 
 	@GetMapping("/bookmark_rows")

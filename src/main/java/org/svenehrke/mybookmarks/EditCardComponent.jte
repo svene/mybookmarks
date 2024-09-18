@@ -1,7 +1,7 @@
 @import org.svenehrke.mybookmarks.EditCardComponent.Ctx
 
 @param Ctx ctx
-!{var card = ctx.cardModel().card(); }
+!{var card = ctx.card(); }
 
 <form
         hx-put="edit/inline/putbookmark"

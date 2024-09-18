@@ -3,8 +3,7 @@
 @param Ctx ctx
 !{var card = ctx.cardModel().card(); }
 
-<bal-card-content
->
+<bal-card-content>
     <img class="mb-normal" src="https://placehold.co/640x336/png?text=LOADING...">
     <div id="card-content-text-${card.id()}">
         <bal-card-title level="x-large">${card.ogTitle()}</bal-card-title>

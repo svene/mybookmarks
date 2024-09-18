@@ -1,5 +1,5 @@
-@import org.svenehrke.mybookmarks.MessageComponent.MessageComponentCtx
+@import org.svenehrke.mybookmarks.MessageComponent.Ctx
 
-@param MessageComponentCtx messageComponentCtx
+@param Ctx ctx
 
-<div>${messageComponentCtx.message()}</div>
+<div>${ctx.message()}</div>

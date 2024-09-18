@@ -5,10 +5,10 @@ import de.tschuehly.spring.viewcomponent.jte.ViewContext;
 
 @ViewComponent
 public class MessageComponent {
-	public record MessageComponentCtx(String message) implements ViewContext {}
+	public record Ctx(String message) implements ViewContext {}
 
 
-	public MessageComponentCtx render() {
-		return new MessageComponentCtx("Hello World!");
+	public Ctx render() {
+		return new Ctx("Hello World!");
 	}
 }

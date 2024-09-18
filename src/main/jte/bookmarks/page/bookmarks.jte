@@ -2,6 +2,8 @@
 init = "init",
 content = @`
 
+	<div hx-trigger="load" hx-get="/hello"></div>
+
 <%--
 	<div hx-trigger="init from:body, bookmarksChanged from:body"
 		 hx-get="/fragments?fragment=existing_tags"

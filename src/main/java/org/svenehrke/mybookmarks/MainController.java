@@ -13,7 +13,7 @@ public class MainController {
 
 	@GetMapping("/")
 	public RedirectView index() {
-		return new RedirectView("/bookmarks");
+		return new RedirectView("/bookmarks2");
 	}
 
 }

@@ -4,13 +4,12 @@ content = @`
 
 	<div hx-trigger="load" hx-get="/message"></div>
 
-<%--
-	<div hx-trigger="init from:body, bookmarksChanged from:body"
-		 hx-get="/fragments?fragment=existing_tags"
-	>[Tags]
-	</div>
---%>
-
+	<bal-stack layout="vertical" align="center" class="mb-small">
+		<div hx-trigger="init from:body, bookmarksChanged from:body"
+			 hx-get="/existing_tags" hx-swap="outerHTML"
+		>[Tags]
+		</div>
+	</bal-stack>
 <%--
 	<div id="csvTextfield"
 		 hx-trigger="init from:body, bookmarksChanged from:body"

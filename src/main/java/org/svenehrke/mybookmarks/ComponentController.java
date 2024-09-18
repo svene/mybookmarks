@@ -16,6 +16,7 @@ public class ComponentController {
 	private final CardComponent cardComponent;
 	private final EditCardComponent editCardComponent;
 	private final BookmarkRowsComponent bookmarkRowsComponent;
+	private final ExistingTagsComponent existingTagsComponent;
 
 	@GetMapping("/message")
 	ViewContext helloWorld() {
@@ -35,6 +36,11 @@ public class ComponentController {
 	@GetMapping("/bookmark_rows")
 	public ViewContext bookmarkRows() {
 		return bookmarkRowsComponent.render();
+	}
+
+	@GetMapping("/existing_tags")
+	public ViewContext existingTags() {
+		return existingTagsComponent.render();
 	}
 
 }

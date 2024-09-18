@@ -16,20 +16,6 @@
 	<textarea id="csvString" hidden class="preview-csv">${M.csvString()}</textarea>
 @endif <%-- csv_textfield --%>
 
-@if("existing_tags".equals(fragment))
-	!{var M = FragmentHelper.ExistingTagsModel.build(fragmentHelper); }
-	<div class="row mt-4 mb-4" hx-on:htmx:load="window.mbm.initSelect('#tag-select')">
-		<div class="input-field col s6 offset-s3">
-			<select id="tag-select" name="tag" multiple hx-put="/search/taglist" hx-swap="none">
-				@for(String tag : M.tags())
-					<option value="${tag}">${tag}</option>
-					<li>${tag}</li>
-				@endfor
-			</select>
-			<label for="form-select-2">Select Tags</label>
-		</div>
-	</div>
-@endif <%-- existing_tags --%>
 @if("add-button".equals(fragment))
 	<div class="col offset-s8 s1 mb-2 right-align">
 		<a class="btn-floating btn-large waves-effect waves-light"

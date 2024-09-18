@@ -2,7 +2,7 @@
 init = "init",
 content = @`
 
-	<div hx-trigger="load" hx-get="/hello"></div>
+	<div hx-trigger="load" hx-get="/message"></div>
 
 <%--
 	<div hx-trigger="init from:body, bookmarksChanged from:body"

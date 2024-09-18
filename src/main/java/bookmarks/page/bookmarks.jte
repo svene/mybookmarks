@@ -9,7 +9,9 @@ content = @`
 		 hx-get="/fragments?fragment=existing_tags"
 	>[Tags]
 	</div>
+--%>
 
+<%--
 	<div id="csvTextfield"
 		 hx-trigger="init from:body, bookmarksChanged from:body"
 		 hx-get="/fragments?fragment=csv_textfield"

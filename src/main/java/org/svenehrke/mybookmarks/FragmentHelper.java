@@ -11,7 +11,6 @@ public class FragmentHelper {
 
 	private final BookmarkService bookmarkService;
 	private final BookmarkSessionStore bookmarkSessionStore;
-	private final BookmarkRequestStore bookmarkRequestStore;
 
 	public record ExistingTagsModel(List<String> tags) {
 		public static ExistingTagsModel build(FragmentHelper fragmentHelper) {

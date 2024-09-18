@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.math.BigInteger;
 
@@ -16,6 +17,7 @@ public class ComponentController {
 
 	private final MessageComponent messageComponent;
 	private final CardComponent cardComponent;
+	private final EditCardComponent editCardComponent;
 
 	@GetMapping("/message")
 	ViewContext helloWorld() {
@@ -27,4 +29,11 @@ public class ComponentController {
 		var cardModel = CardComponent.CardModel.build(bookmarkService, bookmarkSessionStore, id);
 		return cardComponent.render(cardModel);
 	}
+
+	@GetMapping("/edit/inline/form")
+	public ViewContext editInlineForm(@RequestParam BigInteger id) {
+		var cardModel = CardComponent.CardModel.build(bookmarkService, bookmarkSessionStore, id);
+		return editCardComponent.render(cardModel);
+	}
+
 }

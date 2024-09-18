@@ -5,8 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.View;
@@ -18,18 +16,8 @@ import java.math.BigInteger;
 @AllArgsConstructor
 @Slf4j
 public class InlineEditingController {
-	private final BookmarkService bookmarkService;
 	private final BookmarkSessionStore bookmarkSessionStore;
-	private final BookmarkRequestStore bookmarkRequestStore;
-	private final FragmentHelper fh;
-	private final FragmentsController fragmentsController;
 
-
-	@GetMapping("/edit/inline/form")
-	public String editInlineForm(@RequestParam BigInteger id, Model model) {
-		bookmarkRequestStore.setCardModel(CardComponent.CardModel.build(bookmarkService, bookmarkSessionStore, id));
-		return fragmentsController.fragment("edit-inline-form", model);
-	}
 
 	@PutMapping("/edit/inline/putbookmark")
 	public RedirectView putBookmark(
@@ -37,12 +25,12 @@ public class InlineEditingController {
 		@RequestParam BigInteger id,
 		@RequestParam String tags
 	) {
-		var bookmarks = fh.getBookmarkSessionStore().getBookmarks();
+		var bookmarks = bookmarkSessionStore.getBookmarks();
 		var newBookmarks = bookmarks.stream()
 			.map(it -> it.id().equals(id) ?
 				it.withTags(BookmarkUtil.tagStringToList(tags))
 				: it).toList();
-		fh.getBookmarkSessionStore().setBookmarks(newBookmarks);
+		bookmarkSessionStore.setBookmarks(newBookmarks);
 
 		// make the browser redirect with a GET instead of a PUT:
 		request.setAttribute(

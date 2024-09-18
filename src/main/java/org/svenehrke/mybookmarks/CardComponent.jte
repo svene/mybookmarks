@@ -1,7 +1,7 @@
 @import org.svenehrke.mybookmarks.CardComponent.Ctx
 
 @param Ctx ctx
-!{var card = ctx.cardModel().card(); }
+!{var card = ctx.card(); }
 
 <bal-card-content>
     <img class="mb-normal" src="https://placehold.co/640x336/png?text=LOADING...">

@@ -12,7 +12,7 @@ public class CardComponent {
 	private final BookmarkSessionStore bookmarkSessionStore;
 	private final BookmarkService bookmarkService;
 
-	public record Ctx(CardModel cardModel) implements ViewContext {}
+	public record Ctx(Card card) implements ViewContext {}
 
 	public Card buildCard(BigInteger id) {
 		bookmarkService.loadBookmarksIntoSessionIfNecessary();
@@ -29,24 +29,8 @@ public class CardComponent {
 		return card;
 	}
 
-	public Ctx render(CardModel cardModel) {
-		return new Ctx(cardModel);
+	public Ctx render(BigInteger id) {
+		return new Ctx(buildCard(id));
 	}
 
-	public record CardModel(Card card) {
-		public static CardModel build(BookmarkService bookmarkService, BookmarkSessionStore bookmarkSessionStore, BigInteger id) {
-			bookmarkService.loadBookmarksIntoSessionIfNecessary();
-			var bookmarks = bookmarkSessionStore.getBookmarks();
-			Bookmark bookmark = bookmarkService.getById(id, bookmarks);
-
-			bookmarkService.createBookmarkExIfNecessary(bookmark);
-			Card card = new BookmarkRetriever().getCard(
-					bookmark,
-					bookmarkSessionStore.getBookmarkEx(bookmark)
-				)
-				.withTags(bookmark.tags())
-				.withTagString(String.join(",", bookmark.tags()));
-			return new CardModel(card);
-		}
-	}
 }

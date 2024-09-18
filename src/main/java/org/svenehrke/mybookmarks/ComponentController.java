@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.math.BigInteger;
-import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -40,9 +39,7 @@ public class ComponentController {
 
 	@GetMapping("/bookmark_rows")
 	public ViewContext bookmarkRows() {
-		String searchTags = bookmarkSessionStore.getSearchTags();
-		List<Bookmark> bookmarks = bookmarkService.findByTag(searchTags);
-		return bookmarkRowsComponent.render(bookmarks);
+		return bookmarkRowsComponent.render();
 	}
 
 }

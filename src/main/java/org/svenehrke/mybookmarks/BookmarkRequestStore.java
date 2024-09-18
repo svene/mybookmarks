@@ -8,5 +8,5 @@ import org.springframework.web.context.annotation.RequestScope;
 @Component
 @Data
 public class BookmarkRequestStore {
-	private FragmentHelper.CardModel cardModel;
+	private CardComponent.CardModel cardModel;
 }

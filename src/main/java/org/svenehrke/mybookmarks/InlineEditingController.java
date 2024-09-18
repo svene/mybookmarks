@@ -18,7 +18,8 @@ import java.math.BigInteger;
 @AllArgsConstructor
 @Slf4j
 public class InlineEditingController {
-
+	private final BookmarkService bookmarkService;
+	private final BookmarkSessionStore bookmarkSessionStore;
 	private final BookmarkRequestStore bookmarkRequestStore;
 	private final FragmentHelper fh;
 	private final FragmentsController fragmentsController;
@@ -26,7 +27,7 @@ public class InlineEditingController {
 
 	@GetMapping("/edit/inline/form")
 	public String editInlineForm(@RequestParam BigInteger id, Model model) {
-		bookmarkRequestStore.setCardModel(FragmentHelper.CardModel.build(fh, id));
+		bookmarkRequestStore.setCardModel(CardComponent.CardModel.build(bookmarkService, bookmarkSessionStore, id));
 		return fragmentsController.fragment("edit-inline-form", model);
 	}
 

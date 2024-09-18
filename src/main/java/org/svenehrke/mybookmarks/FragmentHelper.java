@@ -32,14 +32,6 @@ public class FragmentHelper {
 		}
 	}
 
-	public record BookmarkRowsModel(List<Bookmark> bookmarks) {
-		public static BookmarkRowsModel build(FragmentHelper fh) {
-			return new BookmarkRowsModel(
-				fh.getBookmarkService().findByTag(fh.getBookmarkSessionStore().getSearchTags())
-			);
-		}
-	}
-
 	public record CsvTextfieldModel(String csvString) {
 		public static CsvTextfieldModel build(FragmentHelper fh) {
 			return new CsvTextfieldModel(fh.getBookmarkSessionStore().getBookmarksCSV());

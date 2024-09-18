@@ -39,6 +39,6 @@ content = @`
 
 	<div id="search-result"
 		 hx-trigger="init from:body, bookmarksChanged from:body, searchTagsChanged from:body"
-		 hx-get="/fragments?fragment=bookmark_rows"
+		 hx-get="/bookmark_rows"
 	></div>
 `)

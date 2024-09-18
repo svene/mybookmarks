@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.math.BigInteger;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -18,6 +19,7 @@ public class ComponentController {
 	private final MessageComponent messageComponent;
 	private final CardComponent cardComponent;
 	private final EditCardComponent editCardComponent;
+	private final BookmarkRowsComponent bookmarkRowsComponent;
 
 	@GetMapping("/message")
 	ViewContext helloWorld() {
@@ -34,6 +36,13 @@ public class ComponentController {
 	public ViewContext editInlineForm(@RequestParam BigInteger id) {
 		var cardModel = CardComponent.CardModel.build(bookmarkService, bookmarkSessionStore, id);
 		return editCardComponent.render(cardModel);
+	}
+
+	@GetMapping("/bookmark_rows")
+	public ViewContext bookmarkRows() {
+		String searchTags = bookmarkSessionStore.getSearchTags();
+		List<Bookmark> bookmarks = bookmarkService.findByTag(searchTags);
+		return bookmarkRowsComponent.render(bookmarks);
 	}
 
 }

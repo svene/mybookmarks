@@ -5,18 +5,16 @@ content = @`
 	<div hx-trigger="load" hx-get="/message"></div>
 
 	<bal-stack layout="vertical" align="center" class="mb-small">
-		<div hx-trigger="init from:body, bookmarksChanged from:body"
-			 hx-get="/existing_tags" hx-swap="outerHTML"
-		>[Tags]
-		</div>
-	</bal-stack>
-<%--
-	<div id="csvTextfield"
-		 hx-trigger="init from:body, bookmarksChanged from:body"
-		 hx-get="/fragments?fragment=csv_textfield"
-	></div>
---%>
 
+		<bal-card style="max-width: 50%; min-width: 50%"
+				  hx-trigger="init from:body, bookmarksChanged from:body"
+				  hx-get="/existing_tags">
+		</bal-card>
+		<bal-card style="max-width: 50%; min-width: 50%"
+				  hx-trigger="init from:body, bookmarksChanged from:body"
+				  hx-get="/csv_textfield">
+		</bal-card>
+	</bal-stack>
 
 	<%-- Add button --%>
 <%--

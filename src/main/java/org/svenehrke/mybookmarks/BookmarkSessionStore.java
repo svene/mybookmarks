@@ -19,15 +19,13 @@ public class BookmarkSessionStore {
 	private String searchTags;
 	private List<String> tags;
 
-	@Value("${app.dev.maxbookmarks:10000}")
-	private int maxbookmarks;
-
 	public void handleNewCsvString(String csv) {
 		setBookmarksCSV(csv);
 		CsvInfo csvInfo = new CsvReader().getCsvInfo(csv);
 		setBookmarksCsvInfo(csvInfo);
 		List<Bookmark> newBookmarks = new CsvReader().convertCsvToBookmarks(csvInfo.records())
-			.stream().limit(maxbookmarks).toList();
+			.stream()
+			.toList();
 		setBookmarks(newBookmarks);
 		List<String> tags = newBookmarks.stream()
 			.flatMap(it -> it.tags().stream())

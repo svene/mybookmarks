@@ -11,11 +11,6 @@
 @if("empty".equals(fragment))
 @endif
 
-@if("csv_textfield".equals(fragment))
-	!{var M = FragmentHelper.CsvTextfieldModel.build(fragmentHelper); }
-	<textarea id="csvString" hidden class="preview-csv">${M.csvString()}</textarea>
-@endif <%-- csv_textfield --%>
-
 @if("add-button".equals(fragment))
 	<div class="col offset-s8 s1 mb-2 right-align">
 		<a class="btn-floating btn-large waves-effect waves-light"

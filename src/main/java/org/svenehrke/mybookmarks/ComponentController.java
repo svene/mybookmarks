@@ -1,6 +1,7 @@
 package org.svenehrke.mybookmarks;
 
 import de.tschuehly.spring.viewcomponent.jte.ViewContext;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,7 @@ public class ComponentController {
 	private final EditCardComponent editCardComponent;
 	private final BookmarkRowsComponent bookmarkRowsComponent;
 	private final ExistingTagsComponent existingTagsComponent;
+	private final CsvTextComponent csvTextComponent;
 
 	@GetMapping("/message")
 	ViewContext helloWorld() {
@@ -25,6 +27,15 @@ public class ComponentController {
 
 	@GetMapping("/card/{id}")
 	public ViewContext card_id(@PathVariable BigInteger id) {
+		return cardComponent.render(id);
+	}
+
+	@GetMapping("/redirect/card/{id}")
+	public ViewContext redirect_card_id(
+		@PathVariable BigInteger id,
+		HttpServletResponse response
+	) {
+		response.setHeader("HX-Trigger", "bookmarksChanged");
 		return cardComponent.render(id);
 	}
 
@@ -41,6 +52,11 @@ public class ComponentController {
 	@GetMapping("/existing_tags")
 	public ViewContext existingTags() {
 		return existingTagsComponent.render();
+	}
+
+	@GetMapping("/csv_textfield")
+	public ViewContext csvTextField() {
+		return csvTextComponent.render();
 	}
 
 }

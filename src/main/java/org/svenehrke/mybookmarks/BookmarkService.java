@@ -95,6 +95,14 @@ public class BookmarkService {
 		bookmarkSessionStore.setPreviewBookmark(null);
 	}
 
+	public String convertBookmarksToCSV(List<Bookmark> bookmarks) {
+		StringBuilder sb = new StringBuilder();
+		bookmarks.forEach(it -> {
+			sb.append(it.url() + ";" + String.join(",", it.tags()) + System.lineSeparator());
+		});
+		return sb.toString();
+	}
+
 	private static List<String> tagsHoldingPredicate(List<String> tags, Predicate<String> stringPredicate) {
 		return tags.stream()
 			.filter(stringPredicate)

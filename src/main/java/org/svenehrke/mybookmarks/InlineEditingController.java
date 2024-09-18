@@ -1,6 +1,7 @@
 package org.svenehrke.mybookmarks;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -35,6 +36,6 @@ public class InlineEditingController {
 		// make the browser redirect with a GET instead of a PUT:
 		request.setAttribute(
 			View.RESPONSE_STATUS_ATTRIBUTE, HttpStatus.SEE_OTHER); // 303 (See Other) instead of 302 (Found)
-		return new RedirectView("/card/" + id);
+		return new RedirectView("/redirect/card/" + id);
 	}
 }

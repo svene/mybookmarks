@@ -5,7 +5,7 @@
 !{var bookmarks = ctx.bookmarks(); }
 
 <bal-stack layout="vertical" align="center">
-    @for(Bookmark bm : bookmarks)
+    @for(Bookmark bm : bookmarks.stream().limit(3).toList())
         <bal-card style="max-width: 50%; min-width: 50%">
             <bal-card-content id="ogcard_${bm.id()}"
                               hx-trigger="revealed"

@@ -18,7 +18,7 @@ content = @`
 		<%-- Add button --%>
 		<bal-card style="max-width: 50%; min-width: 50%"
 				  hx-trigger="init from:body, bookmarksChanged from:body"
-				  hx-get="/fragments?fragment=add-button"
+				  hx-get="/addbookmark"
 		>
 		</bal-card>
 	</bal-stack>

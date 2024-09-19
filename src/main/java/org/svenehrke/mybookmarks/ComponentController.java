@@ -20,6 +20,7 @@ public class ComponentController {
 	private final ExistingTagsComponent existingTagsComponent;
 	private final CsvTextComponent csvTextComponent;
 	private final NewBookmarkComponent newBookmarkComponent;
+	private final AddBookmarkComponent addBookmarkComponent;
 
 	@GetMapping("/message")
 	ViewContext helloWorld() {
@@ -63,6 +64,11 @@ public class ComponentController {
 	@GetMapping("/csv_textfield")
 	public ViewContext csvTextField() {
 		return csvTextComponent.render();
+	}
+
+	@GetMapping("/addbookmark")
+	public ViewContext addBookmark() {
+		return addBookmarkComponent.render();
 	}
 
 }

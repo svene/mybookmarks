@@ -13,8 +13,10 @@ public class EditCardComponent {
 
 	public record Ctx(Card card) implements ViewContext {}
 
-
-	public Ctx render(BigInteger id) {
+	public ViewContext render(BigInteger id) {
 		return new Ctx(cardComponent.buildCard(id));
+	}
+	public ViewContext render(Card card) {
+		return new Ctx(card);
 	}
 }

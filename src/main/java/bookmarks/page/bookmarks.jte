@@ -14,9 +14,15 @@ content = @`
 				  hx-trigger="init from:body, bookmarksChanged from:body"
 				  hx-get="/csv_textfield">
 		</bal-card>
+
+		<%-- Add button --%>
+		<bal-card style="max-width: 50%; min-width: 50%"
+				  hx-trigger="init from:body, bookmarksChanged from:body"
+				  hx-get="/fragments?fragment=add-button"
+		>
+		</bal-card>
 	</bal-stack>
 
-	<%-- Add button --%>
 <%--
 	<div class="row"
 		 id="add-or-preview"

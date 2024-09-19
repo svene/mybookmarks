@@ -19,6 +19,7 @@ public class ComponentController {
 	private final BookmarkRowsComponent bookmarkRowsComponent;
 	private final ExistingTagsComponent existingTagsComponent;
 	private final CsvTextComponent csvTextComponent;
+	private final NewBookmarkComponent newBookmarkComponent;
 
 	@GetMapping("/message")
 	ViewContext helloWorld() {
@@ -42,6 +43,11 @@ public class ComponentController {
 	@GetMapping("/edit/inline/form")
 	public ViewContext editInlineForm(@RequestParam BigInteger id) {
 		return editCardComponent.render(id);
+	}
+
+	@GetMapping("/newbookmark/form")
+	public ViewContext newBookmarkForm() {
+		return newBookmarkComponent.render();
 	}
 
 	@GetMapping("/bookmark_rows")

@@ -16,7 +16,7 @@
                 <div class="control">
                     <input class="input" placeholder="URL" name="url" value="${card.url()}">
                 </div>
-                <p class="help">This username is available</p>
+                <p class="help">URL for the bookmark</p>
             </div>
             <div>
                 <bal-field>

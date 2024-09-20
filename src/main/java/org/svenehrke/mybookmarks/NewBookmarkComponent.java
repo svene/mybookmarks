@@ -8,9 +8,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class NewBookmarkComponent {
 
-	private final EditCardComponent editCardComponent;
+	private final FormContentComponent formContentComponent;
 
-	public record Ctx(Card card) implements ViewContext {}
+	public record Ctx(FormContentComponent.Ctx formContent) implements ViewContext {}
 
 
 	private Card buildNewBookmarkCard() {
@@ -26,6 +26,6 @@ public class NewBookmarkComponent {
 	}
 
 	public ViewContext render() {
-		return editCardComponent.render(buildNewBookmarkCard());
+		return new Ctx(formContentComponent.render(buildNewBookmarkCard()));
 	}
 }

@@ -1,9 +1,9 @@
-@import org.svenehrke.mybookmarks.EditCardComponent.Ctx
+@import org.svenehrke.mybookmarks.NewBookmarkComponent.Ctx
 
 @param Ctx ctx
 
 <form
-        hx-put="edit/inline/putbookmark"
+        hx-post="/bookmark"
         hx-target="closest bal-card-content"
         hx-swap="outerHTML"
 >

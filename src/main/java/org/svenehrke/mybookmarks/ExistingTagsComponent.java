@@ -11,8 +11,9 @@ import java.util.HashSet;
 public class ExistingTagsComponent {
 	private final BookmarkSessionStore bookmarkSessionStore;
 	private final BookmarkService bookmarkService;
+	private final MessageComponent messageComponent;
 
-	public record Ctx(java.util.List<String> tags) implements ViewContext {}
+	public record Ctx(java.util.List<String> tags, ViewContext messageComponent) implements ViewContext {}
 
 
 	public Ctx render() {
@@ -22,6 +23,6 @@ public class ExistingTagsComponent {
 			tagSet.addAll(bookmark.tags());
 
 		});
-		return new Ctx(tagSet.stream().toList());
+		return new Ctx(tagSet.stream().toList(), messageComponent.render());
 	}
 }

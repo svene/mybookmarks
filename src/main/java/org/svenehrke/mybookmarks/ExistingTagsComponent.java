@@ -16,7 +16,7 @@ public class ExistingTagsComponent {
 	public record Ctx(java.util.List<String> tags, ViewContext messageComponent) implements ViewContext {}
 
 
-	public Ctx render() {
+	public ViewContext render() {
 		bookmarkService.loadBookmarksIntoSessionIfNecessary();
 		var tagSet = new HashSet<String>();
 		bookmarkSessionStore.getBookmarks().forEach(bookmark -> {

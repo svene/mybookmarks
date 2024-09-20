@@ -13,7 +13,7 @@ public class CsvTextComponent {
 	public record Ctx(String csv) implements ViewContext {}
 
 
-	public Ctx render() {
+	public ViewContext render() {
 		bookmarkService.loadBookmarksIntoSessionIfNecessary();
 		var s = bookmarkService.convertBookmarksToCSV(bookmarkSessionStore.getBookmarks());
 		return new Ctx(s);

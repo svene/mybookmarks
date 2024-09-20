@@ -14,7 +14,7 @@ public class BookmarkRowsComponent {
 
 	public record Ctx(List<Bookmark> bookmarks) implements ViewContext {}
 
-	public Ctx render() {
+	public ViewContext render() {
 		String searchTags = bookmarkSessionStore.getSearchTags();
 		return new Ctx(bookmarkService.findByTag(searchTags));
 	}

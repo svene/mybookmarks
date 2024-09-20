@@ -8,7 +8,7 @@ public class MessageComponent {
 	public record Ctx(String message) implements ViewContext {}
 
 
-	public Ctx render() {
+	public ViewContext render() {
 		return new Ctx("Hello World!");
 	}
 }

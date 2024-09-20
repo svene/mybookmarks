@@ -29,11 +29,11 @@ public class CardComponent {
 		return card;
 	}
 
-	public Ctx render(BigInteger id) {
+	public ViewContext render(BigInteger id) {
 		return render(buildCard(id));
 	}
 
-	public Ctx render(Card card) {
+	public ViewContext render(Card card) {
 		return new Ctx(card);
 	}
 

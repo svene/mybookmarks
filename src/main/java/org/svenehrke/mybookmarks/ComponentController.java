@@ -21,6 +21,7 @@ public class ComponentController {
 	private final CsvTextComponent csvTextComponent;
 	private final NewBookmarkComponent newBookmarkComponent;
 	private final AddBookmarkComponent addBookmarkComponent;
+	private final ImageComponent imageComponent;
 
 	@GetMapping("/message")
 	ViewContext helloWorld() {
@@ -69,6 +70,11 @@ public class ComponentController {
 	@GetMapping("/addbookmark")
 	public ViewContext addBookmark() {
 		return addBookmarkComponent.render();
+	}
+
+	@GetMapping("/image")
+	public ViewContext image() {
+		return imageComponent.render();
 	}
 
 }

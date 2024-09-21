@@ -1,5 +1,6 @@
 package org.svenehrke.mybookmarks;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -8,6 +9,8 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.View;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.Collections;
 import java.util.List;
@@ -55,12 +58,17 @@ public class TriggerController {
 	}
 
 	@PostMapping(path = "/bookmark", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-	@ResponseBody
-	public String addBookmark(@RequestParam(name = "bm-url") String bmUrl, HttpServletResponse response) {
-		bookmarkService.addBookmark(bmUrl);
+	public RedirectView addBookmark(
+		@RequestParam String url,
+		HttpServletRequest request,
+		HttpServletResponse response
+	) {
+		request.setAttribute(
+			View.RESPONSE_STATUS_ATTRIBUTE, HttpStatus.SEE_OTHER); // 303 (See Other) instead of 302 (Found)
+
+		bookmarkService.addBookmark(url);
 		response.setHeader("HX-Trigger", "bookmarksChanged, newPreview");
-		response.setStatus(HttpStatus.CREATED.value());
-		return "";
+		return new RedirectView("/redirect/card/" + 227);
 	}
 
 	@PutMapping(path = "/preview-url", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
@@ -75,6 +83,29 @@ public class TriggerController {
 	public String removePreview(HttpServletResponse response, Model model) {
 		bookmarkService.removePreviewBookmark();
 		response.setHeader("HX-Trigger", "bookmarksChanged");
+		return "";
+	}
+
+	@GetMapping("/urlchanged")
+	@ResponseBody
+	public String urlchanged(@RequestParam String url, HttpServletResponse response) {
+		bookmarkService.setPreviewBookmark(url);
+		response.setHeader("HX-Trigger", "urlChanged");
+		return "";
+	}
+
+	@GetMapping("/urlchanged0")
+	@ResponseBody
+	public String urlchanged0(@RequestParam String url, HttpServletResponse response) {
+		String value = """
+			{"urlChanged": {
+				"id": 5,
+				"url": "URL"
+				}
+			}
+			"""
+			.replace("URL", url);
+		response.setHeader("HX-Trigger", value);
 		return "";
 	}
 

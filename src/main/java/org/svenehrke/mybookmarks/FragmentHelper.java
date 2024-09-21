@@ -18,6 +18,7 @@ public class FragmentHelper {
 		}
 	}
 
+	@Deprecated
 	public record PreviewCardModel(Card card) {
 		public static PreviewCardModel build(FragmentHelper fragmentHelper) {
 			Bookmark bm = fragmentHelper.getBookmarkSessionStore().getPreviewBookmark();

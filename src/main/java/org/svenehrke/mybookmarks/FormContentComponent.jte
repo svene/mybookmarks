@@ -9,7 +9,15 @@
         <div class="field">
             <label class="label">URL</label>
             <div class="control">
-                <input class="input" placeholder="URL" name="url" value="${card.url()}">
+                <input class="input"
+                       placeholder="URL"
+                       name="url"
+                       value="${card.url()}"
+                       hx-trigger="keyup delay:800ms"
+                       hx-get="/urlchanged"
+                       hx-swap="none"
+                       X_=" on change send urlChanged_${card.id()} to <body/>"
+                >
             </div>
             <p class="help">URL for the bookmark</p>
         </div>

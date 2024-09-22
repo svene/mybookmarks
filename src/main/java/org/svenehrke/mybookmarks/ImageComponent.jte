@@ -3,5 +3,8 @@
 @param Ctx ctx
 
 <img class="mb-normal"
-     src="https://placehold.co/640x336/png?text=XXXPREVIEW..."
+     src="${ctx.card().ogImageUrl()}"
+     hx-trigger="urlChanged from:body"
+     hx-get="/image"
+     hx-swap="outerHTML"
 >

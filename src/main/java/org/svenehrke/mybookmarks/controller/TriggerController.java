@@ -87,7 +87,9 @@ public class TriggerController {
 		return "";
 	}
 
-	@GetMapping("/urlchanged")
+	public static final String URL_CHANGED = "/urlChanged";
+
+	@GetMapping(URL_CHANGED)
 	@ResponseBody
 	public String urlchanged(@RequestParam String url, HttpServletResponse response) {
 		bookmarkSessionService.setPreviewBookmark(url);
@@ -96,21 +98,5 @@ public class TriggerController {
 		response.setHeader("HX-Trigger", "urlChanged");
 		return "";
 	}
-
-	@GetMapping("/urlchanged0")
-	@ResponseBody
-	public String urlchanged0(@RequestParam String url, HttpServletResponse response) {
-		String value = """
-			{"urlChanged": {
-				"id": 5,
-				"url": "URL"
-				}
-			}
-			"""
-			.replace("URL", url);
-		response.setHeader("HX-Trigger", value);
-		return "";
-	}
-
 
 }

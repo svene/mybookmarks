@@ -61,18 +61,6 @@ public class TriggerController {
 		return "";
 	}
 
-	public static final String BOOKMARK_URL = "/bookmark";
-	@PostMapping(path = BOOKMARK_URL, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-	public RedirectView addBookmark(
-		@RequestParam String url,
-		HttpServletRequest request,
-		HttpServletResponse response
-	) {
-		bookmarkSessionService.addBookmark(url);
-		response.setHeader("HX-Trigger", "bookmarksChanged, newPreview");
-		return BMControllerFunctions.redirect("/redirect/card/" + 227, request);
-	}
-
 	public static final String PREVIEW_URL = "/preview-url";
 	@PutMapping(path = PREVIEW_URL, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
 	@ResponseBody

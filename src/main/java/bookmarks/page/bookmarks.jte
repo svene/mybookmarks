@@ -2,8 +2,6 @@
 init = "init",
 content = @`
 
-	<div hx-trigger="load" hx-get="/message"></div>
-
 	<bal-stack layout="vertical" align="center" class="mb-small">
 
 		<bal-card style="max-width: 50%; min-width: 50%"

@@ -10,6 +10,7 @@ import java.math.BigInteger;
 @RequiredArgsConstructor
 public class CardComponent {
 	private final BookmarkSessionStore bookmarkSessionStore;
+	private final BookmarkSessionService bookmarkSessionService;
 	private final BookmarkService bookmarkService;
 
 	public record Ctx(Card card) implements ViewContext {}
@@ -19,7 +20,7 @@ public class CardComponent {
 		var bookmarks = bookmarkSessionStore.getBookmarks();
 		Bookmark bookmark = bookmarkService.getById(id, bookmarks);
 
-		bookmarkService.createBookmarkExIfNecessary(bookmark);
+		bookmarkSessionService.createBookmarkExIfNecessary(bookmark);
 		Card card = MishMash.getCard(
 				bookmark,
 				bookmarkSessionStore.getBookmarkEx(bookmark)

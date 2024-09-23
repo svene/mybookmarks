@@ -11,6 +11,7 @@ public class NewBookmarkComponent {
 	private final ImageComponent imageComponent;
 	private final FormContentComponent formContentComponent;
 	private final BookmarkSessionStore bookmarkSessionStore;
+	private final BookmarkSessionService bookmarkSessionService;
 	private final BookmarkService bookmarkService;
 
 	public record Ctx(
@@ -46,7 +47,7 @@ public class NewBookmarkComponent {
 		if (bm == null) {
 			card = null;
 		} else {
-			bookmarkService.createBookmarkExIfNecessary(bm);
+			bookmarkSessionService.createBookmarkExIfNecessary(bm);
 			card = MishMash.getCard(bm, bookmarkSessionStore.getBookmarkEx(bm));
 		}
 		return card;

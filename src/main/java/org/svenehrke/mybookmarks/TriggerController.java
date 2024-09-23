@@ -22,7 +22,7 @@ public class TriggerController {
 
 	private final BookmarkService bookmarkService;
 	private final BookmarkSessionStore bookmarkSessionStore;
-	private final FragmentHelper fh;
+	private final BookmarkSessionService bookmarkSessionService;
 
 /*
 	@PutMapping("/search/tags")
@@ -91,7 +91,7 @@ public class TriggerController {
 	public String urlchanged(@RequestParam String url, HttpServletResponse response) {
 		bookmarkService.setPreviewBookmark(url);
 		Bookmark previewBookmark = bookmarkService.getPreviewBookmark();
-		bookmarkService.createBookmarkExIfNecessary(previewBookmark);
+		bookmarkSessionService.createBookmarkExIfNecessary(previewBookmark);
 		response.setHeader("HX-Trigger", "urlChanged");
 		return "";
 	}

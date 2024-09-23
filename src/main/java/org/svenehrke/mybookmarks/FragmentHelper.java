@@ -11,6 +11,7 @@ public class FragmentHelper {
 
 	private final BookmarkService bookmarkService;
 	private final BookmarkSessionStore bookmarkSessionStore;
+	private final BookmarkSessionService bookmarkSessionService;
 
 	public record ExistingTagsModel(List<String> tags) {
 		public static ExistingTagsModel build(FragmentHelper fragmentHelper) {
@@ -26,7 +27,7 @@ public class FragmentHelper {
 			if (bm == null) {
 				card = null;
 			} else {
-				fragmentHelper.getBookmarkService().createBookmarkExIfNecessary(bm);
+				fragmentHelper.getBookmarkSessionService().createBookmarkExIfNecessary(bm);
 				card = MishMash.getCard(bm, fragmentHelper.getBookmarkSessionStore().getBookmarkEx(bm));
 			}
 			return new PreviewCardModel(card);

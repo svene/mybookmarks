@@ -8,22 +8,19 @@ import org.svenehrke.mybookmarks.model.Bookmark;
 import org.svenehrke.mybookmarks.model.Card;
 import org.svenehrke.mybookmarks.service.BookmarkService;
 import org.svenehrke.mybookmarks.service.BookmarkSessionService;
-import org.svenehrke.mybookmarks.service.BookmarkSessionStore;
 
 import java.math.BigInteger;
 
 @ViewComponent
 @RequiredArgsConstructor
 public class CardComponent {
-	private final BookmarkSessionStore bookmarkSessionStore;
 	private final BookmarkSessionService bookmarkSessionService;
 	private final BookmarkService bookmarkService;
 
 	public record Ctx(Card card) implements ViewContext {}
 
 	public Card buildCard(BigInteger id) {
-		bookmarkSessionService.loadBookmarksIntoSessionIfNecessary();
-		var bookmarks = bookmarkSessionStore.getBookmarks();
+		var bookmarks = bookmarkSessionService.getBookmarks();
 		Bookmark bookmark = bookmarkService.getById(id, bookmarks);
 
 		bookmarkSessionService.createBookmarkExIfNecessary(bookmark);

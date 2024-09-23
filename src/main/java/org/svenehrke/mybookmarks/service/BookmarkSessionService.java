@@ -43,6 +43,11 @@ public class BookmarkSessionService {
 		return bookmarkSessionStore.getBookmarkExs().get(bm.url());
 	}
 
+	public List<Bookmark> getBookmarks() {
+		loadBookmarksIntoSessionIfNecessary();
+		return bookmarkSessionStore.getBookmarks();
+	}
+
 	public void loadBookmarksIntoSessionIfNecessary() {
 		synchronized (bookmarkSessionStore.getBookmarks()) {
 			var bookmarks = bookmarkSessionStore.getBookmarks();
@@ -57,14 +62,13 @@ public class BookmarkSessionService {
 	}
 
 	public List<Bookmark> findAllByTag(String tagsString) {
-		loadBookmarksIntoSessionIfNecessary();
 		if (!StringUtils.hasLength(tagsString)) {
-			return bookmarkSessionStore.getBookmarks();
+			return getBookmarks();
 		}
 
 		var tags = bookmarkService.parseTagsString(tagsString);
 		// Check that it.tags() does not contain any item from minusTags
-		return bookmarkSessionStore.getBookmarks().stream()
+		return getBookmarks().stream()
 			.filter(it -> tags.normalTags().isEmpty() || !Collections.disjoint(it.tags(), tags.normalTags()))
 			.filter(it -> tags.minusTags().isEmpty() || it.tags().stream().noneMatch(tags.minusTags()::contains)) // Check that it.tags() does not contain any item from minusTags
 			.collect(Collectors.toList());

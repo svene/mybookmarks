@@ -9,8 +9,8 @@ content = @`
 	<bal-stack layout="vertical" align="center" class="mb-small">
 
 		<bal-card style="max-width: 50%; min-width: 50%"
-				  hx-trigger="init from:body, bookmarksChanged from:body"
-				  hx-get="/existing_tags">
+		>
+			${ctx.existingTags()}
 		</bal-card>
 		<bal-card style="max-width: 50%; min-width: 50%"
 				  hx-trigger="init from:body, bookmarksChanged from:body"

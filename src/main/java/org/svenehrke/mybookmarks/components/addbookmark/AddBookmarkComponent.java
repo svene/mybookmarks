@@ -8,11 +8,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AddBookmarkComponent {
 
-	public static final String ADD_BOOKMARK_URL = "/addbookmark";
+	public static final String URL = "/addbookmark";
 
 	public record Ctx() implements ViewContext {}
 
-	public ViewContext render() {
+	public Ctx render() {
 		return new Ctx();
 	}
 }

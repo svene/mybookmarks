@@ -10,12 +10,15 @@ import java.util.HashSet;
 @ViewComponent
 @RequiredArgsConstructor
 public class ExistingTagsComponent {
+
+	public static final String URL = "/existing_tags";
+
 	private final BookmarkSessionService bookmarkSessionService;
 
 	public record Ctx(java.util.List<String> tags) implements ViewContext {}
 
 
-	public ViewContext render() {
+	public Ctx render() {
 		var tagSet = new HashSet<String>();
 		bookmarkSessionService.getBookmarks().forEach(bookmark -> {
 			tagSet.addAll(bookmark.tags());

@@ -61,7 +61,7 @@ public class ComponentController {
 		return bookmarkRowsComponent.render();
 	}
 
-	@GetMapping("/existing_tags")
+	@GetMapping(ExistingTagsComponent.URL)
 	public ViewContext existingTags() {
 		return existingTagsComponent.render();
 	}
@@ -71,7 +71,7 @@ public class ComponentController {
 		return csvTextComponent.render();
 	}
 
-	@GetMapping(AddBookmarkComponent.ADD_BOOKMARK_URL)
+	@GetMapping(AddBookmarkComponent.URL)
 	public ViewContext addBookmark() {
 		return addBookmarkComponent.render();
 	}

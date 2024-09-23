@@ -1,4 +1,5 @@
 @import gg.jte.Content
+@import org.svenehrke.mybookmarks.controller.TriggerController
 
 @param String init
 @param Content content
@@ -71,7 +72,7 @@
 					class="tooltipped"
 					data-position="bottom"
 					data-tooltip="Reload"
-					hx-post="/reload" hx-swap="none"
+					hx-post="${TriggerController.RELOAD_URL}" hx-swap="none"
 				>
 					<i class="material-icons">refresh</i>
 				</a>

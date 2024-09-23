@@ -4,12 +4,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
 import org.svenehrke.mybookmarks.model.Bookmark;
 import org.svenehrke.mybookmarks.service.BookmarkService;
@@ -24,7 +22,6 @@ import java.util.List;
 @Slf4j
 public class TriggerController {
 
-	private final BookmarkService bookmarkService;
 	private final BookmarkSessionStore bookmarkSessionStore;
 	private final BookmarkSessionService bookmarkSessionService;
 
@@ -41,7 +38,9 @@ public class TriggerController {
 	}
 
 */
-	@PutMapping("/search/taglist")
+
+	public static final String SEARCH_TAGLIST_URL = "/search/taglist";
+	@PutMapping(SEARCH_TAGLIST_URL)
 	@ResponseBody
 	public String search_taglist(
 		@RequestParam(required = false, name = "tag") List<String> tags,
@@ -53,15 +52,17 @@ public class TriggerController {
 		return "";
 	}
 
-	@PostMapping("/reload")
+	public static final String RELOAD_URL = "/reload";
+	@PostMapping(RELOAD_URL)
 	@ResponseBody
-	public String reload(HttpServletResponse response, Model model) {
+	public String reload(HttpServletResponse response) {
 		bookmarkSessionService.reload();
 		response.setHeader("HX-Trigger", "bookmarksChanged");
 		return "";
 	}
 
-	@PostMapping(path = "/bookmark", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+	public static final String BOOKMARK_URL = "/bookmark";
+	@PostMapping(path = BOOKMARK_URL, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
 	public RedirectView addBookmark(
 		@RequestParam String url,
 		HttpServletRequest request,
@@ -72,14 +73,17 @@ public class TriggerController {
 		return BMControllerFunctions.redirect("/redirect/card/" + 227, request);
 	}
 
-	@PutMapping(path = "/preview-url", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+	public static final String PREVIEW_URL = "/preview-url";
+	@PutMapping(path = PREVIEW_URL, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
 	@ResponseBody
 	public String previewUrl(HttpServletResponse response, @RequestParam("bm-url") String bmUrl) {
 		bookmarkSessionService.setPreviewBookmark(bmUrl);
 		response.setHeader("HX-Trigger", "newPreview");
 		return "";
 	}
-	@DeleteMapping("/preview")
+
+	public static final String PREVIEW = "/preview";
+	@DeleteMapping(PREVIEW)
 	@ResponseBody
 	public String removePreview(HttpServletResponse response, Model model) {
 		bookmarkSessionService.removePreviewBookmark();

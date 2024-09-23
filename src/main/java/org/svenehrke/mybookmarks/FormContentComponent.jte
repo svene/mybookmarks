@@ -16,7 +16,6 @@
                        hx-trigger="keyup delay:800ms"
                        hx-get="/urlchanged"
                        hx-swap="none"
-                       X_=" on change send urlChanged_${card.id()} to <body/>"
                 >
             </div>
             <p class="help">URL for the bookmark</p>

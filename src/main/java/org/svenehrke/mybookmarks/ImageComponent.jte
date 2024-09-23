@@ -3,7 +3,7 @@
 @param Ctx ctx
 
 <img class="mb-normal"
-     src="${ctx.card().ogImageUrl()}"
+     src="${ctx.url()}"
      hx-trigger="urlChanged from:body"
      hx-get="/image"
      hx-swap="outerHTML"

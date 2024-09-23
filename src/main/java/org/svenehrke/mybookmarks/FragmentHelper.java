@@ -27,7 +27,7 @@ public class FragmentHelper {
 				card = null;
 			} else {
 				fragmentHelper.getBookmarkService().createBookmarkExIfNecessary(bm);
-				card = new BookmarkRetriever().getCard(bm, fragmentHelper.getBookmarkSessionStore().getBookmarkEx(bm));
+				card = MishMash.getCard(bm, fragmentHelper.getBookmarkSessionStore().getBookmarkEx(bm));
 			}
 			return new PreviewCardModel(card);
 		}

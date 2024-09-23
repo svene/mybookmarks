@@ -17,16 +17,6 @@ import java.util.List;
 @Slf4j
 public class BookmarkRetriever {
 
-	public Card getCard(Bookmark bm, BookmarkEx bmx) {
-		return CardBuilder.builder()
-			.id(bm.id())
-			.url(bm.url())
-			.host(bmx.uri().getHost())
-			.ogImageUrl(bmx.imageUrl())
-			.ogTitle(bmx.title())
-			.ogDescription(bmx.description())
-			.build();
-	}
 	public BookmarkEx buildBookmarkEx(Bookmark bm) {
 		URI uri = URI.create(bm.url());
 		String html = makeHttpCall(uri, true);

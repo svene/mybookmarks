@@ -20,7 +20,7 @@ public class CardComponent {
 		Bookmark bookmark = bookmarkService.getById(id, bookmarks);
 
 		bookmarkService.createBookmarkExIfNecessary(bookmark);
-		Card card = new BookmarkRetriever().getCard(
+		Card card = MishMash.getCard(
 				bookmark,
 				bookmarkSessionStore.getBookmarkEx(bookmark)
 			)

@@ -11,23 +11,17 @@ public class ImageComponent {
 	private final BookmarkService bookmarkService;
 	private final BookmarkSessionStore bookmarkSessionStore;
 
-	public record Ctx(Card card) implements ViewContext {}
+	public record Ctx(String url) implements ViewContext {}
 
 
-	public ViewContext render() {
-		var card = getCard();
-		return new Ctx(card);
+	public Ctx render(String url) {
+		return new Ctx(url);
 	}
 
-	private Card getCard() {
-		Bookmark bm = bookmarkSessionStore.getPreviewBookmark();
-		Card card;
-		if (bm == null) {
-			card = null;
-		} else {
-			bookmarkService.createBookmarkExIfNecessary(bm);
-			card = new BookmarkRetriever().getCard(bm, bookmarkSessionStore.getBookmarkEx(bm));
-		}
-		return card;
+	public Ctx render() {
+		Bookmark previewBookmark = bookmarkService.getPreviewBookmark();
+		BookmarkEx ex = bookmarkSessionStore.getBookmarkEx(previewBookmark);
+		return new Ctx(ex.imageUrl());
 	}
+
 }

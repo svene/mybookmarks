@@ -90,6 +90,8 @@ public class TriggerController {
 	@ResponseBody
 	public String urlchanged(@RequestParam String url, HttpServletResponse response) {
 		bookmarkService.setPreviewBookmark(url);
+		Bookmark previewBookmark = bookmarkService.getPreviewBookmark();
+		bookmarkService.createBookmarkExIfNecessary(previewBookmark);
 		response.setHeader("HX-Trigger", "urlChanged");
 		return "";
 	}

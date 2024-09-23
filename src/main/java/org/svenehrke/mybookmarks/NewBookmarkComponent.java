@@ -8,10 +8,25 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class NewBookmarkComponent {
 
+	private final ImageComponent imageComponent;
 	private final FormContentComponent formContentComponent;
+	private final BookmarkSessionStore bookmarkSessionStore;
+	private final BookmarkService bookmarkService;
 
-	public record Ctx(FormContentComponent.Ctx formContent) implements ViewContext {}
+	public record Ctx(
+		ImageComponent.Ctx imageComponentContext,
+		FormContentComponent.Ctx formContent,
+		String url
+	) implements ViewContext {}
 
+	public ViewContext render() {
+		Card previewCard = getPreviewCard();
+		return new Ctx(
+			imageComponent.render("https://placehold.co/640x336/png?text=PREVIEW..."),
+			formContentComponent.render(buildNewBookmarkCard()),
+			(previewCard == null) ? "https://placehold.co/640x336/png?text=PREVIEW..." : previewCard.ogImageUrl()
+		);
+	}
 
 	private Card buildNewBookmarkCard() {
 		Bookmark bookmark = BookmarkBuilder.builder()
@@ -25,7 +40,15 @@ public class NewBookmarkComponent {
 		return card;
 	}
 
-	public ViewContext render() {
-		return new Ctx(formContentComponent.render(buildNewBookmarkCard()));
+	private Card getPreviewCard() {
+		Bookmark bm = bookmarkSessionStore.getPreviewBookmark();
+		Card card;
+		if (bm == null) {
+			card = null;
+		} else {
+			bookmarkService.createBookmarkExIfNecessary(bm);
+			card = MishMash.getCard(bm, bookmarkSessionStore.getBookmarkEx(bm));
+		}
+		return card;
 	}
 }

@@ -91,6 +91,10 @@ public class BookmarkService {
 		bookmarkSessionStore.setPreviewBookmark(previewBookmark);
 	}
 
+	public Bookmark getPreviewBookmark() {
+		return bookmarkSessionStore.getPreviewBookmark();
+	}
+
 	public void removePreviewBookmark() {
 		bookmarkSessionStore.setPreviewBookmark(null);
 	}

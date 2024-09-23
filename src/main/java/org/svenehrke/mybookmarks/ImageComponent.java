@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ImageComponent {
 
-	private final BookmarkService bookmarkService;
+	private final BookmarkSessionService bookmarkSessionService;
 	private final BookmarkSessionStore bookmarkSessionStore;
 
 	public record Ctx(String url) implements ViewContext {}
@@ -19,8 +19,8 @@ public class ImageComponent {
 	}
 
 	public Ctx render() {
-		Bookmark previewBookmark = bookmarkService.getPreviewBookmark();
-		BookmarkEx ex = bookmarkSessionStore.getBookmarkEx(previewBookmark);
+		Bookmark previewBookmark = bookmarkSessionStore.getPreviewBookmark();
+		BookmarkEx ex = bookmarkSessionService.getBookmarkEx(previewBookmark);
 		return new Ctx(ex.imageUrl());
 	}
 

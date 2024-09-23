@@ -52,7 +52,7 @@ public class TriggerController {
 	@PostMapping("/reload")
 	@ResponseBody
 	public String reload(HttpServletResponse response, Model model) {
-		bookmarkService.reload();
+		bookmarkSessionService.reload();
 		response.setHeader("HX-Trigger", "bookmarksChanged");
 		return "";
 	}
@@ -66,7 +66,7 @@ public class TriggerController {
 		request.setAttribute(
 			View.RESPONSE_STATUS_ATTRIBUTE, HttpStatus.SEE_OTHER); // 303 (See Other) instead of 302 (Found)
 
-		bookmarkService.addBookmark(url);
+		bookmarkSessionService.addBookmark(url);
 		response.setHeader("HX-Trigger", "bookmarksChanged, newPreview");
 		return new RedirectView("/redirect/card/" + 227);
 	}
@@ -74,14 +74,14 @@ public class TriggerController {
 	@PutMapping(path = "/preview-url", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
 	@ResponseBody
 	public String previewUrl(HttpServletResponse response, @RequestParam("bm-url") String bmUrl) {
-		bookmarkService.setPreviewBookmark(bmUrl);
+		bookmarkSessionService.setPreviewBookmark(bmUrl);
 		response.setHeader("HX-Trigger", "newPreview");
 		return "";
 	}
 	@DeleteMapping("/preview")
 	@ResponseBody
 	public String removePreview(HttpServletResponse response, Model model) {
-		bookmarkService.removePreviewBookmark();
+		bookmarkSessionService.removePreviewBookmark();
 		response.setHeader("HX-Trigger", "bookmarksChanged");
 		return "";
 	}
@@ -89,8 +89,8 @@ public class TriggerController {
 	@GetMapping("/urlchanged")
 	@ResponseBody
 	public String urlchanged(@RequestParam String url, HttpServletResponse response) {
-		bookmarkService.setPreviewBookmark(url);
-		Bookmark previewBookmark = bookmarkService.getPreviewBookmark();
+		bookmarkSessionService.setPreviewBookmark(url);
+		Bookmark previewBookmark = bookmarkSessionStore.getPreviewBookmark();
 		bookmarkSessionService.createBookmarkExIfNecessary(previewBookmark);
 		response.setHeader("HX-Trigger", "urlChanged");
 		return "";

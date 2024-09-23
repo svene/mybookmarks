@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 @AllArgsConstructor
 @Slf4j
 public class FragmentsController {
-	private final BookmarkService bookmarkService;
+	private final BookmarkSessionService bookmarkSessionService;
 	private final FragmentHelper fragmentHelper;
 
 	@GetMapping("/fragments")
 	public String fragment(@RequestParam(name = "fragment") String fragment, Model model) {
-		bookmarkService.loadBookmarksIntoSessionIfNecessary();
+		bookmarkSessionService.loadBookmarksIntoSessionIfNecessary();
 		model.addAttribute("fragment", fragment);
 		model.addAttribute("fragmentHelper", fragmentHelper);
 		return "bookmarks/fragment/fragments";

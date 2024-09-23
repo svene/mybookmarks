@@ -19,24 +19,4 @@ public class BookmarkSessionStore {
 	private String searchTags;
 	private List<String> tags;
 
-	public void handleNewCsvString(String csv) {
-		setBookmarksCSV(csv);
-		CsvInfo csvInfo = new CsvReader().getCsvInfo(csv);
-		setBookmarksCsvInfo(csvInfo);
-		List<Bookmark> newBookmarks = new CsvReader().convertCsvToBookmarks(csvInfo.records())
-			.stream()
-			.toList();
-		setBookmarks(newBookmarks);
-		List<String> tags = newBookmarks.stream()
-			.flatMap(it -> it.tags().stream())
-			.distinct()
-			.sorted()
-			.toList();
-		setTags(tags);
-	}
-
-	public BookmarkEx getBookmarkEx(Bookmark bm) {
-		return bookmarkExs.get(bm.url());
-	}
-
 }

@@ -16,14 +16,14 @@ public class CardComponent {
 	public record Ctx(Card card) implements ViewContext {}
 
 	public Card buildCard(BigInteger id) {
-		bookmarkService.loadBookmarksIntoSessionIfNecessary();
+		bookmarkSessionService.loadBookmarksIntoSessionIfNecessary();
 		var bookmarks = bookmarkSessionStore.getBookmarks();
 		Bookmark bookmark = bookmarkService.getById(id, bookmarks);
 
 		bookmarkSessionService.createBookmarkExIfNecessary(bookmark);
 		Card card = MishMash.getCard(
 				bookmark,
-				bookmarkSessionStore.getBookmarkEx(bookmark)
+				bookmarkSessionService.getBookmarkEx(bookmark)
 			)
 			.withTags(bookmark.tags())
 			.withTagString(String.join(",", bookmark.tags()));

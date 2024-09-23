@@ -10,13 +10,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BookmarkRowsComponent {
 	private final BookmarkSessionStore bookmarkSessionStore;
-	private final BookmarkService bookmarkService;
+	private final BookmarkSessionService bookmarkSessionService;
 
 	public record Ctx(List<Bookmark> bookmarks) implements ViewContext {}
 
 	public ViewContext render() {
 		String searchTags = bookmarkSessionStore.getSearchTags();
-		return new Ctx(bookmarkService.findByTag(searchTags));
+		return new Ctx(bookmarkSessionService.findByTag(searchTags));
 	}
 
 }

@@ -48,7 +48,7 @@ public class NewBookmarkComponent {
 			card = null;
 		} else {
 			bookmarkSessionService.createBookmarkExIfNecessary(bm);
-			card = MishMash.getCard(bm, bookmarkSessionStore.getBookmarkEx(bm));
+			card = MishMash.getCard(bm, bookmarkSessionService.getBookmarkEx(bm));
 		}
 		return card;
 	}

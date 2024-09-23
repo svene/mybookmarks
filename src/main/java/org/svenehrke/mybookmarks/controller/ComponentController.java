@@ -70,7 +70,7 @@ public class ComponentController {
 		return csvTextComponent.render();
 	}
 
-	@GetMapping("/addbookmark")
+	@GetMapping(AddBookmarkComponent.ADD_BOOKMARK_URL)
 	public ViewContext addBookmark() {
 		return addBookmarkComponent.render();
 	}

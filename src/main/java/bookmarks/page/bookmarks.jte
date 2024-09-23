@@ -1,3 +1,5 @@
+@import org.svenehrke.mybookmarks.components.addbookmark.AddBookmarkComponent
+
 @template.bookmarks.page.layout(
 init = "init",
 content = @`
@@ -16,7 +18,7 @@ content = @`
 		<%-- Add button --%>
 		<bal-card style="max-width: 50%; min-width: 50%"
 				  hx-trigger="init from:body, bookmarksChanged from:body"
-				  hx-get="/addbookmark"
+				  hx-get="${AddBookmarkComponent.ADD_BOOKMARK_URL}"
 		>
 		</bal-card>
 	</bal-stack>

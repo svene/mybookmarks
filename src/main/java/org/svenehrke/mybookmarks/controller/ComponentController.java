@@ -66,7 +66,7 @@ public class ComponentController {
 		return existingTagsComponent.render();
 	}
 
-	@GetMapping("/csv_textfield")
+	@GetMapping(CsvTextComponent.URL)
 	public ViewContext csvTextField() {
 		return csvTextComponent.render();
 	}

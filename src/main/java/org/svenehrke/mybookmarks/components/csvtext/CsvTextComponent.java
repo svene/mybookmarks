@@ -9,13 +9,16 @@ import org.svenehrke.mybookmarks.service.BookmarkSessionService;
 @ViewComponent
 @RequiredArgsConstructor
 public class CsvTextComponent {
+
+	public static final String URL = "/csv_textfield";
+
 	private final BookmarkService bookmarkService;
 	private final BookmarkSessionService bookmarkSessionService;
 
 	public record Ctx(String csv) implements ViewContext {}
 
 
-	public ViewContext render() {
+	public Ctx render() {
 		var csv = bookmarkService.convertBookmarksToCSV(bookmarkSessionService.getBookmarks());
 		return new Ctx(csv);
 	}

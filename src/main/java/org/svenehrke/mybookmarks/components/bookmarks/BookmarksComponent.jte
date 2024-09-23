@@ -8,20 +8,17 @@ content = @`
 
 	<bal-stack layout="vertical" align="center" class="mb-small">
 
-		<bal-card style="max-width: 50%; min-width: 50%"
-		>
+		<bal-card style="max-width: 50%; min-width: 50%">
 			${ctx.existingTags()}
 		</bal-card>
-		<bal-card style="max-width: 50%; min-width: 50%"
-				  hx-trigger="init from:body, bookmarksChanged from:body"
-				  hx-get="/csv_textfield">
+
+		<bal-card style="max-width: 50%; min-width: 50%">
+			${ctx.csvText()}
 		</bal-card>
 
 		<%-- Add button --%>
-		<bal-card style="max-width: 50%; min-width: 50%"
-		>
+		<bal-card style="max-width: 50%; min-width: 50%">
 			${ctx.addBookmark()}
-
 		</bal-card>
 	</bal-stack>
 

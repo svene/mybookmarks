@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,27 +15,26 @@ public class BookmarkSessionService {
 	private final BookmarkSessionStore bookmarkSessionStore;
 
 	public void createBookmarkExIfNecessary(Bookmark bookmark) {
+		bookmarkSessionStore.getBookmarkExs().computeIfAbsent(
+			bookmark.url(),
+			(String url) -> bookmarkService.createBookmarkEx(bookmark)
+		);
+
+/*
 		var ex = bookmarkSessionStore.getBookmarkExs().get(bookmark.url());
 		if (ex == null) {
 			ex = bookmarkService.createBookmarkEx(bookmark);
 			bookmarkSessionStore.getBookmarkExs().putIfAbsent(bookmark.url(), ex);
 		}
+*/
 	}
 
 	public void handleNewCsvString(String csv) {
 		bookmarkSessionStore.setBookmarksCSV(csv);
-		CsvInfo csvInfo = new CsvReader().getCsvInfo(csv);
-		bookmarkSessionStore.setBookmarksCsvInfo(csvInfo);
-		List<Bookmark> newBookmarks = new CsvReader().convertCsvToBookmarks(csvInfo.records())
-			.stream()
-			.toList();
-		bookmarkSessionStore.setBookmarks(newBookmarks);
-		List<String> tags = newBookmarks.stream()
-			.flatMap(it -> it.tags().stream())
-			.distinct()
-			.sorted()
-			.toList();
-		bookmarkSessionStore.setTags(tags);
+		var csvParseResult = bookmarkService.parse(csv);
+		bookmarkSessionStore.setBookmarksCsvInfo(csvParseResult.csvInfo());
+		bookmarkSessionStore.setBookmarks(csvParseResult.bookmarks());
+		bookmarkSessionStore.setTags(csvParseResult.tags());
 	}
 
 	public BookmarkEx getBookmarkEx(Bookmark bm) {
@@ -56,32 +54,26 @@ public class BookmarkSessionService {
 		handleNewCsvString(bookmarkService.reload());
 	}
 
-	public List<Bookmark> findByTag(String tagsString) {
-		List<Bookmark> result;
+	public List<Bookmark> findAllByTag(String tagsString) {
 		loadBookmarksIntoSessionIfNecessary();
-		if (StringUtils.hasLength(tagsString)) {
-			String[] split = tagsString.split(",");
-			List<String> tags = Arrays.stream(split).map(String::trim).toList();
-			List<String> plusTags = MishMash.filterList(tags, it -> it.startsWith("+")).stream().map(it -> it.substring(1)).toList();
-			List<String> minusTags = MishMash.filterList(tags, it -> it.startsWith("-")).stream().map(it -> it.substring(1)).toList();
-			List<String> normalTags = MishMash.filterList(tags, s -> !s.startsWith("+") && !s.startsWith("-"));
-
-			result = bookmarkSessionStore.getBookmarks().stream()
-				.filter(it -> normalTags.isEmpty() || !Collections.disjoint(it.tags(), normalTags))
-				.filter(it -> minusTags.isEmpty() || it.tags().stream().noneMatch(minusTags::contains)) // Check that it.tags() does not contain any item from minusTags
-				.collect(Collectors.toList());
-		} else {
-			result = bookmarkSessionStore.getBookmarks();
+		if (!StringUtils.hasLength(tagsString)) {
+			return bookmarkSessionStore.getBookmarks();
 		}
-		return result;
+
+		var tags = bookmarkService.parseTagsString(tagsString);
+		// Check that it.tags() does not contain any item from minusTags
+		return bookmarkSessionStore.getBookmarks().stream()
+			.filter(it -> tags.normalTags().isEmpty() || !Collections.disjoint(it.tags(), tags.normalTags()))
+			.filter(it -> tags.minusTags().isEmpty() || it.tags().stream().noneMatch(tags.minusTags()::contains)) // Check that it.tags() does not contain any item from minusTags
+			.collect(Collectors.toList());
+
 	}
 
 	public void addBookmark(String bmUrl) {
 		loadBookmarksIntoSessionIfNecessary();
-		var newLine = bmUrl + ";anew" + System.lineSeparator(); // TODO: remove 'anew' (only for dev purposes)
-		var csv = newLine + bookmarkSessionStore.getBookmarksCSV();
-		reCreateBookmarks(csv);
-		bookmarkSessionStore.setPreviewBookmark(null);
+		var csv = bookmarkService.addUrlToCsv(bmUrl, bookmarkSessionStore.getBookmarksCSV());
+		handleNewCsvString(csv);
+		removePreviewBookmark();
 	}
 
 	public void setPreviewBookmark(String bmUrl) {
@@ -93,7 +85,4 @@ public class BookmarkSessionService {
 		bookmarkSessionStore.setPreviewBookmark(null);
 	}
 
-	private void reCreateBookmarks(String csv) {
-		handleNewCsvString(csv);
-	}
 }

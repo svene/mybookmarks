@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -49,6 +50,43 @@ public class BookmarkService {
 			sb.append(it.url() + ";" + String.join(",", it.tags()) + System.lineSeparator());
 		});
 		return sb.toString();
+	}
+
+	public record CsvParseResult(CsvInfo csvInfo, List<Bookmark> bookmarks, List<String> tags) {}
+
+	public CsvParseResult parse(String csv) {
+		CsvInfo csvInfo = new CsvReader().getCsvInfo(csv);
+		List<Bookmark> newBookmarks = new CsvReader().convertCsvToBookmarks(csvInfo.records())
+			.stream()
+			.toList();
+		List<String> tags = newBookmarks.stream()
+			.flatMap(it -> it.tags().stream())
+			.distinct()
+			.sorted()
+			.toList();
+		return new CsvParseResult(csvInfo, newBookmarks, tags);
+	}
+
+	public record TagsStringParseResult(
+		List<String> tags,
+		List<String> plusTags,
+		List<String> minusTags,
+		List<String> normalTags
+	) {}
+
+	public TagsStringParseResult parseTagsString(String tagsString) {
+		String[] split = tagsString.split(",");
+		List<String> tags = Arrays.stream(split).map(String::trim).toList();
+		List<String> plusTags = MishMash.filterList(tags, it -> it.startsWith("+")).stream().map(it -> it.substring(1)).toList();
+		List<String> minusTags = MishMash.filterList(tags, it -> it.startsWith("-")).stream().map(it -> it.substring(1)).toList();
+		List<String> normalTags = MishMash.filterList(tags, s -> !s.startsWith("+") && !s.startsWith("-"));
+
+		return new TagsStringParseResult(tags, plusTags, minusTags, normalTags);
+	}
+
+	public String addUrlToCsv(String currentCsv, String bmUrl) {
+		var newLine = bmUrl + ";anew" + System.lineSeparator(); // TODO: remove 'anew' (only for dev purposes)
+		return newLine + currentCsv;
 	}
 
 }

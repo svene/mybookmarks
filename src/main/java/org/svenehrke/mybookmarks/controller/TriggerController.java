@@ -67,12 +67,9 @@ public class TriggerController {
 		HttpServletRequest request,
 		HttpServletResponse response
 	) {
-		request.setAttribute(
-			View.RESPONSE_STATUS_ATTRIBUTE, HttpStatus.SEE_OTHER); // 303 (See Other) instead of 302 (Found)
-
 		bookmarkSessionService.addBookmark(url);
 		response.setHeader("HX-Trigger", "bookmarksChanged, newPreview");
-		return new RedirectView("/redirect/card/" + 227);
+		return BMControllerFunctions.redirect("/redirect/card/" + 227, request);
 	}
 
 	@PutMapping(path = "/preview-url", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})

@@ -56,7 +56,7 @@ public class ComponentController {
 		return newBookmarkComponent.render();
 	}
 
-	@GetMapping("/bookmark_rows")
+	@GetMapping(BookmarkRowsComponent.URL)
 	public ViewContext bookmarkRows() {
 		return bookmarkRowsComponent.render();
 	}

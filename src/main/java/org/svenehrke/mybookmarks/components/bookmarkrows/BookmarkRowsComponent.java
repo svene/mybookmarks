@@ -12,6 +12,9 @@ import java.util.List;
 @ViewComponent
 @RequiredArgsConstructor
 public class BookmarkRowsComponent {
+
+	public static final String URL = "/bookmark_rows";
+
 	private final BookmarkSessionStore bookmarkSessionStore;
 	private final BookmarkSessionService bookmarkSessionService;
 

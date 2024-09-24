@@ -1,3 +1,4 @@
+@import org.svenehrke.mybookmarks.components.bookmarkrows.BookmarkRowsComponent
 @import org.svenehrke.mybookmarks.components.bookmarks.BookmarksComponent.Ctx
 
 @param Ctx ctx
@@ -24,6 +25,6 @@ content = @`
 
 	<div id="search-result"
 		 hx-trigger="init from:body, bookmarksChanged from:body, searchTagsChanged from:body"
-		 hx-get="/bookmark_rows"
+		 hx-get="${BookmarkRowsComponent.URL}"
 	></div>
 `)

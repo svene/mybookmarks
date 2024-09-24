@@ -47,7 +47,7 @@ public class CsvReader {
 					var id = BigInteger.valueOf(Long.valueOf(it._2));
 					String url = it._1.get(0);
 					String tagsString = it._1.get(1);
-					var tags = BookmarkUtil.tagStringToList(tagsString);
+					var tags = BookmarkUtil.tagsStringToList(tagsString);
 					return BookmarkBuilder.builder().id(id).url(url).tags(tags).build();
 				} catch (RuntimeException e) {
 					log.error("parsing problems with: " + it._1.get(0));

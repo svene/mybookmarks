@@ -9,7 +9,6 @@ import org.svenehrke.mybookmarks.model.Bookmark;
 import org.svenehrke.mybookmarks.model.BookmarkEx;
 
 import java.math.BigInteger;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -51,7 +50,7 @@ public class BookmarkService {
 	public String convertBookmarksToCSV(List<Bookmark> bookmarks) {
 		StringBuilder sb = new StringBuilder();
 		bookmarks.forEach(it -> {
-			sb.append(it.url() + ";" + String.join(",", it.tags()) + System.lineSeparator());
+			sb.append(it.url() + ";" + BookmarkUtil.toTagsString(it.tags()) + System.lineSeparator());
 		});
 		return sb.toString();
 	}
@@ -79,8 +78,7 @@ public class BookmarkService {
 	) {}
 
 	public TagsStringParseResult parseTagsString(String tagsString) {
-		String[] split = tagsString.split(",");
-		List<String> tags = Arrays.stream(split).map(String::trim).toList();
+		var tags = BookmarkUtil.tagsStringToList(tagsString).stream().map(String::trim).toList();
 		List<String> plusTags = MishMash.filterList(tags, it -> it.startsWith("+")).stream().map(it -> it.substring(1)).toList();
 		List<String> minusTags = MishMash.filterList(tags, it -> it.startsWith("-")).stream().map(it -> it.substring(1)).toList();
 		List<String> normalTags = MishMash.filterList(tags, s -> !s.startsWith("+") && !s.startsWith("-"));

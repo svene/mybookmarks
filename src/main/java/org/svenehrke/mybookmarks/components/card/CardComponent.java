@@ -3,6 +3,7 @@ package org.svenehrke.mybookmarks.components.card;
 import de.tschuehly.spring.viewcomponent.core.component.ViewComponent;
 import de.tschuehly.spring.viewcomponent.jte.ViewContext;
 import lombok.RequiredArgsConstructor;
+import org.svenehrke.mybookmarks.service.BookmarkUtil;
 import org.svenehrke.mybookmarks.service.MishMash;
 import org.svenehrke.mybookmarks.model.Bookmark;
 import org.svenehrke.mybookmarks.model.Card;
@@ -24,7 +25,7 @@ public class CardComponent {
 				bookmarkSessionService.getBookmarkEx(bookmark)
 			)
 			.withTags(bookmark.tags())
-			.withTagString(String.join(",", bookmark.tags()));
+			.withTagString(BookmarkUtil.toTagsString(bookmark.tags()));
 		return card;
 	}
 

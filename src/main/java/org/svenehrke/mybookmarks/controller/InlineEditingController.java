@@ -30,7 +30,7 @@ public class InlineEditingController {
 		var bookmarks = bookmarkSessionService.getBookmarks();
 		var newBookmarks = bookmarks.stream()
 			.map(it -> it.id().equals(id) ?
-				it.withTags(BookmarkUtil.tagStringToList(tags))
+				it.withTags(BookmarkUtil.tagsStringToList(tags))
 				: it).toList();
 		bookmarkSessionStore.setBookmarks(newBookmarks);
 

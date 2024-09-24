@@ -1,6 +1,5 @@
 package org.svenehrke.mybookmarks.controller;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -8,11 +7,10 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.view.RedirectView;
 import org.svenehrke.mybookmarks.model.Bookmark;
-import org.svenehrke.mybookmarks.service.BookmarkService;
 import org.svenehrke.mybookmarks.service.BookmarkSessionService;
 import org.svenehrke.mybookmarks.service.BookmarkSessionStore;
+import org.svenehrke.mybookmarks.service.BookmarkUtil;
 
 import java.util.Collections;
 import java.util.List;
@@ -47,7 +45,7 @@ public class TriggerController {
 		HttpServletResponse response
 	) {
 		var list = (tags == null || tags.isEmpty()) ? Collections.<String>emptyList() : tags;
-		bookmarkSessionStore.setSearchTags(String.join(",", list));
+		bookmarkSessionStore.setSearchTags(BookmarkUtil.toTagsString(list));
 		response.setHeader("HX-Trigger", "searchTagsChanged");
 		return "";
 	}

@@ -2,14 +2,14 @@ package org.svenehrke.mybookmarks.components.formcontent;
 
 import de.tschuehly.spring.viewcomponent.core.component.ViewComponent;
 import de.tschuehly.spring.viewcomponent.jte.ViewContext;
-import org.svenehrke.mybookmarks.model.Card;
+
+import java.math.BigInteger;
 
 @ViewComponent
 public class FormContentComponent {
-	public record Ctx(Card card) implements ViewContext {}
+	public record Ctx(BigInteger id, String url, String tagString) implements ViewContext {}
 
-
-	public Ctx render(Card card) {
-		return new Ctx(card);
+	public Ctx render(BigInteger id, String url, String tagString) {
+		return new Ctx(id, url, tagString);
 	}
 }

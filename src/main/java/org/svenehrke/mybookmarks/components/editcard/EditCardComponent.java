@@ -19,6 +19,6 @@ public class EditCardComponent {
 
 	public ViewContext render(BigInteger id) {
 		Card card = cardComponent.buildCard(id);
-		return new Ctx(formContentComponent.render(card));
+		return new Ctx(formContentComponent.render(id, card.url(), card.tagString()));
 	}
 }

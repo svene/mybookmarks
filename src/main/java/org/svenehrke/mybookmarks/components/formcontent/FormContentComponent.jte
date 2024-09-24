@@ -2,18 +2,17 @@
 @import org.svenehrke.mybookmarks.controller.TriggerController
 
 @param Ctx ctx
-!{var card = ctx.card(); }
 
 <bal-form-grid>
     <bal-form-col>
-        <input type="hidden" name="id" value="${card.id()}">
+        <input type="hidden" name="id" value="${ctx.id()}">
         <div class="field">
             <label class="label">URL</label>
             <div class="control">
                 <input class="input"
                        placeholder="URL"
                        name="url"
-                       value="${card.url()}"
+                       value="${ctx.url()}"
                        hx-trigger="keyup delay:800ms"
                        hx-get='${TriggerController.URL_CHANGED}'
                        hx-swap="none"
@@ -28,7 +27,7 @@
                     <bal-input
                             name="tags"
                             placeholder="Tags"
-                            value="${card.tagString()}"
+                            value="${ctx.tagString()}"
                     ></bal-input>
                 </bal-field-control>
             </bal-field>

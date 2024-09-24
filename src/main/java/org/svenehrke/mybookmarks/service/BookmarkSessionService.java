@@ -6,6 +6,7 @@ import org.springframework.util.StringUtils;
 import org.svenehrke.mybookmarks.model.Bookmark;
 import org.svenehrke.mybookmarks.model.BookmarkEx;
 
+import java.math.BigInteger;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,6 +31,13 @@ public class BookmarkSessionService {
 		}
 */
 	}
+
+	public Bookmark getById(BigInteger id) {
+		var result = bookmarkService.getById(id, getBookmarks());
+		createBookmarkExIfNecessary(result);
+		return result;
+	}
+
 
 	public void handleNewCsvString(String csv) {
 		bookmarkSessionStore.setBookmarksCSV(csv);

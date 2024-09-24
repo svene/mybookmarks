@@ -77,7 +77,7 @@ public class BookmarkSessionService {
 
 	public void addBookmark(String bmUrl) {
 		loadBookmarksIntoSessionIfNecessary();
-		var csv = bookmarkService.addUrlToCsv(bmUrl, bookmarkSessionStore.getBookmarksCSV());
+		var csv = bookmarkService.addUrlToCsv(bookmarkSessionStore.getBookmarksCSV(), bmUrl);
 		handleNewCsvString(csv);
 		removePreviewBookmark();
 	}

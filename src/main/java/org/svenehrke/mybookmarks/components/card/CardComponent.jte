@@ -3,7 +3,7 @@
 @param Ctx ctx
 
 <bal-card-content>
-    <img class="mb-normal" src="https://placehold.co/640x336/png?text=LOADING...">
+    <img class="mb-normal" src="${ctx.ogInfo().imageUrl()}">
     <div id="card-content-text-${ctx.id()}">
         <bal-card-title level="x-large">${ctx.ogInfo().title()}</bal-card-title>
         <bal-card-subtitle bold="true">${ctx.ogInfo().uri().getHost()}</bal-card-subtitle>

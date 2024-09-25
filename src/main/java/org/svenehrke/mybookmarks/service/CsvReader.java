@@ -40,7 +40,7 @@ public class CsvReader {
 		log.debug("records = {0}", records);
 		var csvBookmarks = io.vavr.collection.Stream
 			.ofAll(records)
-			.reverse()
+//			.reverse() // we assume that the newest taken bookmarks are at the top of the file
 			.zipWithIndex()
 			.map(it -> {
 				try {
@@ -54,7 +54,7 @@ public class CsvReader {
 					throw e;
 				}
 			})
-			.reverse()
+//			.reverse()
 			.toList()
 			.asJava();
 

@@ -1,17 +1,19 @@
 package org.svenehrke.mybookmarks.controller;
 
-import jakarta.servlet.http.HttpServletRequest;
+import de.tschuehly.spring.viewcomponent.jte.ViewContext;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
-import org.svenehrke.mybookmarks.service.BookmarkSessionService;
-import org.svenehrke.mybookmarks.service.BookmarkSessionStore;
-import org.svenehrke.mybookmarks.service.BookmarkUtil;
+import org.svenehrke.mybookmarks.components.card.CardComponent;
+import org.svenehrke.mybookmarks.model.CsvInfo;
+import org.svenehrke.mybookmarks.service.*;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 
 @Controller
 @AllArgsConstructor
@@ -20,20 +22,26 @@ public class InlineEditingController {
 	private final BookmarkSessionStore bookmarkSessionStore;
 	private final BookmarkSessionService bookmarkSessionService;
 
+	private final CardComponent cardComponent;
 
-	@PutMapping("/edit/inline/putbookmark")
-	public RedirectView putBookmark(
-		HttpServletRequest request,
+	public static final String URL = "/edit/inline/putbookmark";
+
+	@PutMapping(URL)
+	public ViewContext putBookmark(
+		HttpServletResponse response,
 		@RequestParam BigInteger id,
+		@RequestParam String url,
 		@RequestParam String tags
 	) {
-		var bookmarks = bookmarkSessionService.getBookmarks();
-		var newBookmarks = bookmarks.stream()
-			.map(it -> it.id().equals(id) ?
-				it.withTags(BookmarkUtil.tagsStringToList(tags))
-				: it).toList();
-		bookmarkSessionStore.setBookmarks(newBookmarks);
+		String csv = bookmarkSessionStore.getBookmarksCSV();
+		CsvInfo csvInfo = new CsvReader().getCsvInfo(csv);
+		var records = new ArrayList<>(csvInfo.records());
+		records.set(id.intValue(), url + ";" + tags);
 
-		return BMControllerFunctions.redirect("/redirect/card/" + id, request);
+		csv = String.join(System.lineSeparator(), records);
+		bookmarkSessionService.handleNewCsvString(csv);
+
+		response.setHeader("HX-Trigger", "bookmarksChanged");
+		return cardComponent.render(id);
 	}
 }

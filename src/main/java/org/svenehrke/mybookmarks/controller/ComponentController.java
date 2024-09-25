@@ -46,7 +46,7 @@ public class ComponentController {
 		return cardComponent.render(id);
 	}
 
-	@GetMapping("/edit/inline/form")
+	@GetMapping(EditCardComponent.URL)
 	public ViewContext editInlineForm(@RequestParam BigInteger id) {
 		return editCardComponent.render(id);
 	}

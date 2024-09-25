@@ -38,15 +38,6 @@ public class BookmarkSessionService {
 		return result;
 	}
 
-
-	public void handleNewCsvString(String csv) {
-		bookmarkSessionStore.setBookmarksCSV(csv);
-		var csvParseResult = bookmarkService.parse(csv);
-		bookmarkSessionStore.setBookmarksCsvInfo(csvParseResult.csvInfo());
-		bookmarkSessionStore.setBookmarks(csvParseResult.bookmarks());
-		bookmarkSessionStore.setTags(csvParseResult.tags());
-	}
-
 	public BookmarkEx getBookmarkEx(Bookmark bm) {
 		return bookmarkSessionStore.getBookmarkExs().get(bm.url());
 	}
@@ -88,6 +79,14 @@ public class BookmarkSessionService {
 		var csv = bookmarkService.addUrlToCsv(bookmarkSessionStore.getBookmarksCSV(), bmUrl);
 		handleNewCsvString(csv);
 		removePreviewBookmark();
+	}
+
+	public void handleNewCsvString(String csv) {
+		bookmarkSessionStore.setBookmarksCSV(csv);
+		var csvParseResult = bookmarkService.parse(csv);
+		bookmarkSessionStore.setBookmarksCsvInfo(csvParseResult.csvInfo());
+		bookmarkSessionStore.setBookmarks(csvParseResult.bookmarks());
+		bookmarkSessionStore.setTags(csvParseResult.tags());
 	}
 
 	public void setPreviewBookmark(String bmUrl) {

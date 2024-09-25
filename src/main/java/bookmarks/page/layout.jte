@@ -15,7 +15,7 @@
 	<link rel="stylesheet" href="/assets/main.css"/>
 	<script type="module" src="/assets/main.js" defer></script>
 
-	<script src="/webjars/htmx.org/1.9.8/dist/htmx.js"></script>
+	<script src="/webjars/htmx.org/2.0.2/dist/htmx.js"></script>
 	<script src="/webjars/hyperscript.org/0.9.12/dist/_hyperscript.js"></script>
 	<script>
         //htmx.logAll();

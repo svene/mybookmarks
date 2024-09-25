@@ -12,6 +12,8 @@ import java.math.BigInteger;
 @RequiredArgsConstructor
 public class NewBookmarkComponent {
 
+	public static final String URL = "/newbookmark/form";
+
 	private final ImageComponent imageComponent;
 	private final FormContentComponent formContentComponent;
 

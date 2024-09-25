@@ -5,7 +5,7 @@
 
 ${ctx.imageComponentContext()} <%-- Element --%>
 <form
-        hx-post="${NewBookmarkController.BOOKMARK_URL}"
+        hx-post="${NewBookmarkController.URL}"
         hx-target="closest bal-card-content"
         hx-swap="outerHTML"
 >

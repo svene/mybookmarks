@@ -1,4 +1,5 @@
 @import org.svenehrke.mybookmarks.components.addbookmark.AddBookmarkComponent.Ctx
+@import org.svenehrke.mybookmarks.components.newbookmark.NewBookmarkComponent
 
 @param Ctx ctx
 
@@ -8,7 +9,7 @@
                 square="true"
                 icon="plus"
                 hx-trigger="click"
-                hx-get="/newbookmark/form"
+                hx-get="${NewBookmarkComponent.URL}"
                 hx-target="closest bal-card-content"
         ></bal-button>
     </bal-card-actions>

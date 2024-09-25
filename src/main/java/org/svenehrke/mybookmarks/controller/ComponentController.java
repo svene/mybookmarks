@@ -51,7 +51,7 @@ public class ComponentController {
 		return editCardComponent.render(id);
 	}
 
-	@GetMapping("/newbookmark/form")
+	@GetMapping(NewBookmarkComponent.URL)
 	public ViewContext newBookmarkForm() {
 		return newBookmarkComponent.render();
 	}
@@ -72,7 +72,8 @@ public class ComponentController {
 	}
 
 	@GetMapping(AddBookmarkComponent.URL)
-	public ViewContext addBookmark() {
+	public ViewContext addBookmark(HttpServletResponse response) {
+		response.setHeader("HX-Trigger", "bookmarksChanged, newPreview");
 		return addBookmarkComponent.render();
 	}
 

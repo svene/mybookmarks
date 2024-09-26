@@ -1,7 +1,4 @@
-@import org.svenehrke.mybookmarks.components.addbookmark.AddBookmarkComponent.Ctx
 @import org.svenehrke.mybookmarks.components.newbookmark.NewBookmarkComponent
-
-@param Ctx ctx
 
 <bal-card-content>
     <bal-card-actions position="right">

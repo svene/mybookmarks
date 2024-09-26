@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.svenehrke.mybookmarks.components.addbookmark.AddBookmarkComponent;
 import org.svenehrke.mybookmarks.components.bookmarkrows.BookmarkRowsComponent;
 import org.svenehrke.mybookmarks.components.bookmarks.BookmarksComponent;
 import org.svenehrke.mybookmarks.components.card.CardComponent;
@@ -29,7 +28,6 @@ public class ComponentController {
 	private final ExistingTagsComponent existingTagsComponent;
 	private final CsvTextComponent csvTextComponent;
 	private final NewBookmarkComponent newBookmarkComponent;
-	private final AddBookmarkComponent addBookmarkComponent;
 	private final ImageComponent imageComponent;
 
 	@GetMapping("/card/{id}")
@@ -69,12 +67,6 @@ public class ComponentController {
 	@GetMapping(CsvTextComponent.URL)
 	public ViewContext csvTextField() {
 		return csvTextComponent.render();
-	}
-
-	@GetMapping(AddBookmarkComponent.URL)
-	public ViewContext addBookmark(HttpServletResponse response) {
-		response.setHeader("HX-Trigger", "bookmarksChanged, newPreview");
-		return addBookmarkComponent.render();
 	}
 
 	@GetMapping("/image")

@@ -19,7 +19,7 @@ content = @`
 
 		<%-- Add button --%>
 		<bal-card style="max-width: 50%; min-width: 50%">
-			${ctx.addBookmark()}
+			@template._widget.addbookmark()
 		</bal-card>
 	</bal-stack>
 

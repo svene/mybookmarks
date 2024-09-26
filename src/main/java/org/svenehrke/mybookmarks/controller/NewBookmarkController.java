@@ -1,6 +1,5 @@
 package org.svenehrke.mybookmarks.controller;
 
-import de.tschuehly.spring.viewcomponent.jte.ViewContext;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -8,7 +7,6 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.svenehrke.mybookmarks.components.addbookmark.AddBookmarkComponent;
 import org.svenehrke.mybookmarks.service.BookmarkSessionService;
 
 @Controller()
@@ -18,7 +16,6 @@ public class NewBookmarkController {
 	public static final String URL = "/bookmark";
 
 	private final BookmarkSessionService bookmarkSessionService;
-	private final AddBookmarkComponent addBookmarkComponent;
 
 	/**
 	 * NOTE:
@@ -31,13 +28,13 @@ public class NewBookmarkController {
 	 *  You can directly return the new HTML fragment."
 	 */
 	@PostMapping(path = URL, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-	public ViewContext addBookmark(
+	public String addBookmark(
 		@RequestParam String url,
 		HttpServletResponse response
 	) {
 		bookmarkSessionService.addBookmark(url);
 		response.setHeader("HX-Trigger", "bookmarksChanged, newPreview");
-		return addBookmarkComponent.render();
+		return "_widget/addbookmark";
 	}
 
 }

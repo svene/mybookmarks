@@ -1,15 +1,16 @@
 package org.svenehrke.mybookmarks.components.existingtags;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.svenehrke.mybookmarks.service.BookmarkSessionService;
 
 import java.util.HashSet;
 import java.util.Map;
 
-@Component
 @RequiredArgsConstructor
+@Controller
 public class ExistingTags {
 
 	public static final String URL = "/existing_tags";
@@ -32,6 +33,11 @@ public class ExistingTags {
 			"_widget/existingtags",
 			Map.of("ctx", newContext())
 		);
+	}
+
+	@GetMapping(URL)
+	public ModelAndView existingTags() {
+		return modelAndView();
 	}
 
 }

@@ -63,10 +63,7 @@ public class ComponentController {
 
 	@GetMapping(ExistingTags.URL)
 	public ModelAndView existingTags() {
-		return new ModelAndView(
-			"_widget/existingtags",
-			Map.of("ctx", existingTags.newContext())
-		);
+		return existingTags.modelAndView();
 	}
 
 	@GetMapping(CsvTextComponent.URL)

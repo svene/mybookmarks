@@ -1,24 +1,22 @@
 package org.svenehrke.mybookmarks.components.existingtags;
 
-import de.tschuehly.spring.viewcomponent.core.component.ViewComponent;
-import de.tschuehly.spring.viewcomponent.jte.ViewContext;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 import org.svenehrke.mybookmarks.service.BookmarkSessionService;
 
 import java.util.HashSet;
 
-@ViewComponent
+@Component
 @RequiredArgsConstructor
-public class ExistingTagsComponent {
+public class ExistingTags {
 
 	public static final String URL = "/existing_tags";
 
 	private final BookmarkSessionService bookmarkSessionService;
 
-	public record Ctx(java.util.List<String> tags) implements ViewContext {}
+	public record Ctx(java.util.List<String> tags) {}
 
-
-	public Ctx render() {
+	public Ctx newContext() {
 		var tagSet = new HashSet<String>();
 		bookmarkSessionService.getBookmarks().forEach(bookmark -> {
 			tagSet.addAll(bookmark.tags());

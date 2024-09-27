@@ -10,7 +10,7 @@ content = @`
 	<bal-stack layout="vertical" align="center" class="mb-small">
 
 		<bal-card style="max-width: 50%; min-width: 50%">
-			${ctx.existingTags()}
+			@template._widget.existingtags(ctx.existingTags())
 		</bal-card>
 
 		<bal-card style="max-width: 50%; min-width: 50%">

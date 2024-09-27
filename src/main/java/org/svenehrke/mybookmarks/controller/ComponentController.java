@@ -7,16 +7,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 import org.svenehrke.mybookmarks.components.bookmarkrows.BookmarkRowsComponent;
 import org.svenehrke.mybookmarks.components.bookmarks.BookmarksComponent;
 import org.svenehrke.mybookmarks.components.card.CardComponent;
 import org.svenehrke.mybookmarks.components.csvtext.CsvTextComponent;
 import org.svenehrke.mybookmarks.components.editcard.EditCardComponent;
-import org.svenehrke.mybookmarks.components.existingtags.ExistingTagsComponent;
+import org.svenehrke.mybookmarks.components.existingtags.ExistingTags;
 import org.svenehrke.mybookmarks.components.image.ImageComponent;
 import org.svenehrke.mybookmarks.components.newbookmark.NewBookmarkComponent;
 
 import java.math.BigInteger;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -25,7 +27,7 @@ public class ComponentController {
 	private final CardComponent cardComponent;
 	private final EditCardComponent editCardComponent;
 	private final BookmarkRowsComponent bookmarkRowsComponent;
-	private final ExistingTagsComponent existingTagsComponent;
+	private final ExistingTags existingTags;
 	private final CsvTextComponent csvTextComponent;
 	private final NewBookmarkComponent newBookmarkComponent;
 	private final ImageComponent imageComponent;
@@ -59,9 +61,12 @@ public class ComponentController {
 		return bookmarkRowsComponent.render();
 	}
 
-	@GetMapping(ExistingTagsComponent.URL)
-	public ViewContext existingTags() {
-		return existingTagsComponent.render();
+	@GetMapping(ExistingTags.URL)
+	public ModelAndView existingTags() {
+		return new ModelAndView(
+			"_widget/existingtags",
+			Map.of("ctx", existingTags.newContext())
+		);
 	}
 
 	@GetMapping(CsvTextComponent.URL)

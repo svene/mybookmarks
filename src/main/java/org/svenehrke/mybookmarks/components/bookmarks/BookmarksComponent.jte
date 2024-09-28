@@ -1,12 +1,12 @@
 @import org.svenehrke.mybookmarks.components.bookmarkrows.BookmarkRowsComponent
 @import org.svenehrke.mybookmarks.components.bookmarks.BookmarksComponent.Ctx
+@import org.svenehrke.mybookmarks.components.existingtags.ExistingTags
 
 @param Ctx ctx
 
 @template.bookmarks.page.layout(
 init = "init",
 content = @`
-
 	<bal-stack layout="vertical" align="center" class="mb-small">
 
 		<bal-card style="max-width: 50%; min-width: 50%">
@@ -27,4 +27,12 @@ content = @`
 		 hx-trigger="init from:body, bookmarksChanged from:body, searchTagsChanged from:body"
 		 hx-get="${BookmarkRowsComponent.URL}"
 	></div>
+
+	<%-- Events --%>
+	<template hx-trigger="bookmarksChanged from:body"
+			  hx-target='[app-id="existing_tags"]'
+			  hx-get="${ExistingTags.URL}"
+			  hx-swap="outerHTML"
+	></template>
+
 `)

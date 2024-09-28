@@ -17,6 +17,7 @@
 
 	<script src="/webjars/htmx.org/2.0.2/dist/htmx.js"></script>
 	<script src="/webjars/hyperscript.org/0.9.12/dist/_hyperscript.js"></script>
+	<script src="/assets/css-scope-inline.js"></script>
 	<script>
         //htmx.logAll();
 	</script>

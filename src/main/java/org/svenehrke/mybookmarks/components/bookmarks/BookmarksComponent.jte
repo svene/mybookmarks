@@ -8,20 +8,22 @@
 init = "init",
 content = @`
 	<bal-stack layout="vertical" align="center" class="mb-small">
+		<style>
+			me bal-card { max-width: 50%; min-width: 50%; }
+		</style>
 
-		<bal-card style="max-width: 50%; min-width: 50%"
-				  hx-trigger="bookmarksChanged from:body"
+		<bal-card hx-trigger="bookmarksChanged from:body"
 				  hx-get="${ExistingTags.URL}"
 		>
 			@template._widget.existingtags(ctx.existingTags())
 		</bal-card>
 
-		<bal-card style="max-width: 50%; min-width: 50%">
+		<bal-card>
 			${ctx.csvText()}
 		</bal-card>
 
 		<%-- Add button --%>
-		<bal-card style="max-width: 50%; min-width: 50%">
+		<bal-card>
 			@template._widget.addbookmark()
 		</bal-card>
 	</bal-stack>

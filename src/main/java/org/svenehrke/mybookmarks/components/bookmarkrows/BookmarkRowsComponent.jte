@@ -5,8 +5,11 @@
 !{var bookmarks = ctx.bookmarks(); }
 
 <bal-stack layout="vertical" align="center">
+    <style>
+		me bal-card { max-width: 50%; min-width: 50%; }
+    </style>
     @for(Bookmark bm : bookmarks.stream().limit(10).toList())
-        <bal-card style="max-width: 50%; min-width: 50%">
+        <bal-card>
             ${ctx.placeholderCardComponent().render(bm.id())}
         </bal-card>
     @endfor

@@ -4,7 +4,7 @@ import de.tschuehly.spring.viewcomponent.core.component.ViewComponent;
 import de.tschuehly.spring.viewcomponent.jte.ViewContext;
 import lombok.RequiredArgsConstructor;
 import org.svenehrke.mybookmarks.components.csvtext.CsvTextComponent;
-import org.svenehrke.mybookmarks.components.existingtags.ExistingTagsService;
+import org.svenehrke.mybookmarks.service.BookmarkSessionService;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ public class BookmarksComponent {
 	public static final String URL = "/bookmarks";
 
 	private final CsvTextComponent csvTextComponent;
-	private final ExistingTagsService existingTagsService;
+	private final BookmarkSessionService bookmarkSessionService;
 
 	public record Ctx(
 		List<String> existingTags,
@@ -24,7 +24,7 @@ public class BookmarksComponent {
 
 	public Ctx render() {
 		return new Ctx(
-			existingTagsService.getExistingTags(),
+			bookmarkSessionService.getTags(),
 			csvTextComponent.render()
 		);
 	}

@@ -47,6 +47,11 @@ public class BookmarkSessionService {
 		return bookmarkSessionStore.getBookmarks();
 	}
 
+	public List<String> getTags() {
+		loadBookmarksIntoSessionIfNecessary();
+		return bookmarkSessionStore.getTags();
+	}
+
 	public void loadBookmarksIntoSessionIfNecessary() {
 		synchronized (bookmarkSessionStore.getBookmarks()) {
 			var bookmarks = bookmarkSessionStore.getBookmarks();

@@ -1,10 +1,10 @@
-@import org.svenehrke.mybookmarks.components.existingtags.ExistingTags.Ctx
+@import java.util.List
 
-@param Ctx ctx
+@param List<String> tags
 
 <bal-card-content>
     <bal-card-title level="x-large">Existing tags</bal-card-title>
-    @for(String tag : ctx.tags())
+    @for(String tag : tags)
         <bal-tag>${tag}</bal-tag>
     @endfor
 </bal-card-content>

@@ -1,4 +1,3 @@
-@import org.svenehrke.mybookmarks.components.bookmarkrows.BookmarkRowsComponent
 @import org.svenehrke.mybookmarks.components.bookmarks.BookmarksComponent.Ctx
 
 @param Ctx ctx
@@ -25,7 +24,8 @@ content = @`
 		</bal-card>
 	</bal-stack>
 
-	<div id="search-result" hx-trigger="init from:body" hx-get="${BookmarkRowsComponent.URL}"
-	></div>
+	<div id="search-result">
+		@template.org.svenehrke.mybookmarks.components.bookmarkrows.BookmarkRowsComponent(ctx = ctx.bookmarkRowsCtx())
+	</div>
 
 `)

@@ -34,7 +34,7 @@ public class PostBookmarkComponent {
 	public Ctx render() {
 		return new Ctx(
 			bookmarkSessionService.getTags(),
-			bookmarkRowsComponent.buildCtx()
+			bookmarkRowsComponent.ctx()
 		);
 	}
 

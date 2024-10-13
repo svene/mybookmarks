@@ -28,18 +28,12 @@ public class BookmarkRowsComponent {
 		PlaceholderCardComponent placeholderCardComponent
 	) implements ViewContext {}
 
-	public Ctx buildCtx() {
+	public Ctx ctx() {
 		String searchTags = bookmarkSessionStore.getSearchTags();
 		return new Ctx(
 			bookmarkSessionService.findAllByTag(searchTags),
 			placeholderCardComponent
 		);
 	}
-
-	@GetMapping(URL)
-	public ViewContext bookmarkRows() {
-		return buildCtx();
-	}
-
 
 }

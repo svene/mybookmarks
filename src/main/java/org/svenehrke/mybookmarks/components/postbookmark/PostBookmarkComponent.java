@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.svenehrke.mybookmarks.components.bookmarkrows.BookmarkRowsComponent;
 import org.svenehrke.mybookmarks.service.BookmarkSessionService;
 
 import java.util.List;
@@ -23,13 +24,18 @@ public class PostBookmarkComponent {
 	public static final String URL = "/bookmark";
 
 	private final BookmarkSessionService bookmarkSessionService;
+	private final BookmarkRowsComponent bookmarkRowsComponent;
 
 	public record Ctx(
-		List<String> existingTags
+		List<String> existingTags,
+		BookmarkRowsComponent.Ctx bookmarkRowsCtx
 	) implements ViewContext {}
 
 	public Ctx render() {
-		return new Ctx(bookmarkSessionService.getTags());
+		return new Ctx(
+			bookmarkSessionService.getTags(),
+			bookmarkRowsComponent.buildCtx()
+		);
 	}
 
 	/**

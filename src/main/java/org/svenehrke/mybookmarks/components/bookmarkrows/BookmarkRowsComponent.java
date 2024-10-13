@@ -28,7 +28,7 @@ public class BookmarkRowsComponent {
 		PlaceholderCardComponent placeholderCardComponent
 	) implements ViewContext {}
 
-	public ViewContext render() {
+	public Ctx buildCtx() {
 		String searchTags = bookmarkSessionStore.getSearchTags();
 		return new Ctx(
 			bookmarkSessionService.findAllByTag(searchTags),
@@ -38,7 +38,7 @@ public class BookmarkRowsComponent {
 
 	@GetMapping(URL)
 	public ViewContext bookmarkRows() {
-		return render();
+		return buildCtx();
 	}
 
 

@@ -25,9 +25,7 @@ content = @`
 		</bal-card>
 	</bal-stack>
 
-	<div id="search-result"
-		 hx-trigger="init from:body, bookmarksChanged from:body, searchTagsChanged from:body"
-		 hx-get="${BookmarkRowsComponent.URL}"
+	<div id="search-result" hx-trigger="init from:body" hx-get="${BookmarkRowsComponent.URL}"
 	></div>
 
 `)

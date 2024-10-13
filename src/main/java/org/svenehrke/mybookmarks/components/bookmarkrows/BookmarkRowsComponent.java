@@ -3,6 +3,8 @@ package org.svenehrke.mybookmarks.components.bookmarkrows;
 import de.tschuehly.spring.viewcomponent.core.component.ViewComponent;
 import de.tschuehly.spring.viewcomponent.jte.ViewContext;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.svenehrke.mybookmarks.components.placeholdercard.PlaceholderCardComponent;
 import org.svenehrke.mybookmarks.service.BookmarkSessionService;
 import org.svenehrke.mybookmarks.service.BookmarkSessionStore;
@@ -12,6 +14,7 @@ import java.util.List;
 
 @ViewComponent
 @RequiredArgsConstructor
+@Controller
 public class BookmarkRowsComponent {
 
 	public static final String URL = "/bookmark_rows";
@@ -32,5 +35,11 @@ public class BookmarkRowsComponent {
 			placeholderCardComponent
 		);
 	}
+
+	@GetMapping(URL)
+	public ViewContext bookmarkRows() {
+		return render();
+	}
+
 
 }

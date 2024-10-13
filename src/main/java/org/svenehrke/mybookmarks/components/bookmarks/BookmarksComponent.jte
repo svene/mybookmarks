@@ -1,6 +1,5 @@
 @import org.svenehrke.mybookmarks.components.bookmarkrows.BookmarkRowsComponent
 @import org.svenehrke.mybookmarks.components.bookmarks.BookmarksComponent.Ctx
-@import org.svenehrke.mybookmarks.components.existingtags.ExistingTags
 
 @param Ctx ctx
 

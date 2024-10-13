@@ -1,21 +1,36 @@
-package org.svenehrke.mybookmarks.controller;
+package org.svenehrke.mybookmarks.components.postbookmark;
 
+import de.tschuehly.spring.viewcomponent.core.component.ViewComponent;
+import de.tschuehly.spring.viewcomponent.jte.ViewContext;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.svenehrke.mybookmarks.service.BookmarkSessionService;
 
-@Controller()
-@AllArgsConstructor
-@Slf4j
-public class NewBookmarkController {
+import java.util.List;
+
+/**
+ * Smart Component
+ */
+@ViewComponent
+@RequiredArgsConstructor
+@Controller
+public class PostBookmarkComponent {
+
 	public static final String URL = "/bookmark";
 
 	private final BookmarkSessionService bookmarkSessionService;
+
+	public record Ctx(
+		List<String> existingTags
+	) implements ViewContext {}
+
+	public Ctx render() {
+		return new Ctx(bookmarkSessionService.getTags());
+	}
 
 	/**
 	 * NOTE:
@@ -28,13 +43,13 @@ public class NewBookmarkController {
 	 *  You can directly return the new HTML fragment."
 	 */
 	@PostMapping(path = URL, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-	public String addBookmark(
+	public ViewContext addBookmark(
 		@RequestParam String url,
 		HttpServletResponse response
 	) {
 		bookmarkSessionService.addBookmark(url);
 		response.setHeader("HX-Trigger", "bookmarksChanged, newPreview");
-		return "_widget/addbookmark";
+		return render();
 	}
 
 }

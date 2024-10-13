@@ -8,6 +8,9 @@ import org.svenehrke.mybookmarks.service.BookmarkSessionService;
 
 import java.util.Map;
 
+/**
+ * Dumb Component
+ */
 @RequiredArgsConstructor
 @Controller
 public class ExistingTags {

@@ -12,9 +12,7 @@ content = @`
 			me bal-card { max-width: 50%; min-width: 50%; }
 		</style>
 
-		<bal-card hx-trigger="bookmarksChanged from:body"
-				  hx-get="${ExistingTags.URL}"
-		>
+		<bal-card id="existing-tags">
 			@template._widget.existingtags(ctx.existingTags())
 		</bal-card>
 

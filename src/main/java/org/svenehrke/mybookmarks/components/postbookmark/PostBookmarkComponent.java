@@ -23,6 +23,9 @@ import java.util.List;
 @Controller
 public class PostBookmarkComponent {
 
+	public record Ctx(PostBookmarkComponent ME) implements ViewContext {}
+	public final Ctx ctx = new Ctx(this);
+
 	public static final String URL = "/bookmark";
 
 	public final BookmarkSessionService bookmarkSessionService;
@@ -30,15 +33,6 @@ public class PostBookmarkComponent {
 	public final BookmarkRowsComponent bookmarkRowsComponent;
 	public final CsvTextComponent csvTextComponent;
 
-	public record Ctx(
-		PostBookmarkComponent ME
-	) implements ViewContext {}
-
-	public Ctx ctx() {
-		return new Ctx(
-			this
-		);
-	}
 
 	/**
 	 * NOTE:
@@ -57,7 +51,7 @@ public class PostBookmarkComponent {
 	) {
 		bookmarkSessionService.addBookmark(url);
 		response.setHeader("HX-Trigger", "bookmarksChanged, newPreview");
-		return ctx();
+		return ctx;
 	}
 
 }

@@ -9,7 +9,7 @@
 </div>
 
 <div id="search-result" hx-swap-oob="outerHTML">
-	@template.org.svenehrke.mybookmarks.components.bookmarkrows.BookmarkRowsComponent(ctx = ctx.bookmarkRowsCtx())
+	${ctx.ME().bookmarkRowsComponent.ctx()}
 </div>
 
 <div id="csv-text" hx-swap-oob="innerHTML">

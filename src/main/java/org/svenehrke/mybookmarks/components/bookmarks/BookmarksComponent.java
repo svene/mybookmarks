@@ -16,20 +16,18 @@ public class BookmarksComponent {
 	public static final String URL = "/bookmarks";
 
 	public final CsvTextComponent csvTextComponent;
-	private final BookmarkSessionService bookmarkSessionService;
-	private final BookmarkRowsComponent bookmarkRowsComponent;
+	public final BookmarkSessionService bookmarkSessionService;
+	public final BookmarkRowsComponent bookmarkRowsComponent;
 
 	public record Ctx(
 		BookmarksComponent ME,
-		List<String> existingTags,
-		BookmarkRowsComponent.Ctx bookmarkRowsCtx
+		List<String> existingTags
 	) implements ViewContext {}
 
 	public Ctx render() {
 		return new Ctx(
 			this,
-			bookmarkSessionService.getTags(),
-			bookmarkRowsComponent.ctx()
+			bookmarkSessionService.getTags()
 		);
 	}
 

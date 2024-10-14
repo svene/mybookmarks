@@ -25,7 +25,7 @@ content = @`
 	</bal-stack>
 
 	<div id="search-result">
-		@template.org.svenehrke.mybookmarks.components.bookmarkrows.BookmarkRowsComponent(ctx = ctx.bookmarkRowsCtx())
+		${ctx.ME().bookmarkRowsComponent.ctx()}
 	</div>
 
 `)

@@ -24,23 +24,19 @@ public class PostBookmarkComponent {
 
 	public static final String URL = "/bookmark";
 
-	private final BookmarkSessionService bookmarkSessionService;
-	private final BookmarkRowsComponent bookmarkRowsComponent;
+	public final BookmarkSessionService bookmarkSessionService;
+	public final BookmarkRowsComponent bookmarkRowsComponent;
 	public final CsvTextComponent csvTextComponent;
 
 	public record Ctx(
 		PostBookmarkComponent ME,
-		List<String> existingTags,
-		BookmarkRowsComponent.Ctx bookmarkRowsCtx,
-		CsvTextComponent.Ctx csvTextCtx
+		List<String> existingTags
 	) implements ViewContext {}
 
 	public Ctx ctx() {
 		return new Ctx(
 			this,
-			bookmarkSessionService.getTags(),
-			bookmarkRowsComponent.ctx(),
-			csvTextComponent.ctx()
+			bookmarkSessionService.getTags()
 		);
 	}
 

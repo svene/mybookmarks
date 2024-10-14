@@ -22,7 +22,6 @@ public class BookmarksComponent {
 	public record Ctx(
 		BookmarksComponent ME,
 		List<String> existingTags,
-		CsvTextComponent.Ctx csvTextCtx,
 		BookmarkRowsComponent.Ctx bookmarkRowsCtx
 	) implements ViewContext {}
 
@@ -30,7 +29,6 @@ public class BookmarksComponent {
 		return new Ctx(
 			this,
 			bookmarkSessionService.getTags(),
-			csvTextComponent.ctx(),
 			bookmarkRowsComponent.ctx()
 		);
 	}

@@ -15,7 +15,6 @@ content = @`
 		</bal-card>
 
 		<bal-card id="csv-text">
-<%--			@template.org.svenehrke.mybookmarks.components.csvtext.CsvTextComponent(ctx = ctx.csvTextCtx())--%>
 			${ctx.ME().csvTextComponent.ctx()}
 		</bal-card>
 

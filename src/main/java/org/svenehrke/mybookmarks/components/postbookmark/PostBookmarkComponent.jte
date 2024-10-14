@@ -13,9 +13,6 @@
 </div>
 
 <div id="csv-text" hx-swap-oob="innerHTML">
-<%--
-	@template.org.svenehrke.mybookmarks.components.csvtext.CsvTextComponent(ctx = ctx.csvTextCtx())
---%>
 	${ctx.ME().csvTextComponent.ctx()}
 </div>
 

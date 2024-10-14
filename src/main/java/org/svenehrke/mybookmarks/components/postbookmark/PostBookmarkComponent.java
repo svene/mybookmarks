@@ -31,14 +31,12 @@ public class PostBookmarkComponent {
 	public final CsvTextComponent csvTextComponent;
 
 	public record Ctx(
-		PostBookmarkComponent ME,
-		List<String> existingTags
+		PostBookmarkComponent ME
 	) implements ViewContext {}
 
 	public Ctx ctx() {
 		return new Ctx(
-			this,
-			bookmarkSessionService.getTags()
+			this
 		);
 	}
 

@@ -6,9 +6,6 @@ import lombok.RequiredArgsConstructor;
 import org.svenehrke.mybookmarks.components.bookmarkrows.BookmarkRowsComponent;
 import org.svenehrke.mybookmarks.components.csvtext.CsvTextComponent;
 import org.svenehrke.mybookmarks.components.existingtags.ExistingTagsComponent;
-import org.svenehrke.mybookmarks.service.BookmarkSessionService;
-
-import java.util.List;
 
 @ViewComponent
 @RequiredArgsConstructor
@@ -18,18 +15,15 @@ public class BookmarksComponent {
 
 	public final ExistingTagsComponent existingTagsComponent;
 	public final CsvTextComponent csvTextComponent;
-	public final BookmarkSessionService bookmarkSessionService;
 	public final BookmarkRowsComponent bookmarkRowsComponent;
 
 	public record Ctx(
-		BookmarksComponent ME,
-		List<String> existingTags
+		BookmarksComponent ME
 	) implements ViewContext {}
 
 	public Ctx render() {
 		return new Ctx(
-			this,
-			bookmarkSessionService.getTags()
+			this
 		);
 	}
 

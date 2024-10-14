@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.svenehrke.mybookmarks.components.bookmarkrows.BookmarkRowsComponent;
 import org.svenehrke.mybookmarks.components.csvtext.CsvTextComponent;
+import org.svenehrke.mybookmarks.components.existingtags.ExistingTagsComponent;
 import org.svenehrke.mybookmarks.service.BookmarkSessionService;
 
 import java.util.List;
@@ -25,6 +26,7 @@ public class PostBookmarkComponent {
 	public static final String URL = "/bookmark";
 
 	public final BookmarkSessionService bookmarkSessionService;
+	public final ExistingTagsComponent existingTagsComponent;
 	public final BookmarkRowsComponent bookmarkRowsComponent;
 	public final CsvTextComponent csvTextComponent;
 

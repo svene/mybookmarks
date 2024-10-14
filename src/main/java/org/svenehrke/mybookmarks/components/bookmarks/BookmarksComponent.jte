@@ -11,7 +11,7 @@ content = @`
 		</style>
 
 		<bal-card id="existing-tags">
-			@template._widget.existingtags(ctx.existingTags())
+			${ctx.ME().existingTagsComponent.ctx()}
 		</bal-card>
 
 		<bal-card id="csv-text">

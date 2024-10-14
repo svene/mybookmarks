@@ -29,9 +29,11 @@ public class BookmarkRowsComponent {
 	) implements ViewContext {}
 
 	public Ctx ctx() {
-		String searchTags = bookmarkSessionStore.getSearchTags();
+		var bookmarks = bookmarkSessionService.findAllByTag(
+			bookmarkSessionStore.getSearchTags()
+		);
 		return new Ctx(
-			bookmarkSessionService.findAllByTag(searchTags),
+			bookmarks,
 			placeholderCardComponent
 		);
 	}

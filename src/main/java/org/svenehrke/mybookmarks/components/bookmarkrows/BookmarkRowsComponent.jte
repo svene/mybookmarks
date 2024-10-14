@@ -10,7 +10,7 @@
     </style>
     @for(Bookmark bm : bookmarks.stream().limit(10).toList())
         <bal-card>
-            ${ctx.placeholderCardComponent().render(bm.id())}
+            ${ctx.placeholderCardComponent().ctx(bm.id())}
         </bal-card>
     @endfor
 </bal-stack>

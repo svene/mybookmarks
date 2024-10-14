@@ -55,7 +55,7 @@ public class ComponentController {
 
 	@GetMapping(BookmarksComponent.URL)
 	public ViewContext bookmarks() {
-		return bookmarksComponent.render();
+		return bookmarksComponent.ctx;
 	}
 
 }

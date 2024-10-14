@@ -17,14 +17,7 @@ public class BookmarksComponent {
 	public final CsvTextComponent csvTextComponent;
 	public final BookmarkRowsComponent bookmarkRowsComponent;
 
-	public record Ctx(
-		BookmarksComponent ME
-	) implements ViewContext {}
-
-	public Ctx render() {
-		return new Ctx(
-			this
-		);
-	}
+	public record Ctx(BookmarksComponent ME) implements ViewContext {}
+	public final Ctx ctx = new Ctx(this);
 
 }

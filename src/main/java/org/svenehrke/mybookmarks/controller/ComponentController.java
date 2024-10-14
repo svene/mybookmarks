@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.svenehrke.mybookmarks.components.bookmarks.BookmarksComponent;
 import org.svenehrke.mybookmarks.components.card.CardComponent;
-import org.svenehrke.mybookmarks.components.csvtext.CsvTextComponent;
 import org.svenehrke.mybookmarks.components.editcard.EditCardComponent;
 import org.svenehrke.mybookmarks.components.image.ImageComponent;
 import org.svenehrke.mybookmarks.components.newbookmark.NewBookmarkComponent;
@@ -22,7 +21,6 @@ public class ComponentController {
 	private final BookmarksComponent bookmarksComponent;
 	private final CardComponent cardComponent;
 	private final EditCardComponent editCardComponent;
-	private final CsvTextComponent csvTextComponent;
 	private final NewBookmarkComponent newBookmarkComponent;
 	private final ImageComponent imageComponent;
 
@@ -48,11 +46,6 @@ public class ComponentController {
 	@GetMapping(NewBookmarkComponent.URL)
 	public ViewContext newBookmarkForm() {
 		return newBookmarkComponent.render();
-	}
-
-	@GetMapping(CsvTextComponent.URL)
-	public ViewContext csvTextField() {
-		return csvTextComponent.render();
 	}
 
 	@GetMapping("/image")

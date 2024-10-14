@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.svenehrke.mybookmarks.components.bookmarkrows.BookmarkRowsComponent;
+import org.svenehrke.mybookmarks.components.csvtext.CsvTextComponent;
 import org.svenehrke.mybookmarks.service.BookmarkSessionService;
 
 import java.util.List;
@@ -25,16 +26,19 @@ public class PostBookmarkComponent {
 
 	private final BookmarkSessionService bookmarkSessionService;
 	private final BookmarkRowsComponent bookmarkRowsComponent;
+	private final CsvTextComponent csvTextComponent;
 
 	public record Ctx(
 		List<String> existingTags,
-		BookmarkRowsComponent.Ctx bookmarkRowsCtx
+		BookmarkRowsComponent.Ctx bookmarkRowsCtx,
+		CsvTextComponent.Ctx csvTextCtx
 	) implements ViewContext {}
 
-	public Ctx render() {
+	public Ctx ctx() {
 		return new Ctx(
 			bookmarkSessionService.getTags(),
-			bookmarkRowsComponent.ctx()
+			bookmarkRowsComponent.ctx(),
+			csvTextComponent.ctx()
 		);
 	}
 
@@ -49,13 +53,13 @@ public class PostBookmarkComponent {
 	 *  You can directly return the new HTML fragment."
 	 */
 	@PostMapping(path = URL, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-	public ViewContext addBookmark(
+	public ViewContext POST_bookmark(
 		@RequestParam String url,
 		HttpServletResponse response
 	) {
 		bookmarkSessionService.addBookmark(url);
 		response.setHeader("HX-Trigger", "bookmarksChanged, newPreview");
-		return render();
+		return ctx();
 	}
 
 }

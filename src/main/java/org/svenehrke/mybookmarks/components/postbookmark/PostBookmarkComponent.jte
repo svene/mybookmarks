@@ -12,3 +12,7 @@
 	@template.org.svenehrke.mybookmarks.components.bookmarkrows.BookmarkRowsComponent(ctx = ctx.bookmarkRowsCtx())
 </div>
 
+<div id="csv-text" hx-swap-oob="innerHTML">
+	@template.org.svenehrke.mybookmarks.components.csvtext.CsvTextComponent(ctx = ctx.csvTextCtx())
+</div>
+

@@ -14,8 +14,8 @@ content = @`
 			@template._widget.existingtags(ctx.existingTags())
 		</bal-card>
 
-		<bal-card>
-			${ctx.csvText()}
+		<bal-card id="csv-text">
+			@template.org.svenehrke.mybookmarks.components.csvtext.CsvTextComponent(ctx = ctx.csvTextCtx())
 		</bal-card>
 
 		<%-- Add button --%>

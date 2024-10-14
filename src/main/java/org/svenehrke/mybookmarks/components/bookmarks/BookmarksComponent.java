@@ -21,14 +21,14 @@ public class BookmarksComponent {
 
 	public record Ctx(
 		List<String> existingTags,
-		CsvTextComponent.Ctx csvText,
+		CsvTextComponent.Ctx csvTextCtx,
 		BookmarkRowsComponent.Ctx bookmarkRowsCtx
 	) implements ViewContext {}
 
 	public Ctx render() {
 		return new Ctx(
 			bookmarkSessionService.getTags(),
-			csvTextComponent.render(),
+			csvTextComponent.ctx(),
 			bookmarkRowsComponent.ctx()
 		);
 	}

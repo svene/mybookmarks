@@ -15,11 +15,12 @@ public class BookmarksComponent {
 
 	public static final String URL = "/bookmarks";
 
-	private final CsvTextComponent csvTextComponent;
+	public final CsvTextComponent csvTextComponent;
 	private final BookmarkSessionService bookmarkSessionService;
 	private final BookmarkRowsComponent bookmarkRowsComponent;
 
 	public record Ctx(
+		BookmarksComponent ME,
 		List<String> existingTags,
 		CsvTextComponent.Ctx csvTextCtx,
 		BookmarkRowsComponent.Ctx bookmarkRowsCtx
@@ -27,6 +28,7 @@ public class BookmarksComponent {
 
 	public Ctx render() {
 		return new Ctx(
+			this,
 			bookmarkSessionService.getTags(),
 			csvTextComponent.ctx(),
 			bookmarkRowsComponent.ctx()

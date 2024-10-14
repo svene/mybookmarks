@@ -26,9 +26,10 @@ public class PostBookmarkComponent {
 
 	private final BookmarkSessionService bookmarkSessionService;
 	private final BookmarkRowsComponent bookmarkRowsComponent;
-	private final CsvTextComponent csvTextComponent;
+	public final CsvTextComponent csvTextComponent;
 
 	public record Ctx(
+		PostBookmarkComponent ME,
 		List<String> existingTags,
 		BookmarkRowsComponent.Ctx bookmarkRowsCtx,
 		CsvTextComponent.Ctx csvTextCtx
@@ -36,6 +37,7 @@ public class PostBookmarkComponent {
 
 	public Ctx ctx() {
 		return new Ctx(
+			this,
 			bookmarkSessionService.getTags(),
 			bookmarkRowsComponent.ctx(),
 			csvTextComponent.ctx()

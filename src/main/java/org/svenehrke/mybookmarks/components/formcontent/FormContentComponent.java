@@ -9,7 +9,7 @@ import java.math.BigInteger;
 public class FormContentComponent {
 	public record Ctx(BigInteger id, String url, String tagString) implements ViewContext {}
 
-	public Ctx render(BigInteger id, String url, String tagString) {
+	public Ctx ctx(BigInteger id, String url, String tagString) {
 		return new Ctx(id, url, tagString);
 	}
 }

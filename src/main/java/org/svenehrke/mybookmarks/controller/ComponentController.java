@@ -45,12 +45,12 @@ public class ComponentController {
 
 	@GetMapping(NewBookmarkComponent.URL)
 	public ViewContext newBookmarkForm() {
-		return newBookmarkComponent.render();
+		return newBookmarkComponent.ctx();
 	}
 
 	@GetMapping("/image")
 	public ViewContext image() {
-		return imageComponent.render();
+		return imageComponent.ctx();
 	}
 
 	@GetMapping(BookmarksComponent.URL)

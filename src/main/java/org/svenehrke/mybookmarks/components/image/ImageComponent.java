@@ -18,11 +18,11 @@ public class ImageComponent {
 	public record Ctx(String url) implements ViewContext {}
 
 
-	public Ctx render(String url) {
+	public Ctx ctx(String url) {
 		return new Ctx(url);
 	}
 
-	public Ctx render() {
+	public Ctx ctx() {
 		Bookmark previewBookmark = bookmarkSessionStore.getPreviewBookmark();
 		BookmarkEx ex = bookmarkSessionService.getBookmarkEx(previewBookmark);
 		return new Ctx(ex.imageUrl());

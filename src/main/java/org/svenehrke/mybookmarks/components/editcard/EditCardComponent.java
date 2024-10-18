@@ -23,6 +23,6 @@ public class EditCardComponent {
 
 	public ViewContext render(BigInteger id) {
 		Bookmark bookmark = bookmarkSessionService.getById(id);
-		return new Ctx(formContentComponent.render(id, bookmark.url(), BookmarkUtil.toTagsString(bookmark.tags())));
+		return new Ctx(formContentComponent.ctx(id, bookmark.url(), BookmarkUtil.toTagsString(bookmark.tags())));
 	}
 }

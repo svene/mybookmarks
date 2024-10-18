@@ -7,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.view.RedirectView;
 import org.svenehrke.mybookmarks.components.card.CardComponent;
 import org.svenehrke.mybookmarks.model.CsvInfo;
 import org.svenehrke.mybookmarks.service.*;
@@ -42,6 +41,6 @@ public class InlineEditingController {
 		bookmarkSessionService.handleNewCsvString(csv);
 
 		response.setHeader("HX-Trigger", "bookmarksChanged");
-		return cardComponent.render(id);
+		return cardComponent.ctx(id);
 	}
 }

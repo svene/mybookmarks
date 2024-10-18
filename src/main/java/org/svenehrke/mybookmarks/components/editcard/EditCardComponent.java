@@ -16,13 +16,18 @@ public class EditCardComponent {
 
 	public static final String URL = "/edit/inline/form";
 
-	private final BookmarkSessionService bookmarkSessionService;
-	private final FormContentComponent formContentComponent;
+	public final BookmarkSessionService bookmarkSessionService;
 
-	public record Ctx(FormContentComponent.Ctx formContent) implements ViewContext {}
+	public record Ctx(EditCardComponent ME, BigInteger id) implements ViewContext {}
 
-	public ViewContext render(BigInteger id) {
+	public Ctx ctx(BigInteger id) {
+		return new Ctx(this, id);
+	}
+
+	public FormContentComponent.Ctx formContentCtx(BigInteger id) {
 		Bookmark bookmark = bookmarkSessionService.getById(id);
-		return new Ctx(formContentComponent.ctx(id, bookmark.url(), BookmarkUtil.toTagsString(bookmark.tags())));
+		return new FormContentComponent.Ctx(
+			id, bookmark.url(), BookmarkUtil.toTagsString(bookmark.tags())
+		);
 	}
 }

@@ -8,5 +8,5 @@
         hx-target="closest bal-card-content"
         hx-swap="outerHTML"
 >
-    ${ctx.formContent()}
+        ${ctx.ME().formContentCtx(ctx.id())}
 </form>

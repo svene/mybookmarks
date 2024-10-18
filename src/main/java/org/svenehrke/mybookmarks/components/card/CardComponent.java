@@ -22,7 +22,7 @@ public class CardComponent {
 		String tagsString
 	) implements ViewContext {}
 
-	public ViewContext render(BigInteger id) {
+	public ViewContext ctx(BigInteger id) {
 		var bookmark = bookmarkSessionService.getById(id);
 		return new Ctx(
 			id,

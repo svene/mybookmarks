@@ -26,7 +26,7 @@ public class ComponentController {
 
 	@GetMapping("/card/{id}")
 	public ViewContext card_id(@PathVariable BigInteger id) {
-		return cardComponent.render(id);
+		return cardComponent.ctx(id);
 	}
 
 	@GetMapping("/redirect/card/{id}")
@@ -35,12 +35,12 @@ public class ComponentController {
 		HttpServletResponse response
 	) {
 		response.setHeader("HX-Trigger", "bookmarksChanged");
-		return cardComponent.render(id);
+		return cardComponent.ctx(id);
 	}
 
 	@GetMapping(EditCardComponent.URL)
 	public ViewContext editInlineForm(@RequestParam BigInteger id) {
-		return editCardComponent.render(id);
+		return editCardComponent.ctx(id);
 	}
 
 	@GetMapping(NewBookmarkComponent.URL)

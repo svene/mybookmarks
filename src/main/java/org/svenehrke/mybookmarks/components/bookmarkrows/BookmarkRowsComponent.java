@@ -4,7 +4,6 @@ import de.tschuehly.spring.viewcomponent.core.component.ViewComponent;
 import de.tschuehly.spring.viewcomponent.jte.ViewContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.svenehrke.mybookmarks.components.placeholdercard.PlaceholderCardComponent;
 import org.svenehrke.mybookmarks.service.BookmarkSessionService;
 import org.svenehrke.mybookmarks.service.BookmarkSessionStore;
@@ -21,21 +20,19 @@ public class BookmarkRowsComponent {
 
 	private final BookmarkSessionStore bookmarkSessionStore;
 	private final BookmarkSessionService bookmarkSessionService;
-	private final PlaceholderCardComponent placeholderCardComponent;
+	public final PlaceholderCardComponent placeholderCardComponent;
 
-	public record Ctx(
-		List<Bookmark> bookmarks,
-		PlaceholderCardComponent placeholderCardComponent
-	) implements ViewContext {}
+	public record Ctx(BookmarkRowsComponent ME) implements ViewContext {}
 
 	public Ctx ctx() {
+		return new Ctx(this);
+	}
+
+	public List<Bookmark> buildBookmarks() {
 		var bookmarks = bookmarkSessionService.findAllByTag(
 			bookmarkSessionStore.getSearchTags()
 		);
-		return new Ctx(
-			bookmarks,
-			placeholderCardComponent
-		);
+		return bookmarks;
 	}
 
 }

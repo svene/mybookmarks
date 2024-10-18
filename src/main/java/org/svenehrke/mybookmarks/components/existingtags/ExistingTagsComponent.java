@@ -13,9 +13,7 @@ public class ExistingTagsComponent {
 
 	public final BookmarkSessionService bookmarkSessionService;
 
-	public record Ctx(
-		List<String> existingTags
-	) implements ViewContext {}
+	public record Ctx(List<String> existingTags) implements ViewContext {}
 
 	public Ctx ctx() {
 		return new Ctx(bookmarkSessionService.getTags());

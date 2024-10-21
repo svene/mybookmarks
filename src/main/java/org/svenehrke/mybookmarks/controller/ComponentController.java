@@ -38,11 +38,6 @@ public class ComponentController {
 		return cardComponent.ctx(id);
 	}
 
-	@GetMapping(EditCardComponent.URL)
-	public ViewContext editInlineForm(@RequestParam BigInteger id) {
-		return editCardComponent.ctx(id);
-	}
-
 	@GetMapping(NewBookmarkComponent.URL)
 	public ViewContext newBookmarkForm() {
 		return newBookmarkComponent.ctx();

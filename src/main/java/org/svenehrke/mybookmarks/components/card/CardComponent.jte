@@ -1,4 +1,5 @@
 @import org.svenehrke.mybookmarks.components.card.CardComponent.Ctx
+@import org.svenehrke.mybookmarks.components.editcard.EditCardComponent
 
 @param Ctx ctx
 
@@ -14,7 +15,7 @@
             <bal-button
                     square="true"
                     icon="edit"
-                    hx-get="/edit/inline/form?id=${ctx.id()}"
+                    hx-get="${EditCardComponent.URL}?id=${ctx.id()}"
                     hx-target="closest #card-content-text-${ctx.id()}"
                     hx-swap="innerHTML"
             ></bal-button>

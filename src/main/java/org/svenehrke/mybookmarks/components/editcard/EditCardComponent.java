@@ -18,7 +18,7 @@ import java.math.BigInteger;
 @RequiredArgsConstructor
 public class EditCardComponent {
 
-	public static final String URL = "/edit/inline/form";
+	public static final String COMPONENT_URL = "/edit/inline/form";
 
 	public final BookmarkSessionService bookmarkSessionService;
 
@@ -35,8 +35,8 @@ public class EditCardComponent {
 		);
 	}
 
-	@GetMapping(URL)
-	public ViewContext editInlineForm(@RequestParam BigInteger id) {
+	@GetMapping(COMPONENT_URL)
+	public Ctx editInlineForm(@RequestParam BigInteger id) {
 		return ctx(id);
 	}
 

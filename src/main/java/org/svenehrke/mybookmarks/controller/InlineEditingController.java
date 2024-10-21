@@ -1,6 +1,5 @@
 package org.svenehrke.mybookmarks.controller;
 
-import de.tschuehly.spring.viewcomponent.jte.ViewContext;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +25,7 @@ public class InlineEditingController {
 	public static final String URL = "/edit/inline/putbookmark";
 
 	@PutMapping(URL)
-	public ViewContext putBookmark(
+	public CardComponent.Ctx putBookmark(
 		HttpServletResponse response,
 		@RequestParam BigInteger id,
 		@RequestParam String url,

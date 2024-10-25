@@ -5,8 +5,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.svenehrke.mybookmarks.model.Bookmark;
 import org.svenehrke.mybookmarks.model.BookmarkEx;
+import org.svenehrke.mybookmarks.model.CsvInfo;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -101,6 +103,16 @@ public class BookmarkSessionService {
 
 	public void removePreviewBookmark() {
 		bookmarkSessionStore.setPreviewBookmark(null);
+	}
+
+	public void putBookmark(BigInteger id, String url, String tags) {
+		String csv = bookmarkSessionStore.getBookmarksCSV();
+		CsvInfo csvInfo = new CsvReader().getCsvInfo(csv);
+		var records = new ArrayList<>(csvInfo.records());
+		records.set(id.intValue(), url + ";" + tags);
+
+		csv = String.join(System.lineSeparator(), records);
+		handleNewCsvString(csv);
 	}
 
 }

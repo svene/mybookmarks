@@ -5,35 +5,36 @@
 // :
 // import { initialize } from '/webjars/baloise-design-system/@baloise/ds-core/dist/index.js'
 
-// Therefore: import from .../esm/index.js which is working:
+// Therefore 'import from .../esm/index.js' is used which is working:
 import { initialize, waitForDesignSystem, waitForComponent } from '/webjars/baloise-design-system/@baloise/ds-core/dist/esm/index.js'
 
-import { balIconStarFull, balIconCall } from './webjars/baloise-design-system/@baloise/ds-icons/index.esm.js'
+import { balIconStarFull, balIconCopy, balIconCall } from '/webjars/baloise-design-system/@baloise/ds-icons/index.esm.js'
 
 console.log('main.js');
 
-// this is for only activating a certain set of icons (I think):
-// initialize({
-//     icons: { balIconStarFull },
-// });
+// Make non-built-in icons available to the html for usage:
+initialize({
+    // Hint: to use them in the name attributes BDS changes the names. E.g.: balIconCopy -> copy, balIconStarFull -> startFull
+    icons: { balIconStarFull, balIconCopy, balIconCall },
+});
 
 
 console.log('main.js');
 
 let el = document.querySelector('#call-button');
-console.log('el:', el); // works bc. it is defined in layout.html
+console.log('should be defined: (#call-button):', el); // works bc. it is defined in layout.html
 
 // The following will not be found because it is not yet rendered.
 // It will be rendered later by the design-system:
 el = document.querySelector('#call-button bal-icon');
-console.log('el:', el); // will output null
+console.log('should be null: (#call-button bal-icon):', el); // will output null
 // el.svg = balIconCall;
 
 // Therefore: use the 'waitForDesignSystem()' callback to make it work:
-// waitForDesignSystem(document.querySelector('#call-button')).then(() => {
 waitForDesignSystem().then(() => {
     console.log('waitForDesignSystem.then()');
     el = document.querySelector('#call-button bal-icon');
-    console.log('el:', el);
-    document.querySelector('#call-button bal-icon').svg = balIconCall;
+    console.log('should be defined: (#call-button bal-icon):', el);
+    // imperative (not used atm):
+    //document.querySelector('#call-button bal-icon').svg = balIconCall;
 });

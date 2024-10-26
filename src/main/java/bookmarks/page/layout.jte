@@ -39,8 +39,8 @@
 				<bal-navbar-menu-end>
 					<bal-button-group>
 						<bal-button color="light" inverted="true" icon="date">Date</bal-button>
-						<bal-button color="light" inverted="true" icon="balIconCopy">Copy CSV</bal-button>
-						<bal-button id="star-button" square="" color="light" inverted="true" icon="star-full"></bal-button>
+						<bal-button color="light" inverted="true" icon="copy">CSV</bal-button>
+						<bal-button id="star-button" square="" color="light" inverted="true" icon="starFull"></bal-button>
 						<bal-button id="date-button" square="" color="light" inverted="true" icon="date"></bal-button>
 						<bal-button id="call-button" square="" color="light" inverted="true" icon="call"></bal-button>
 					</bal-button-group>

@@ -1,10 +1,10 @@
+@import org.svenehrke.mybookmarks.actions.putbookmark.PutBookmarkAction
 @import org.svenehrke.mybookmarks.components.editcard.EditCardComponent.Ctx
-@import org.svenehrke.mybookmarks.controller.InlineEditingController
 
 @param Ctx ctx
 
 <form
-        hx-put="${InlineEditingController.URL}"
+        hx-put="${PutBookmarkAction.URL}"
         hx-target="closest bal-card-content"
         hx-swap="outerHTML"
 >

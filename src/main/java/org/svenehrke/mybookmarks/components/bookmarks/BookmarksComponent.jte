@@ -27,5 +27,4 @@ content = @`
 	<div id="search-result">
 		${ctx.ME().bookmarkRowsComponent.ctx()}
 	</div>
-
 `)

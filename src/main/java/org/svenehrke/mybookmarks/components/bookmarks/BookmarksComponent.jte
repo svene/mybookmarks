@@ -10,19 +10,21 @@ content = @`
 			me bal-card { max-width: 50%; min-width: 50%; }
 		</style>
 
-		<bal-card id="existing-tags">
-			${ctx.ME().existingTagsComponent.ctx()}
-		</bal-card>
-
-		<bal-card id="csv-text">
-			${ctx.ME().csvTextComponent.ctx()}
-		</bal-card>
-
-		<%-- Add button --%>
 		<bal-card>
-			@template._widget.addbookmark()
+			<bal-card-content>
+			<bal-card-title level="x-large">Overview</bal-card-title>
+			<div id="existing-tags" class="mb-normal">
+				${ctx.ME().existingTagsComponent.ctx()}
+			</div>
+			<div id="csv-text">
+				${ctx.ME().csvTextComponent.ctx()}
+			</div>
+			</bal-card-content>
 		</bal-card>
+
 	</bal-stack>
+
+	<bal-divider class="mb-normal"></bal-divider>
 
 	<div id="search-result">
 		${ctx.ME().bookmarkRowsComponent.ctx()}

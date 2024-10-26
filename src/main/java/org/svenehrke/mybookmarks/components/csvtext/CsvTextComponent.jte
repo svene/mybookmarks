@@ -2,11 +2,17 @@
 
 @param Ctx ctx
 
-<bal-card-content>
+<bal-card-subtitle>CSV</bal-card-subtitle>
+<div>
     <style>
-        me textarea {color: white; background-color: black;padding: 10px}
+		me textarea {
+			color: white;
+			background-color: black;
+			padding: 10px;
+			margin-left: var(--bal-space-large)
+		}
     </style>
-<textarea rows="6" cols="50" id="csvString" readonly wrap="off">
+    <textarea rows="6" cols="50" id="csvString" readonly wrap="off">
 ${ctx.csv()}
-</textarea>
-</bal-card-content>
+    </textarea>
+</div>

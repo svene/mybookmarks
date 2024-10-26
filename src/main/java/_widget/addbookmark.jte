@@ -1,7 +1,6 @@
 @import org.svenehrke.mybookmarks.components.newbookmark.NewBookmarkComponent
 
-<bal-card-content>
-    <bal-card-actions position="right">
+    <bal-card-actions position="center">
         <bal-button
                 square="true"
                 icon="plus"
@@ -10,4 +9,3 @@
                 hx-target="closest bal-card-content"
         ></bal-button>
     </bal-card-actions>
-</bal-card-content>

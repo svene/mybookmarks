@@ -39,8 +39,18 @@
 				<bal-navbar-menu-end>
 					<bal-button-group>
 						<bal-button color="light" inverted="true" icon="date">Date</bal-button>
-						<bal-button color="light" inverted="true" icon="copy">CSV</bal-button>
-						<bal-button id="star-button" square="" color="light" inverted="true" icon="starFull"></bal-button>
+						<bal-button onclick="copyCsvToClipboard()" color="light" inverted="true" icon="copy">CSV</bal-button>
+						<bal-button
+								id="star-button"
+								square=""
+								color="light"
+								inverted="true"
+								icon="refresh"
+								hx-trigger="click"
+								hx-post="${TriggerController.RELOAD_URL}"
+								hx-swap="none"
+						>
+						</bal-button>
 						<bal-button id="date-button" square="" color="light" inverted="true" icon="date"></bal-button>
 						<bal-button id="call-button" square="" color="light" inverted="true" icon="call"></bal-button>
 					</bal-button-group>
@@ -52,41 +62,6 @@
 		${content}
 	</main>
 </bal-app>
-@if(1 > 2)
-<nav>
-	<div class="nav-wrapper">
-		<a href="#" class="brand-logo"><i class="material-icons">cloud</i>My Bookmarks</a>
-		<ul class="right hide-on-med-and-down">
-			<li>
-				<a
-					href="#"
-					class="tooltipped"
-					data-position="bottom"
-					data-tooltip="Copy CSV"
-				>
-					<i class="material-icons" onclick="copyCsvToClipboard()">content_copy</i>
-				</a>
-			</li>
-			<li>
-				<a
-					href="#"
-					class="tooltipped"
-					data-position="bottom"
-					data-tooltip="Reload"
-					hx-post="${TriggerController.RELOAD_URL}" hx-swap="none"
-				>
-					<i class="material-icons">refresh</i>
-				</a>
-			</li>
-<%--			<li><a href="mobile.html"><i class="material-icons">more_vert</i></a></li>--%>
-		</ul>
-	</div>
-</nav>
-
-<div class="container mt-2">
-	${content}
-</div>
-@endif
 
 </body>
 <script>

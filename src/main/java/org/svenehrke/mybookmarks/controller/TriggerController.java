@@ -77,16 +77,4 @@ public class TriggerController {
 		return "";
 	}
 
-	public static final String URL_CHANGED = "/urlChanged";
-
-	@GetMapping(URL_CHANGED)
-	@ResponseBody
-	public String urlchanged(@RequestParam String url, HttpServletResponse response) {
-		bookmarkSessionService.setPreviewBookmark(url);
-		Bookmark previewBookmark = bookmarkSessionStore.getPreviewBookmark();
-		bookmarkSessionService.createBookmarkExIfNecessary(previewBookmark);
-		response.setHeader("HX-Trigger", "urlChanged");
-		return "";
-	}
-
 }

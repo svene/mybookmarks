@@ -1,5 +1,5 @@
+@import org.svenehrke.mybookmarks.components.formcontent.FormContentComponent
 @import org.svenehrke.mybookmarks.components.formcontent.FormContentComponent.Ctx
-@import org.svenehrke.mybookmarks.controller.TriggerController
 
 @param Ctx ctx
 
@@ -14,7 +14,7 @@
                        name="url"
                        value="${ctx.url()}"
                        hx-trigger="keyup delay:800ms"
-                       hx-get='${TriggerController.URL_CHANGED}'
+                       hx-get='${FormContentComponent.URL_CHANGED}'
                        hx-swap="none"
                 >
             </div>

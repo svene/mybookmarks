@@ -8,14 +8,14 @@
 // Therefore 'import from .../esm/index.js' is used which is working:
 import { initialize, waitForDesignSystem, waitForComponent } from '/webjars/baloise-design-system/@baloise/ds-core/dist/esm/index.js'
 
-import { balIconStarFull, balIconCopy, balIconCall, balIconRefresh } from '/webjars/baloise-design-system/@baloise/ds-icons/index.esm.js'
+import { balIconStarFull, balIconCopy, balIconCall, balIconRefresh, balIconLink } from '/webjars/baloise-design-system/@baloise/ds-icons/index.esm.js'
 
 console.log('main.js');
 
 // Make non-built-in icons available to the html for usage:
 initialize({
     // Hint: to use them in the name attributes BDS changes the names. E.g.: balIconCopy -> copy, balIconStarFull -> startFull
-    icons: { balIconStarFull, balIconCopy, balIconCall, balIconRefresh },
+    icons: { balIconStarFull, balIconCopy, balIconCall, balIconRefresh, balIconLink },
 });
 
 

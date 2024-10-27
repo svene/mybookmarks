@@ -27,36 +27,6 @@
 <body hx-boost="false">
 <bal-app>
 	<header>
-		<bal-navbar>
-			<bal-navbar-menu>
-				<bal-navbar-menu-start>
-					<bal-tabs interface="navbar">
-						<bal-tab-item value="tab-a" label="Tab A"></bal-tab-item>
-						<bal-tab-item value="tab-b" label="Tab B"></bal-tab-item>
-						<bal-tab-item value="tab-c" label="Tab C"></bal-tab-item>
-					</bal-tabs>
-				</bal-navbar-menu-start>
-				<bal-navbar-menu-end>
-					<bal-button-group>
-						<bal-button color="light" inverted="true" icon="date">Date</bal-button>
-						<bal-button onclick="copyCsvToClipboard()" color="light" inverted="true" icon="copy">CSV</bal-button>
-						<bal-button
-								id="star-button"
-								square=""
-								color="light"
-								inverted="true"
-								icon="refresh"
-								hx-trigger="click"
-								hx-post="${TriggerController.RELOAD_URL}"
-								hx-swap="none"
-						>
-						</bal-button>
-						<bal-button id="date-button" square="" color="light" inverted="true" icon="date"></bal-button>
-						<bal-button id="call-button" square="" color="light" inverted="true" icon="call"></bal-button>
-					</bal-button-group>
-				</bal-navbar-menu-end>
-			</bal-navbar-menu>
-		</bal-navbar>
 	</header>
 	<main class="container mt-xx-large">
 		${content}

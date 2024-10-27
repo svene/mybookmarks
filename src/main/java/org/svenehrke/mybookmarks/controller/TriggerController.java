@@ -23,21 +23,27 @@ public class TriggerController {
 	private final BookmarkSessionStore bookmarkSessionStore;
 	private final BookmarkSessionService bookmarkSessionService;
 
-/*
+	// TODO: this is called when the user clicks on a tag widget. Not yet implemented correctly
 	@PutMapping("/search/tags")
 	@ResponseBody
 	public String searchTags(
 		@RequestParam(required = false, name = "search_by_tags") String searchByTags,
 		HttpServletResponse response
 	) {
-		bookmarkSessionStore.setSearchTags(searchByTags);
+//		bookmarkSessionStore.setSearchTags(searchByTags);
 		response.setHeader("HX-Trigger", "searchTagsChanged");
 		return "";
 	}
 
-*/
 
 	public static final String SEARCH_TAGLIST_URL = "/search/taglist";
+
+	/**
+	 * Meant to be called by a normal input widget (comma separated list of search tags, optionally with minus-prefix)
+	 * NOTE: Used to ease the implementation.
+	 * Final UX should not be made with an input widget but with tag widgets
+	 * (or checkbox widgets (with undetermined state for minus maybe))
+	 */
 	@PutMapping(SEARCH_TAGLIST_URL)
 	@ResponseBody
 	public String search_taglist(

@@ -34,6 +34,20 @@ content = @`
 				>CSV
 				</bal-button>
 			</bal-card-actions>
+			<bal-card-content>
+				<bal-field>
+					<bal-field-label>Search</bal-field-label>
+					<bal-field-hint subject="Search by Tag">Comma separated List of tags. E.g.: htmx,css,-angular. Use a - prefix for exclusion</bal-field-hint>
+					<bal-input id="search-tags"
+							   name="search_by_tags"
+							   type="search"
+							   placeholder="Search tags"
+					></bal-input>
+				</bal-field>
+			</bal-card-content>
+			<bal-card-actions position="right">
+				<bal-button hx-put="/search/tags" hx-swap="none" hx-include="#search-tags">Search</bal-button>
+			</bal-card-actions>
 		</bal-card>
 	</bal-stack>
 

@@ -9,8 +9,11 @@ import org.svenehrke.mybookmarks.model.Bookmark;
 import org.svenehrke.mybookmarks.model.BookmarkEx;
 
 import java.math.BigInteger;
+import java.util.AbstractMap;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Slf4j
 @AllArgsConstructor
@@ -55,7 +58,12 @@ public class BookmarkService {
 		return sb.toString();
 	}
 
-	public record CsvParseResult(CsvInfo csvInfo, List<Bookmark> bookmarks, List<String> tags) {}
+	public record CsvParseResult(
+		CsvInfo csvInfo,
+		List<Bookmark> bookmarks,
+		List<String> tags,
+		Map<String, List<Bookmark>> groupbedByTag
+	) {}
 
 	public CsvParseResult parse(String csv) {
 		CsvInfo csvInfo = new CsvReader().getCsvInfo(csv);
@@ -67,7 +75,13 @@ public class BookmarkService {
 			.distinct()
 			.sorted()
 			.toList();
-		return new CsvParseResult(csvInfo, newBookmarks, tags);
+		var groupedByTag = newBookmarks.stream()
+			.flatMap(bm -> bm.tags().stream().map(tag -> new AbstractMap.SimpleEntry<>(tag, bm)))
+			.collect(Collectors.groupingBy(
+				Map.Entry::getKey,
+				Collectors.mapping(Map.Entry::getValue, Collectors.toList())
+			));
+		return new CsvParseResult(csvInfo, newBookmarks, tags, groupedByTag);
 	}
 
 	public record TagsStringParseResult(

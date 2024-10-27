@@ -20,5 +20,6 @@ public class BookmarkSessionStore {
 	private Map<String, BookmarkEx> bookmarkExs = Collections.synchronizedMap(new HashMap<>());
 	private String searchTags;
 	private List<String> tags;
+	private BookmarkService.CsvParseResult csvParseResult;
 
 }

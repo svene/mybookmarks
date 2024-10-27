@@ -54,6 +54,11 @@ public class BookmarkSessionService {
 		return bookmarkSessionStore.getTags();
 	}
 
+	public BookmarkService.CsvParseResult getCsvParseResult() {
+		loadBookmarksIntoSessionIfNecessary();
+		return bookmarkSessionStore.getCsvParseResult();
+	}
+
 	public void loadBookmarksIntoSessionIfNecessary() {
 		synchronized (bookmarkSessionStore.getBookmarks()) {
 			var bookmarks = bookmarkSessionStore.getBookmarks();
@@ -94,6 +99,7 @@ public class BookmarkSessionService {
 		bookmarkSessionStore.setBookmarksCsvInfo(csvParseResult.csvInfo());
 		bookmarkSessionStore.setBookmarks(csvParseResult.bookmarks());
 		bookmarkSessionStore.setTags(csvParseResult.tags());
+		bookmarkSessionStore.setCsvParseResult(csvParseResult); // TODO: should we replace the other properties and use csvParseResult ?
 	}
 
 	public void setPreviewBookmark(String bmUrl) {

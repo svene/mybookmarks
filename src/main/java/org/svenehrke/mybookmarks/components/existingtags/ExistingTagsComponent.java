@@ -5,6 +5,7 @@ import de.tschuehly.spring.viewcomponent.jte.ViewContext;
 import lombok.RequiredArgsConstructor;
 import org.svenehrke.mybookmarks.service.BookmarkSessionService;
 
+import java.util.Comparator;
 import java.util.List;
 
 @ViewComponent
@@ -16,6 +17,12 @@ public class ExistingTagsComponent {
 	public record Ctx(List<String> existingTags) implements ViewContext {}
 
 	public Ctx ctx() {
-		return new Ctx(bookmarkSessionService.getTags());
+		var lst = bookmarkSessionService.getCsvParseResult()
+			.groupbedByTag().entrySet().stream()
+			.sorted(Comparator.comparingInt(it -> it.getValue().size()))
+			.map(it -> it.getValue().size() + " " + it.getKey())
+			.toList()
+			;
+		return new Ctx(lst);
 	}
 }

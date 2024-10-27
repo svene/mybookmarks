@@ -3,4 +3,11 @@
 @param Ctx ctx
 
 <bal-card-subtitle>All tags</bal-card-subtitle>
-@template._widget.tags(tags = ctx.existingTags())
+
+<bal-card-content>
+    @for(String tag : ctx.existingTags())
+        <bal-tag color="green" hx-trigger="click" hx-put="tagchange">
+            ${tag}
+        </bal-tag>
+    @endfor
+</bal-card-content>

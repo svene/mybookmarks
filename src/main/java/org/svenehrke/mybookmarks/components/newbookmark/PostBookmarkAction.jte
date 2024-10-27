@@ -1,4 +1,4 @@
-@import org.svenehrke.mybookmarks.components.postbookmark.PostBookmarkComponent.Ctx
+@import org.svenehrke.mybookmarks.components.newbookmark.PostBookmarkAction.Ctx
 
 @param Ctx ctx
 

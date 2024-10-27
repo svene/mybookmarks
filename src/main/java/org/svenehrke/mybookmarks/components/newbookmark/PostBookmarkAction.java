@@ -1,4 +1,4 @@
-package org.svenehrke.mybookmarks.components.postbookmark;
+package org.svenehrke.mybookmarks.components.newbookmark;
 
 import de.tschuehly.spring.viewcomponent.core.component.ViewComponent;
 import de.tschuehly.spring.viewcomponent.jte.ViewContext;
@@ -13,17 +13,15 @@ import org.svenehrke.mybookmarks.components.csvtext.CsvTextComponent;
 import org.svenehrke.mybookmarks.components.existingtags.ExistingTagsComponent;
 import org.svenehrke.mybookmarks.service.BookmarkSessionService;
 
-import java.util.List;
-
 /**
  * Smart Component
  */
 @ViewComponent
 @RequiredArgsConstructor
 @Controller
-public class PostBookmarkComponent {
+public class PostBookmarkAction {
 
-	public record Ctx(PostBookmarkComponent ME) implements ViewContext {}
+	public record Ctx(PostBookmarkAction ME) implements ViewContext {}
 	public final Ctx ctx = new Ctx(this);
 
 	public static final String URL = "/bookmark";

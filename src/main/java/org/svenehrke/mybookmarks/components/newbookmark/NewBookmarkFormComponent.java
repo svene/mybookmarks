@@ -11,20 +11,20 @@ import org.svenehrke.mybookmarks.components.image.ImageComponent;
 @ViewComponent
 @RequiredArgsConstructor
 @Controller
-public class NewBookmarkComponent {
+public class NewBookmarkFormComponent {
 
 	public static final String URL = "/newbookmark/form";
 
 	public final ImageComponent imageComponent;
 	public final FormContentComponent formContentComponent;
 
-	public record Ctx(NewBookmarkComponent ME) implements ViewContext {}
+	public record Ctx(NewBookmarkFormComponent ME) implements ViewContext {}
 
 	public Ctx ctx() {
 		return new Ctx(this);
 	}
 
-	@GetMapping(NewBookmarkComponent.URL)
+	@GetMapping(URL)
 	public ViewContext newBookmarkForm() {
 		return ctx();
 	}

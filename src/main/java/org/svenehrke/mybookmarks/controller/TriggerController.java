@@ -23,18 +23,6 @@ public class TriggerController {
 	private final BookmarkSessionStore bookmarkSessionStore;
 	private final BookmarkSessionService bookmarkSessionService;
 
-	// TODO: this is called when the user clicks on a tag widget. Not yet implemented correctly
-	@PutMapping("/search/tags")
-	@ResponseBody
-	public String searchTags(
-		@RequestParam(required = false, name = "search_by_tags") String searchByTags,
-		HttpServletResponse response
-	) {
-//		bookmarkSessionStore.setSearchTags(searchByTags);
-		response.setHeader("HX-Trigger", "searchTagsChanged");
-		return "";
-	}
-
 
 	public static final String SEARCH_TAGLIST_URL = "/search/taglist";
 

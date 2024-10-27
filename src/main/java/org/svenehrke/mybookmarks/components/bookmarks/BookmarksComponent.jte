@@ -1,5 +1,5 @@
 @import org.svenehrke.mybookmarks.components.bookmarks.BookmarksComponent.Ctx
-@import org.svenehrke.mybookmarks.controller.TriggerController
+@import org.svenehrke.mybookmarks.actions.reload.ReloadAction
 
 @param Ctx ctx
 
@@ -29,7 +29,7 @@ content = @`
 						inverted="true"
 						icon="refresh"
 						hx-trigger="click"
-						hx-post="${TriggerController.RELOAD_URL}"
+						hx-post="${ReloadAction.URL}"
 						hx-swap="none"
 				>CSV
 				</bal-button>

@@ -50,15 +50,6 @@ public class TriggerController {
 		return "";
 	}
 
-	public static final String RELOAD_URL = "/reload";
-	@PostMapping(RELOAD_URL)
-	@ResponseBody
-	public String reload(HttpServletResponse response) {
-		bookmarkSessionService.reload();
-		response.setHeader("HX-Trigger", "bookmarksChanged");
-		return "";
-	}
-
 	public static final String PREVIEW_URL = "/preview-url";
 	@PutMapping(path = PREVIEW_URL, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
 	@ResponseBody

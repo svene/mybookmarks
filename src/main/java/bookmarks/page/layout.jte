@@ -1,7 +1,6 @@
 @import gg.jte.Content
 @import org.svenehrke.mybookmarks.controller.TriggerController
 
-@param String init
 @param Content content
 
 <!doctype html>
@@ -35,10 +34,6 @@
 
 </body>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        htmx.trigger("body", "${init}");
-    });
-
     function copyCsvToClipboard() {
         // Get the text field
         var copyText = document.getElementById("csvString");

@@ -4,7 +4,6 @@
 @param Ctx ctx
 
 @template.bookmarks.page.layout(
-init = "init",
 content = @`
 	<bal-stack layout="vertical" align="center" class="mb-small">
 		<h1 class="title text-xxx-large mb-xx-large">MyBookmarks <bal-icon name="link" size="large" inline="true"></bal-icon></h1>

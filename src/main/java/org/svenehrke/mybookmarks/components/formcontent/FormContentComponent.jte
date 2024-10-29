@@ -43,9 +43,7 @@
 
     <bal-form-col>
         <bal-button-group position="right" reverse="true">
-            <bal-button color="text">
-                Cancel
-            </bal-button>
+            ${ctx.cancelButtonSlot()}
             <bal-button element-type="submit" color="primary">
                 Submit
             </bal-button>

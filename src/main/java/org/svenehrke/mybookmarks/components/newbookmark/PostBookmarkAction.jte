@@ -8,7 +8,7 @@
 	${ctx.ME().existingTagsComponent.ctx()}
 </div>
 
-<div id="search-result" hx-swap-oob="outerHTML">
+<div id="search-result" hx-swap-oob="innerHTML">
 	${ctx.ME().bookmarkRowsComponent.ctx()}
 </div>
 

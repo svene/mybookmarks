@@ -8,7 +8,16 @@ ${ctx.ME().imageComponent.ctx("https://placehold.co/640x336/png?text=PREVIEW..."
 <form
         hx-post="${PostBookmarkAction.URL}"
         hx-target="closest bal-card-content"
-        hx-swap="outerHTML"
+        hx-swap="innerHTML"
 >
-    ${ctx.ME().formContentComponent.ctx(BigInteger.ZERO, "", "")}
+    ${ctx.ME().formContentComponent.ctx(BigInteger.ZERO, "", "", @`
+    <bal-button color="text"
+                hx-trigger="click"
+                hx-get="/cancelnewbookmark"
+                hx-target="closest bal-card-content"
+                hx-swap="innerHTML"
+    >
+        Cancel
+    </bal-button>
+    ` )}
 </form>

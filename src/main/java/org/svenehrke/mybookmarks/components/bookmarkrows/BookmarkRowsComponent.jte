@@ -7,14 +7,10 @@
     <style>
 		me bal-card { max-width: 50%; min-width: 50%; }
     </style>
-    <bal-card>
-        <bal-card-content>
-            @template._widget.addbookmark()
-        </bal-card-content>
-    </bal-card>
     @for(Bookmark bm : ctx.ME().buildBookmarks().stream().limit(10).toList())
         <bal-card>
             ${ctx.ME().placeholderCardComponent.ctx(bm.id())}
         </bal-card>
     @endfor
 </bal-stack>
+

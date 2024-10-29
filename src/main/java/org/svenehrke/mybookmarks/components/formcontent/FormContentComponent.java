@@ -2,6 +2,7 @@ package org.svenehrke.mybookmarks.components.formcontent;
 
 import de.tschuehly.spring.viewcomponent.core.component.ViewComponent;
 import de.tschuehly.spring.viewcomponent.jte.ViewContext;
+import gg.jte.Content;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -22,10 +23,15 @@ public class FormContentComponent {
 	private final BookmarkSessionService bookmarkSessionService;
 	private final BookmarkSessionStore bookmarkSessionStore;
 
-	public record Ctx(BigInteger id, String url, String tagString) implements ViewContext {}
+	public record Ctx(
+		BigInteger id,
+		String url,
+		String tagString,
+		Content cancelButtonSlot
+	) implements ViewContext {}
 
-	public Ctx ctx(BigInteger id, String url, String tagString) {
-		return new Ctx(id, url, tagString);
+	public Ctx ctx(BigInteger id, String url, String tagString, Content cancelButtonSlot) {
+		return new Ctx(id, url, tagString, cancelButtonSlot);
 	}
 
 	public Ctx ctx(Ctx ctx) {

@@ -31,7 +31,7 @@ public class EditCardComponent {
 	public FormContentComponent.Ctx formContentCtx(BigInteger id) {
 		Bookmark bookmark = bookmarkSessionService.getById(id);
 		return new FormContentComponent.Ctx(
-			id, bookmark.url(), BookmarkUtil.toTagsString(bookmark.tags())
+			id, bookmark.url(), BookmarkUtil.toTagsString(bookmark.tags()), null // TODO: fix this
 		);
 	}
 

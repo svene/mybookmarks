@@ -53,7 +53,19 @@ content = @`
 
 	<bal-divider class="mb-normal"></bal-divider>
 
+	<bal-stack layout="vertical" align="center" class="mb-normal">
+		<style>
+			me bal-card { max-width: 50%; min-width: 50%; }
+		</style>
+		<bal-card>
+			<bal-card-content>
+				@template._widget.addbookmark()
+			</bal-card-content>
+		</bal-card>
+	</bal-stack>
+
 	<div id="search-result">
 		${ctx.ME().bookmarkRowsComponent.ctx()}
 	</div>
+
 `)

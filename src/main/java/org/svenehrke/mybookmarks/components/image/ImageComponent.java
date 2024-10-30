@@ -15,6 +15,8 @@ import org.svenehrke.mybookmarks.service.BookmarkSessionStore;
 @Controller
 public class ImageComponent {
 
+	public static final String EVENT_URL_CHANGED = "urlChanged";
+
 	private final BookmarkSessionService bookmarkSessionService;
 	private final BookmarkSessionStore bookmarkSessionStore;
 

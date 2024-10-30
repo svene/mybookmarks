@@ -2,6 +2,7 @@ package org.svenehrke.mybookmarks.components.editcard;
 
 import de.tschuehly.spring.viewcomponent.core.component.ViewComponent;
 import de.tschuehly.spring.viewcomponent.jte.ViewContext;
+import gg.jte.Content;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,10 +29,14 @@ public class EditCardComponent {
 		return new Ctx(this, id);
 	}
 
-	public FormContentComponent.Ctx formContentCtx(BigInteger id) {
+	public FormContentComponent.Ctx formContentCtx(
+		BigInteger id,
+		Content cancelButtonSlot
+	) {
 		Bookmark bookmark = bookmarkSessionService.getById(id);
 		return new FormContentComponent.Ctx(
-			id, bookmark.url(), BookmarkUtil.toTagsString(bookmark.tags()), null // TODO: fix this
+			id, bookmark.url(), BookmarkUtil.toTagsString(bookmark.tags()),
+			cancelButtonSlot
 		);
 	}
 

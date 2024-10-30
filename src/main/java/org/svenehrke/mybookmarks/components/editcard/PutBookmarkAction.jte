@@ -1,4 +1,4 @@
-@import org.svenehrke.mybookmarks.actions.putbookmark.PutBookmarkAction.Ctx
+@import org.svenehrke.mybookmarks.components.editcard.PutBookmarkAction.Ctx
 @param Ctx ctx
 
 ${ctx.ME().cardComponent.ctx(ctx.id())}

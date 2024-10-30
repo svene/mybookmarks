@@ -1,4 +1,4 @@
-package org.svenehrke.mybookmarks.actions.searchbytags;
+package org.svenehrke.mybookmarks.components.bookmarks;
 
 import de.tschuehly.spring.viewcomponent.core.component.ViewComponent;
 import de.tschuehly.spring.viewcomponent.jte.ViewContext;

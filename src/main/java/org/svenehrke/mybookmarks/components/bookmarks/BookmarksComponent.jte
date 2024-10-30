@@ -1,5 +1,5 @@
 @import org.svenehrke.mybookmarks.components.bookmarks.BookmarksComponent.Ctx
-@import org.svenehrke.mybookmarks.actions.reload.ReloadAction
+@import org.svenehrke.mybookmarks.components.bookmarks.ReloadAction
 
 @param Ctx ctx
 

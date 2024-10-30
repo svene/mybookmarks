@@ -1,4 +1,4 @@
-package org.svenehrke.mybookmarks.actions.putbookmark;
+package org.svenehrke.mybookmarks.components.editcard;
 
 import de.tschuehly.spring.viewcomponent.core.component.ViewComponent;
 import de.tschuehly.spring.viewcomponent.jte.ViewContext;

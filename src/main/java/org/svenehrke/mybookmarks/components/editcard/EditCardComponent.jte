@@ -1,4 +1,4 @@
-@import org.svenehrke.mybookmarks.actions.putbookmark.PutBookmarkAction
+@import org.svenehrke.mybookmarks.components.editcard.PutBookmarkAction
 @import org.svenehrke.mybookmarks.components.editcard.EditCardComponent.Ctx
 
 @param Ctx ctx

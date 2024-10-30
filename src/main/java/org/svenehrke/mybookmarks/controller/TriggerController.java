@@ -40,7 +40,6 @@ public class TriggerController {
 	) {
 		var list = (tags == null || tags.isEmpty()) ? Collections.<String>emptyList() : tags;
 		bookmarkSessionStore.setSearchTags(BookmarkUtil.toTagsString(list));
-		response.setHeader("HX-Trigger", "searchTagsChanged");
 		return "";
 	}
 
@@ -49,7 +48,6 @@ public class TriggerController {
 	@ResponseBody
 	public String previewUrl(HttpServletResponse response, @RequestParam("bm-url") String bmUrl) {
 		bookmarkSessionService.setPreviewBookmark(bmUrl);
-		response.setHeader("HX-Trigger", "newPreview");
 		return "";
 	}
 
@@ -58,7 +56,6 @@ public class TriggerController {
 	@ResponseBody
 	public String removePreview(HttpServletResponse response, Model model) {
 		bookmarkSessionService.removePreviewBookmark();
-		response.setHeader("HX-Trigger", "bookmarksChanged");
 		return "";
 	}
 

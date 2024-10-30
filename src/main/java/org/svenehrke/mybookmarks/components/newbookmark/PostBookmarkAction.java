@@ -48,7 +48,6 @@ public class PostBookmarkAction {
 		HttpServletResponse response
 	) {
 		bookmarkSessionService.addBookmark(url);
-		response.setHeader("HX-Trigger", "bookmarksChanged, newPreview");
 		return ctx;
 	}
 

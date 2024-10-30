@@ -22,7 +22,12 @@ public class SearchByTagsAction {
 	public record Ctx(SearchByTagsAction ME) implements ViewContext {}
 	public final Ctx ctx = new Ctx(this);
 
-	// TODO: this is called when the user clicks on a tag widget. Not yet implemented correctly
+	/**
+	 * Meant to be called by a normal input widget (comma separated list of search tags, optionally with minus-prefix)
+	 * NOTE: Used to ease the implementation.
+	 * Final UX should not be made with an input widget but with tag widgets
+	 * (or checkbox widgets (with undetermined state for minus maybe))
+	 */
 	@PutMapping("/search/tags")
 	public Ctx searchTags(
 		@RequestParam(required = false, name = "search_by_tags") String searchByTags

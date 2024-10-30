@@ -1,5 +1,4 @@
 @import gg.jte.Content
-@import org.svenehrke.mybookmarks.controller.TriggerController
 
 @param Content content
 

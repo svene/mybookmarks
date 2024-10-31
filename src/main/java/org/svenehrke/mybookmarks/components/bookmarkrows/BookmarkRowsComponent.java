@@ -16,8 +16,6 @@ import java.util.List;
 @Controller
 public class BookmarkRowsComponent {
 
-	public static final String URL = "/bookmark_rows";
-
 	private final BookmarkSessionStore bookmarkSessionStore;
 	private final BookmarkSessionService bookmarkSessionService;
 	public final PlaceholderCardComponent placeholderCardComponent;
@@ -29,10 +27,9 @@ public class BookmarkRowsComponent {
 	}
 
 	public List<Bookmark> buildBookmarks() {
-		var bookmarks = bookmarkSessionService.findAllByTag(
+		return bookmarkSessionService.findAllByTag(
 			bookmarkSessionStore.getSearchTags()
 		);
-		return bookmarks;
 	}
 
 }

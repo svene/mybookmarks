@@ -2,7 +2,6 @@ package org.svenehrke.mybookmarks.components.newbookmark;
 
 import de.tschuehly.spring.viewcomponent.core.component.ViewComponent;
 import de.tschuehly.spring.viewcomponent.jte.ViewContext;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -12,6 +11,7 @@ import org.svenehrke.mybookmarks.components.bookmarkrows.BookmarkRowsComponent;
 import org.svenehrke.mybookmarks.components.csvtext.CsvTextComponent;
 import org.svenehrke.mybookmarks.components.existingtags.ExistingTagsComponent;
 import org.svenehrke.mybookmarks.service.BookmarkSessionService;
+import org.svenehrke.mybookmarks.service.BookmarkSessionStore;
 
 /**
  * Smart Component
@@ -26,6 +26,7 @@ public class PostBookmarkAction {
 
 	public static final String URL = "/bookmark";
 
+	public final BookmarkSessionStore bookmarkSessionStore;
 	public final BookmarkSessionService bookmarkSessionService;
 	public final ExistingTagsComponent existingTagsComponent;
 	public final BookmarkRowsComponent bookmarkRowsComponent;
@@ -43,12 +44,21 @@ public class PostBookmarkAction {
 	 *  You can directly return the new HTML fragment."
 	 */
 	@PostMapping(path = URL, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-	public ViewContext POST_bookmark(
-		@RequestParam String url,
-		HttpServletResponse response
-	) {
-		bookmarkSessionService.addBookmark(url);
+	public ViewContext POST_bookmark(@RequestParam String url) {
+		addBookmark(url);
 		return ctx;
+	}
+
+	private void addBookmark(String bmUrl) {
+		bookmarkSessionService.loadBookmarksIntoSessionIfNecessary();
+		var csv = addUrlToCsv(bookmarkSessionStore.getBookmarksCSV(), bmUrl);
+		bookmarkSessionService.handleNewCsvString(csv);
+		bookmarkSessionStore.setPreviewBookmark(null);
+	}
+
+	private String addUrlToCsv(String currentCsv, String bmUrl) {
+		var newLine = bmUrl + ";anew" + System.lineSeparator(); // TODO: remove 'anew' (only for dev purposes)
+		return newLine + currentCsv;
 	}
 
 }

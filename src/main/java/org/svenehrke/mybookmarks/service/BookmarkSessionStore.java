@@ -3,7 +3,6 @@ package org.svenehrke.mybookmarks.service;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
-import org.svenehrke.mybookmarks.model.CsvInfo;
 import org.svenehrke.mybookmarks.model.Bookmark;
 import org.svenehrke.mybookmarks.model.BookmarkEx;
 
@@ -14,12 +13,12 @@ import java.util.*;
 @Data
 public class BookmarkSessionStore {
 	private String bookmarksCSV;
-	private CsvInfo bookmarksCsvInfo;
-	private List<Bookmark> bookmarks = new LinkedList<>();
 	private Bookmark previewBookmark;
+	// TODO: attach BookmarkEx to Bookmark and remove this map:
 	private Map<String, BookmarkEx> bookmarkExs = Collections.synchronizedMap(new HashMap<>());
 	private String searchTags;
-	private List<String> tags;
-	private BookmarkService.CsvParseResult csvParseResult;
+	private BookmarkService.CsvParseResult csvParseResult = new BookmarkService.CsvParseResult(
+		null, Collections.emptyList(), Collections.emptyList(), Collections.emptyMap()
+	);
 
 }

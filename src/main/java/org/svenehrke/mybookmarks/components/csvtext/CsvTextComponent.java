@@ -4,23 +4,33 @@ import de.tschuehly.spring.viewcomponent.core.component.ViewComponent;
 import de.tschuehly.spring.viewcomponent.jte.ViewContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.svenehrke.mybookmarks.model.Bookmark;
 import org.svenehrke.mybookmarks.service.BookmarkService;
 import org.svenehrke.mybookmarks.service.BookmarkSessionService;
+import org.svenehrke.mybookmarks.service.BookmarkUtil;
+
+import java.util.List;
 
 @ViewComponent
 @RequiredArgsConstructor
 @Controller
 public class CsvTextComponent {
 
-	private final BookmarkService bookmarkService;
-	private final BookmarkSessionService bookmarkSessionService;
+	public final BookmarkService bookmarkService;
+	public final BookmarkSessionService bookmarkSessionService;
 
-	public record Ctx(String csv) implements ViewContext {}
-
+	public record Ctx(CsvTextComponent ME) implements ViewContext {}
 
 	public Ctx ctx() {
-		var csv = bookmarkService.convertBookmarksToCSV(bookmarkSessionService.getBookmarks());
-		return new Ctx(csv);
+		return new Ctx(this);
+	}
+
+	public String convertBookmarksToCSV(List<Bookmark> bookmarks) {
+		StringBuilder sb = new StringBuilder();
+		bookmarks.forEach(it -> {
+			sb.append(it.url() + ";" + BookmarkUtil.toTagsString(it.tags()) + System.lineSeparator());
+		});
+		return sb.toString();
 	}
 
 }

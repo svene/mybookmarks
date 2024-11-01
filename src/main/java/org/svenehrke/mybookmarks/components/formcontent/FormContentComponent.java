@@ -11,17 +11,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.svenehrke.mybookmarks.components.image.ImageComponent;
 import org.svenehrke.mybookmarks.model.Bookmark;
-import org.svenehrke.mybookmarks.service.BookmarkSessionService;
+import org.svenehrke.mybookmarks.model.BookmarkBuilder;
 import org.svenehrke.mybookmarks.service.BookmarkSessionStore;
 
 import java.math.BigInteger;
+import java.util.List;
 
 @ViewComponent
 @Controller
 @AllArgsConstructor
 public class FormContentComponent {
 	public static final String URL_CHANGED = "/urlChanged";
-	private final BookmarkSessionService bookmarkSessionService;
 	private final BookmarkSessionStore bookmarkSessionStore;
 
 	public record Ctx(
@@ -42,14 +42,25 @@ public class FormContentComponent {
 	@GetMapping(URL_CHANGED)
 	@ResponseBody
 	public String urlchanged(@RequestParam String url, HttpServletResponse response) {
-		bookmarkSessionService.setPreviewBookmark(url);
-		Bookmark previewBookmark = bookmarkSessionStore.getPreviewBookmark();
-		bookmarkSessionService.createBookmarkExIfNecessary(previewBookmark);
+		setPreviewBookmark(url);
 
 		// Example of event usage with HTMX:
 		// (search for usages of ImageComponent.EVENT_URL_CHANGED to understand the associations)
 		response.setHeader("HX-Trigger", ImageComponent.EVENT_URL_CHANGED);
 		return "";
+	}
+
+	public void setPreviewBookmark(String bmUrl) {
+		var previewBookmark = newPreviewBookmark(bmUrl);
+		bookmarkSessionStore.setPreviewBookmark(previewBookmark);
+	}
+
+	private Bookmark newPreviewBookmark(String bmUrl) {
+		return BookmarkBuilder.builder()
+			.id(BigInteger.valueOf(1L))
+			.url(bmUrl)
+			.tags(List.of("todo"))
+			.build();
 	}
 
 }

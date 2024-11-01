@@ -42,22 +42,6 @@ public class BookmarkService {
 		return new BookmarkRetriever().buildBookmarkEx(bookmark);
 	}
 
-	public Bookmark newPreviewBookmark(String bmUrl) {
-		return BookmarkBuilder.builder()
-			.id(BigInteger.valueOf(1L))
-			.url(bmUrl)
-			.tags(List.of("todo"))
-			.build();
-	}
-
-	public String convertBookmarksToCSV(List<Bookmark> bookmarks) {
-		StringBuilder sb = new StringBuilder();
-		bookmarks.forEach(it -> {
-			sb.append(it.url() + ";" + BookmarkUtil.toTagsString(it.tags()) + System.lineSeparator());
-		});
-		return sb.toString();
-	}
-
 	public record CsvParseResult(
 		CsvInfo csvInfo,
 		List<Bookmark> bookmarks,
@@ -82,27 +66,6 @@ public class BookmarkService {
 				Collectors.mapping(Map.Entry::getValue, Collectors.toList())
 			));
 		return new CsvParseResult(csvInfo, newBookmarks, tags, groupedByTag);
-	}
-
-	public record TagsStringParseResult(
-		List<String> tags,
-		List<String> plusTags,
-		List<String> minusTags,
-		List<String> normalTags
-	) {}
-
-	public TagsStringParseResult parseTagsString(String tagsString) {
-		var tags = BookmarkUtil.tagsStringToList(tagsString).stream().map(String::trim).toList();
-		List<String> plusTags = MishMash.filterList(tags, it -> it.startsWith("+")).stream().map(it -> it.substring(1)).toList();
-		List<String> minusTags = MishMash.filterList(tags, it -> it.startsWith("-")).stream().map(it -> it.substring(1)).toList();
-		List<String> normalTags = MishMash.filterList(tags, s -> !s.startsWith("+") && !s.startsWith("-"));
-
-		return new TagsStringParseResult(tags, plusTags, minusTags, normalTags);
-	}
-
-	public String addUrlToCsv(String currentCsv, String bmUrl) {
-		var newLine = bmUrl + ";anew" + System.lineSeparator(); // TODO: remove 'anew' (only for dev purposes)
-		return newLine + currentCsv;
 	}
 
 }

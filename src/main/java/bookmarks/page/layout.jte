@@ -3,7 +3,7 @@
 @param Content content
 
 <!doctype html>
-<html lang="">
+<html lang="" style="background-color: var(--bal-color-primary-4);">
 <head>
 	<title>Bookmarks App</title>
 	<link rel="stylesheet" href="/webjars/baloise-design-system/@baloise/ds-styles/css/all.min.css" />

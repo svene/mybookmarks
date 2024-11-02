@@ -6,7 +6,7 @@
 @template.bookmarks.page.layout(
 content = @`
 	<bal-stack layout="vertical" align="center" class="mb-small">
-		<h1 class="title text-xxx-large mb-xx-large">MyBookmarks <bal-icon name="link" size="large" inline="true"></bal-icon></h1>
+		<bal-heading level="h1" inverted>MyBookmarks <bal-icon name="link" size="large" inline="true" inverted></bal-icon></bal-heading>
 		<style>
 			me bal-card { max-width: 50%; min-width: 50%; }
 		</style>

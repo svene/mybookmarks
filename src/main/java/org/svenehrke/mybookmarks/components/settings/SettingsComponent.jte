@@ -1,0 +1,35 @@
+@import org.svenehrke.mybookmarks.components.settings.SettingsComponent.Ctx
+@import org.svenehrke.mybookmarks.components.search.SearchComponent
+@import org.svenehrke.mybookmarks.components.bookmarks.ReloadAction
+
+@param Ctx ctx
+
+<bal-card-content>
+    <bal-card-content>
+        <div id="csv-text">
+            ${ctx.ME().csvTextComponent.ctx()}
+        </div>
+    </bal-card-content>
+</bal-card-content>
+<bal-card-actions position="right">
+    <bal-button onclick="copyCsvToClipboard()" color="light" inverted="true" icon="copy">CSV</bal-button>
+    <bal-button
+            color="light"
+            inverted="true"
+            icon="refresh"
+            hx-trigger="click"
+            hx-post="${ReloadAction.URL}"
+            hx-swap="none"
+    >CSV
+    </bal-button>
+    <bal-button
+            color="light"
+            inverted="true"
+            icon="back"
+            hx-trigger="click"
+            hx-get="${SearchComponent.UI_URL}"
+            hx-target="#first_card"
+            hx-swap="innerHTML"
+    >Done
+    </bal-button>
+</bal-card-actions>

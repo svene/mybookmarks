@@ -21,8 +21,8 @@ public class BookmarksComponent {
 	public record Ctx(BookmarksComponent ME) implements ViewContext {}
 	public final Ctx ctx = new Ctx(this);
 
-	@GetMapping(BookmarksComponent.URL)
-	public ViewContext bookmarks() {
+	@GetMapping(URL)
+	public ViewContext ui() {
 		return ctx;
 	}
 }

@@ -20,10 +20,10 @@ public class BookmarkRowsComponent {
 
 	public final Deps deps;
 
-	public record Ctx(BookmarkRowsComponent ME, Deps DEPS) implements ViewContext {}
+	public record Ctx(BookmarkRowsComponent ME) implements ViewContext {}
 
 	public Ctx ctx() {
-		return new Ctx(this, deps);
+		return new Ctx(this);
 	}
 
 	public List<Bookmark> buildBookmarks() {

@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.svenehrke.mybookmarks.model.Bookmark;
 import org.svenehrke.mybookmarks.model.BookmarkEx;
 import org.svenehrke.mybookmarks.service.BookmarkSessionService;
-import org.svenehrke.mybookmarks.service.BookmarkUtil;
 
 import java.math.BigInteger;
 
@@ -19,22 +18,19 @@ import java.math.BigInteger;
 public class CardComponent {
 	private final BookmarkSessionService bookmarkSessionService;
 
-	public record Ctx(
-		BigInteger id,
-		Bookmark bookmark,
-		BookmarkEx ogInfo,
-		String tagsString
-	) implements ViewContext {}
+	public record Ctx(CardComponent ME, BigInteger id) implements ViewContext {
+		public Bookmark getBookmark() {
+			return ME.bookmarkSessionService.getById(id);
+		}
+		public BookmarkEx getOgInfo() {
+			return ME.bookmarkSessionService.getBookmarkEx(getBookmark());
+		}
+	}
 
 	public Ctx ctx(BigInteger id) {
-		var bookmark = bookmarkSessionService.getById(id);
-		return new Ctx(
-			id,
-			bookmark,
-			bookmarkSessionService.getBookmarkEx(bookmark),
-			BookmarkUtil.toTagsString(bookmark.tags())
-		);
+		return new Ctx(this, id);
 	}
+
 
 	@GetMapping("/card/{id}")
 	public Ctx card_id(@PathVariable BigInteger id) {

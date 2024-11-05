@@ -14,7 +14,7 @@
         <bal-card-subtitle>${ogInfo.description()}</bal-card-subtitle>
 
         <bal-card-actions position="right">
-            @template._widget.tags(tags = bm.tags()))
+            @template._widget.tags(tags = bm.tags())
             <bal-button
                     square="true"
                     icon="edit"

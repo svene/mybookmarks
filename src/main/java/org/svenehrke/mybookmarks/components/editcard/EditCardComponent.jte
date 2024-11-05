@@ -8,7 +8,7 @@
         hx-target="closest bal-card-content"
         hx-swap="outerHTML"
 >
-        ${ctx.ME().formContentCtx(ctx.id(), @`
+        ${ctx.formContentCtx(@`
                 <bal-button color="text"
                             hx-trigger="click"
                             hx-get="/canceleditbookmark/${ctx.id()}"

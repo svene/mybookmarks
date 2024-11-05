@@ -33,7 +33,7 @@ public class CardComponent {
 
 
 	@GetMapping("/card/{id}")
-	public Ctx card_id(@PathVariable BigInteger id) {
+	public Ctx ui(@PathVariable BigInteger id) {
 		return ctx(id);
 	}
 

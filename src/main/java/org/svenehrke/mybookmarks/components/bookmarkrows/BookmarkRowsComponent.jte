@@ -7,7 +7,7 @@
     <style>
 		me bal-card { max-width: 50%; min-width: 50%; }
     </style>
-    @for(Bookmark bm : ctx.ME().buildBookmarks().stream().limit(10).toList())
+    @for(Bookmark bm : ctx.buildBookmarks().stream().limit(10).toList())
         <bal-card>
             ${ctx.ME().placeholderCardComponent.ctx(bm.id())}
         </bal-card>

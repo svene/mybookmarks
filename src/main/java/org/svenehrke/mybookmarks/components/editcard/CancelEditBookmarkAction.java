@@ -17,9 +17,8 @@ public class CancelEditBookmarkAction {
 	public final CardComponent cardComponent;
 	public record Ctx(CancelEditBookmarkAction ME, BigInteger id) implements ViewContext {}
 
-
 	@GetMapping("/canceleditbookmark/{id}")
-	public Ctx cancel_edit(@PathVariable BigInteger id) {
+	public Ctx doit(@PathVariable BigInteger id) {
 		return new Ctx(this, id);
 	}
 

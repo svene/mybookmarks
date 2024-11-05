@@ -32,33 +32,29 @@ public class PutBookmarkAction {
 	public final ExistingTagsComponent existingTagsComponent;
 	public final CsvTextComponent csvTextComponent;
 
-	public record Ctx(PutBookmarkAction ME, BigInteger id) implements ViewContext {}
+	public record Ctx(PutBookmarkAction ME, BigInteger id) implements ViewContext {
+		public Ctx putBookmark(String url, String tags) {
+			ME.bookmarkSessionService.handleNewCsvString(
+				putEntryIntoCSV(id, url, tags, ME.bookmarkSessionStore.getBookmarksCSV())
+			);
+			return this;
+		}
 
-	public Ctx ctx(BigInteger id) {
-		return new Ctx(this, id);
+		private static String putEntryIntoCSV(BigInteger id, String url, String tags, String csv) {
+			CsvInfo csvInfo = new CsvReader().getCsvInfo(csv);
+			var records = new ArrayList<>(csvInfo.records());
+			records.set(id.intValue(), url + ";" + tags);
+			return String.join(System.lineSeparator(), records);
+		}
 	}
 
 	@PutMapping(URL)
-	public Ctx putBookmarkEndpoint(
+	public Ctx doit(
 		@RequestParam BigInteger id,
 		@RequestParam String url,
 		@RequestParam String tags
 	) {
-		putBookmark(id, url, tags);
-		return ctx(id);
-	}
-
-	public void putBookmark(BigInteger id, String url, String tags) {
-		bookmarkSessionService.handleNewCsvString(
-			putEntryIntoCSV(id, url, tags, bookmarkSessionStore.getBookmarksCSV())
-		);
-	}
-
-	private static String putEntryIntoCSV(BigInteger id, String url, String tags, String csv) {
-		CsvInfo csvInfo = new CsvReader().getCsvInfo(csv);
-		var records = new ArrayList<>(csvInfo.records());
-		records.set(id.intValue(), url + ";" + tags);
-		return String.join(System.lineSeparator(), records);
+		return new Ctx(this, id).putBookmark(url, tags);
 	}
 
 }

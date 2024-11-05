@@ -23,25 +23,22 @@ public class EditCardComponent {
 
 	public final BookmarkSessionService bookmarkSessionService;
 
-	public record Ctx(EditCardComponent ME, BigInteger id) implements ViewContext {}
+	public record Ctx(EditCardComponent ME, BigInteger id) implements ViewContext {
+		public FormContentComponent.Ctx formContentCtx(Content cancelButtonSlot) {
+			Bookmark bookmark = ME.bookmarkSessionService.getById(id);
+			return new FormContentComponent.Ctx(
+				id, bookmark.url(), BookmarkUtil.toTagsString(bookmark.tags()),
+				cancelButtonSlot
+			);
+		}
+	}
 
 	public Ctx ctx(BigInteger id) {
 		return new Ctx(this, id);
 	}
 
-	public FormContentComponent.Ctx formContentCtx(
-		BigInteger id,
-		Content cancelButtonSlot
-	) {
-		Bookmark bookmark = bookmarkSessionService.getById(id);
-		return new FormContentComponent.Ctx(
-			id, bookmark.url(), BookmarkUtil.toTagsString(bookmark.tags()),
-			cancelButtonSlot
-		);
-	}
-
 	@GetMapping(COMPONENT_URL)
-	public Ctx editInlineForm(@RequestParam BigInteger id) {
+	public Ctx ui(@RequestParam BigInteger id) {
 		return ctx(id);
 	}
 

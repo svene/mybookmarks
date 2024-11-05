@@ -13,6 +13,6 @@
 		}
     </style>
     <textarea rows="6" cols="50" id="csvString" readonly wrap="off">
-${ctx.ME().convertBookmarksToCSV(ctx.ME().bookmarkSessionService.getCsvParseResult().bookmarks())}
+${ctx.convertBookmarksToCSV()}
     </textarea>
 </div>

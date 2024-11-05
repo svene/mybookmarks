@@ -9,7 +9,7 @@
     </style>
     @for(Bookmark bm : ctx.ME().buildBookmarks().stream().limit(10).toList())
         <bal-card>
-            ${ctx.ME().deps.placeholderCardComponent.ctx(bm.id())}
+            ${ctx.ME().placeholderCardComponent.ctx(bm.id())}
         </bal-card>
     @endfor
 </bal-stack>

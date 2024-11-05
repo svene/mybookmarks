@@ -5,7 +5,7 @@ import de.tschuehly.spring.viewcomponent.jte.ViewContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
-import org.svenehrke.mybookmarks.components.bookmarks.shared.Deps;
+import org.svenehrke.mybookmarks.components.placeholdercard.PlaceholderCardComponent;
 import org.svenehrke.mybookmarks.service.*;
 import org.svenehrke.mybookmarks.model.Bookmark;
 
@@ -18,7 +18,10 @@ import java.util.stream.Collectors;
 @Controller
 public class BookmarkRowsComponent {
 
-	public final Deps deps;
+	private final BookmarkSessionStore bookmarkSessionStore;
+	private final BookmarkSessionService bookmarkSessionService;
+	private final BookmarkService bookmarkService;
+	public final PlaceholderCardComponent placeholderCardComponent;
 
 	public record Ctx(BookmarkRowsComponent ME) implements ViewContext {}
 
@@ -27,16 +30,16 @@ public class BookmarkRowsComponent {
 	}
 
 	public List<Bookmark> buildBookmarks() {
-		return findAllByTag(deps.bookmarkSessionStore.getSearchTags());
+		return findAllByTag(bookmarkSessionStore.getSearchTags());
 	}
 	private List<Bookmark> findAllByTag(String tagsString) {
 		if (!StringUtils.hasLength(tagsString)) {
-			return deps.bookmarkSessionService.getCsvParseResult().bookmarks();
+			return bookmarkSessionService.getCsvParseResult().bookmarks();
 		}
 
 		var tags = parseTagsString(tagsString);
 		// Check that it.tags() does not contain any item from minusTags
-		return deps.bookmarkSessionService.getCsvParseResult().bookmarks().stream()
+		return bookmarkSessionService.getCsvParseResult().bookmarks().stream()
 			.filter(it -> tags.normalTags().isEmpty() || !Collections.disjoint(it.tags(), tags.normalTags()))
 			.filter(it -> tags.minusTags().isEmpty() || it.tags().stream().noneMatch(tags.minusTags()::contains)) // Check that it.tags() does not contain any item from minusTags
 			.collect(Collectors.toList());

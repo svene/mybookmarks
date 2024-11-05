@@ -1,4 +1,4 @@
-@import org.svenehrke.mybookmarks.components.bookmarks.SearchByTagsAction.Ctx
+@import org.svenehrke.mybookmarks.components.main.SearchByTagsAction.Ctx
 
 @param Ctx ctx
 

@@ -1,6 +1,6 @@
 @import org.svenehrke.mybookmarks.components.settings.SettingsComponent.Ctx
 @import org.svenehrke.mybookmarks.components.search.SearchComponent
-@import org.svenehrke.mybookmarks.components.bookmarks.ReloadAction
+@import org.svenehrke.mybookmarks.components.main.ReloadAction
 
 @param Ctx ctx
 

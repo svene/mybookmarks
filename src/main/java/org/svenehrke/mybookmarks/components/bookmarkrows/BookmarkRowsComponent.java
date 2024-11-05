@@ -20,7 +20,6 @@ public class BookmarkRowsComponent {
 
 	private final BookmarkSessionStore bookmarkSessionStore;
 	private final BookmarkSessionService bookmarkSessionService;
-	private final BookmarkService bookmarkService;
 	public final PlaceholderCardComponent placeholderCardComponent;
 
 	public record Ctx(BookmarkRowsComponent ME) implements ViewContext {}

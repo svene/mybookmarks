@@ -20,13 +20,9 @@ public class NewBookmarkFormComponent {
 
 	public record Ctx(NewBookmarkFormComponent ME) implements ViewContext {}
 
-	public Ctx ctx() {
-		return new Ctx(this);
-	}
-
 	@GetMapping(URL)
-	public ViewContext newBookmarkForm() {
-		return ctx();
+	public ViewContext ui() {
+		return new Ctx(this);
 	}
 
 }

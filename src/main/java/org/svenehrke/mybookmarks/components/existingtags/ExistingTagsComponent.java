@@ -15,15 +15,18 @@ public class ExistingTagsComponent {
 	public final BookmarkSessionService bookmarkSessionService;
 
 	public record TagAndCount(String tag, int count) {}
-	public record Ctx(List<TagAndCount> existingTags) implements ViewContext {}
+	public record Ctx(ExistingTagsComponent ME) implements ViewContext {
+		public List<TagAndCount> existingTags() {
+			return ME.bookmarkSessionService.getCsvParseResult()
+				.groupbedByTag().entrySet().stream()
+				.sorted(Comparator.comparingInt(it -> it.getValue().size()))
+				.map(it -> new TagAndCount(it.getKey(), it.getValue().size()))
+				.toList()
+				;
+		}
+	}
 
 	public Ctx ctx() {
-		var lst = bookmarkSessionService.getCsvParseResult()
-			.groupbedByTag().entrySet().stream()
-			.sorted(Comparator.comparingInt(it -> it.getValue().size()))
-			.map(it -> new TagAndCount(it.getKey(), it.getValue().size()))
-			.toList()
-			;
-		return new Ctx(lst);
+		return new Ctx(this);
 	}
 }

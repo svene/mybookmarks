@@ -24,7 +24,7 @@ public class ReloadAction {
 	public final Ctx ctx = new Ctx(this);
 
 	@PostMapping(URL)
-	public Ctx reload() {
+	public Ctx doit() {
 		bookmarkSessionService.reload();
 		return ctx;
 	}

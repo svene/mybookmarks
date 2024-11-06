@@ -22,7 +22,6 @@ import org.svenehrke.mybookmarks.service.BookmarkSessionStore;
 public class PostBookmarkAction {
 
 	public record Ctx(PostBookmarkAction ME) implements ViewContext {}
-	public final Ctx ctx = new Ctx(this);
 
 	public static final String URL = "/bookmark";
 
@@ -44,9 +43,9 @@ public class PostBookmarkAction {
 	 *  You can directly return the new HTML fragment."
 	 */
 	@PostMapping(path = URL, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-	public ViewContext POST_bookmark(@RequestParam String url) {
+	public ViewContext doit(@RequestParam String url) {
 		addBookmark(url);
-		return ctx;
+		return new Ctx(this);
 	}
 
 	private void addBookmark(String bmUrl) {

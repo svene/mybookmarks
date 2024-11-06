@@ -11,14 +11,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class CancelNewBookmarkAction {
 
-	public record Ctx(CancelNewBookmarkAction ME) implements ViewContext {}
-	public final Ctx ctx = new Ctx(this);
+	public record Ctx() implements ViewContext {}
 
 	public static final String URL = "/cancelnewbookmark";
 
 	@GetMapping(path = URL)
-	public ViewContext cancel_new_bookmark() {
-		return ctx;
+	public ViewContext doit() {
+		return new Ctx();
 	}
 
 }

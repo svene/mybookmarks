@@ -1,3 +1,4 @@
+@import org.svenehrke.mybookmarks.components.placeholdercard.PlaceholderCardComponent
 @import org.svenehrke.mybookmarks.model.Bookmark
 @import org.svenehrke.mybookmarks.components.bookmarkrows.BookmarkRowsComponent.Ctx
 
@@ -9,7 +10,7 @@
     </style>
     @for(Bookmark bm : ctx.buildBookmarks().stream().limit(10).toList())
         <bal-card>
-            ${ctx.ME().placeholderCardComponent.ctx(bm.id())}
+            ${new PlaceholderCardComponent.Ctx(bm.id())}
         </bal-card>
     @endfor
 </bal-stack>

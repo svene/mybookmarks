@@ -14,8 +14,6 @@ import org.svenehrke.mybookmarks.service.BookmarkSessionStore;
 @RequiredArgsConstructor
 @Controller
 public class SearchByTagsAction {
-	public static final String URL = "/reload";
-	public final BookmarkSessionService bookmarkSessionService;
 	public final BookmarkSessionStore bookmarkSessionStore;
 	public final BookmarkRowsComponent bookmarkRowsComponent;
 

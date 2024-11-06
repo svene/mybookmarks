@@ -6,8 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.view.RedirectView;
-import org.svenehrke.mybookmarks.components.bookmarkrows.BookmarkRowsComponent;
-import org.svenehrke.mybookmarks.components.search.SearchComponent;
+import org.svenehrke.mybookmarks.service.BookmarkSessionService;
+import org.svenehrke.mybookmarks.service.BookmarkSessionStore;
 
 @ViewComponent
 @RequiredArgsConstructor
@@ -16,8 +16,8 @@ public class MainComponent {
 
 	public static final String URL = "/bookmarks";
 
-	public final SearchComponent searchComponent;
-	public final BookmarkRowsComponent bookmarkRowsComponent;
+	public final BookmarkSessionStore bookmarkSessionStore;
+	public final BookmarkSessionService bookmarkSessionService;
 
 	public record Ctx(MainComponent ME) implements ViewContext {}
 	public final Ctx ctx = new Ctx(this);

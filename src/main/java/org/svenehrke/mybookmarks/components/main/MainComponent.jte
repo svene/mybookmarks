@@ -1,4 +1,6 @@
 @import org.svenehrke.mybookmarks.components.main.MainComponent.Ctx
+@import org.svenehrke.mybookmarks.components.bookmarkrows.BookmarkRowsComponent
+@import org.svenehrke.mybookmarks.components.search.SearchComponent
 
 @param Ctx ctx
 
@@ -11,7 +13,7 @@ content = @`
 		</style>
 
 		<bal-card id="first_card">
-			${ctx.ME().searchComponent.ctx()}
+			${new SearchComponent.Ctx(ctx.ME().bookmarkSessionService)}
 		</bal-card>
 	</bal-stack>
 
@@ -27,7 +29,7 @@ content = @`
 	</bal-stack>
 
 	<div id="search-result">
-		${ctx.ME().bookmarkRowsComponent.ctx()}
+		${new BookmarkRowsComponent.Ctx(ctx.ME().bookmarkSessionStore, ctx.ME().bookmarkSessionService)}
 	</div>
 
 `)

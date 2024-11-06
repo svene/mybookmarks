@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.svenehrke.mybookmarks.components.bookmarkrows.BookmarkRowsComponent;
 import org.svenehrke.mybookmarks.service.BookmarkSessionService;
 import org.svenehrke.mybookmarks.service.BookmarkSessionStore;
 
@@ -15,7 +14,7 @@ import org.svenehrke.mybookmarks.service.BookmarkSessionStore;
 @Controller
 public class SearchByTagsAction {
 	public final BookmarkSessionStore bookmarkSessionStore;
-	public final BookmarkRowsComponent bookmarkRowsComponent;
+	public final BookmarkSessionService bookmarkSessionService;
 
 	public record Ctx(SearchByTagsAction ME) implements ViewContext {}
 	public final Ctx ctx = new Ctx(this);

@@ -1,13 +1,14 @@
 @import org.svenehrke.mybookmarks.components.settings.SettingsComponent.Ctx
 @import org.svenehrke.mybookmarks.components.search.SearchComponent
 @import org.svenehrke.mybookmarks.components.main.ReloadAction
+@import org.svenehrke.mybookmarks.components.csvtext.CsvTextComponent
 
 @param Ctx ctx
 
 <bal-card-content>
     <bal-card-content>
         <div id="csv-text">
-            ${ctx.ME().csvTextComponent.ctx()}
+            ${new CsvTextComponent.Ctx(ctx.ME().bookmarkSessionService)}
         </div>
     </bal-card-content>
 </bal-card-content>

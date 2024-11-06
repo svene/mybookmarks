@@ -7,9 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.svenehrke.mybookmarks.components.card.CardComponent;
-import org.svenehrke.mybookmarks.components.csvtext.CsvTextComponent;
-import org.svenehrke.mybookmarks.components.existingtags.ExistingTagsComponent;
 import org.svenehrke.mybookmarks.model.CsvInfo;
 import org.svenehrke.mybookmarks.service.BookmarkSessionService;
 import org.svenehrke.mybookmarks.service.BookmarkSessionStore;
@@ -26,11 +23,8 @@ public class PutBookmarkAction {
 
 	public static final String URL = "/edit/inline/putbookmark";
 
-	private final BookmarkSessionStore bookmarkSessionStore;
-	private final BookmarkSessionService bookmarkSessionService;
-	public final CardComponent cardComponent;
-	public final ExistingTagsComponent existingTagsComponent;
-	public final CsvTextComponent csvTextComponent;
+	public final BookmarkSessionStore bookmarkSessionStore;
+	public final BookmarkSessionService bookmarkSessionService;
 
 	public record Ctx(PutBookmarkAction ME, BigInteger id) implements ViewContext {
 		public Ctx putBookmark(String url, String tags) {

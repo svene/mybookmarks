@@ -5,7 +5,7 @@ import de.tschuehly.spring.viewcomponent.jte.ViewContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.svenehrke.mybookmarks.components.existingtags.ExistingTagsComponent;
+import org.svenehrke.mybookmarks.service.BookmarkSessionService;
 
 @ViewComponent
 @Controller
@@ -14,17 +14,13 @@ public class SearchComponent {
 
 	public static final String UI_URL = "/search/ui";
 
-	public final ExistingTagsComponent existingTagsComponent;
+	public final BookmarkSessionService bookmarkSessionService;
 
-	public record Ctx(SearchComponent ME) implements ViewContext {}
-
-	public Ctx ctx() {
-		return new Ctx(this);
-	}
+	public record Ctx(BookmarkSessionService bookmarkSessionService) implements ViewContext {}
 
 	@GetMapping(UI_URL)
 	public Ctx ui() {
-		return ctx();
+		return new Ctx(bookmarkSessionService);
 	}
 
 }

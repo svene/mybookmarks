@@ -1,12 +1,12 @@
 @import org.svenehrke.mybookmarks.components.editcard.PutBookmarkAction.Ctx
+@import org.svenehrke.mybookmarks.components.existingtags.ExistingTagsComponent
+@import org.svenehrke.mybookmarks.components.card.CardComponent
+
 @param Ctx ctx
 
-${ctx.ME().cardComponent.ctx(ctx.id())}
+${new CardComponent.Ctx(ctx.ME().bookmarkSessionService, ctx.id())}
 
 <div id="existing-tags" hx-swap-oob="innerHTML">
-    ${ctx.ME().existingTagsComponent.ctx()}
+    ${new ExistingTagsComponent.Ctx(ctx.ME().bookmarkSessionService)}
 </div>
 
-<div id="csv-text" hx-swap-oob="innerHTML">
-    ${ctx.ME().csvTextComponent.ctx()}
-</div>

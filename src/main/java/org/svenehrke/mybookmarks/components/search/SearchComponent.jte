@@ -1,12 +1,13 @@
 @import org.svenehrke.mybookmarks.components.search.SearchComponent.Ctx
 @import org.svenehrke.mybookmarks.components.settings.SettingsComponent
+@import org.svenehrke.mybookmarks.components.existingtags.ExistingTagsComponent
 
 @param Ctx ctx
 
 <bal-card-content>
     <bal-card-title level="x-large">Search</bal-card-title>
     <div id="existing-tags" class="mb-normal">
-        ${ctx.ME().existingTagsComponent.ctx()}
+        ${new ExistingTagsComponent.Ctx(ctx.bookmarkSessionService())}
     </div>
 </bal-card-content>
 

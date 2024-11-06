@@ -7,9 +7,6 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.svenehrke.mybookmarks.components.bookmarkrows.BookmarkRowsComponent;
-import org.svenehrke.mybookmarks.components.csvtext.CsvTextComponent;
-import org.svenehrke.mybookmarks.components.existingtags.ExistingTagsComponent;
 import org.svenehrke.mybookmarks.service.BookmarkSessionService;
 import org.svenehrke.mybookmarks.service.BookmarkSessionStore;
 
@@ -27,9 +24,6 @@ public class PostBookmarkAction {
 
 	public final BookmarkSessionStore bookmarkSessionStore;
 	public final BookmarkSessionService bookmarkSessionService;
-	public final ExistingTagsComponent existingTagsComponent;
-	public final BookmarkRowsComponent bookmarkRowsComponent;
-	public final CsvTextComponent csvTextComponent;
 
 
 	/**

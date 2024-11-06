@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.svenehrke.mybookmarks.components.card.CardComponent;
+import org.svenehrke.mybookmarks.service.BookmarkSessionService;
 
 import java.math.BigInteger;
 
@@ -14,7 +14,7 @@ import java.math.BigInteger;
 @RequiredArgsConstructor
 @Controller
 public class CancelEditBookmarkAction {
-	public final CardComponent cardComponent;
+	public final BookmarkSessionService bookmarkSessionService;
 	public record Ctx(CancelEditBookmarkAction ME, BigInteger id) implements ViewContext {}
 
 	@GetMapping("/canceleditbookmark/{id}")

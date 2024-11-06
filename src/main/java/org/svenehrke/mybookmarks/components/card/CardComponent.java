@@ -18,23 +18,18 @@ import java.math.BigInteger;
 public class CardComponent {
 	private final BookmarkSessionService bookmarkSessionService;
 
-	public record Ctx(CardComponent ME, BigInteger id) implements ViewContext {
+	public record Ctx(BookmarkSessionService bookmarkSessionService, BigInteger id) implements ViewContext {
 		public Bookmark getBookmark() {
-			return ME.bookmarkSessionService.getById(id);
+			return bookmarkSessionService.getById(id);
 		}
 		public BookmarkEx getOgInfo() {
-			return ME.bookmarkSessionService.getBookmarkEx(getBookmark());
+			return bookmarkSessionService.getBookmarkEx(getBookmark());
 		}
 	}
-
-	public Ctx ctx(BigInteger id) {
-		return new Ctx(this, id);
-	}
-
 
 	@GetMapping("/card/{id}")
 	public Ctx ui(@PathVariable BigInteger id) {
-		return ctx(id);
+		return new Ctx(bookmarkSessionService, id);
 	}
 
 }

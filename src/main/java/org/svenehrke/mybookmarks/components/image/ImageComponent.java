@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.svenehrke.mybookmarks.model.Bookmark;
 import org.svenehrke.mybookmarks.model.BookmarkEx;
 import org.svenehrke.mybookmarks.service.BookmarkSessionService;
-import org.svenehrke.mybookmarks.service.BookmarkSessionStore;
 
 @ViewComponent
 @RequiredArgsConstructor
@@ -18,7 +17,6 @@ public class ImageComponent {
 	public static final String EVENT_URL_CHANGED = "urlChanged";
 
 	private final BookmarkSessionService bookmarkSessionService;
-	private final BookmarkSessionStore bookmarkSessionStore;
 
 	public record Ctx(String url) implements ViewContext {}
 
@@ -28,7 +26,7 @@ public class ImageComponent {
 
 	@GetMapping("/image")
 	public Ctx ui() {
-		Bookmark previewBookmark = bookmarkSessionStore.getPreviewBookmark();
+		Bookmark previewBookmark = bookmarkSessionService.store().getPreviewBookmark();
 		BookmarkEx ex = bookmarkSessionService.getBookmarkEx(previewBookmark);
 		return new Ctx(ex.imageUrl());
 	}

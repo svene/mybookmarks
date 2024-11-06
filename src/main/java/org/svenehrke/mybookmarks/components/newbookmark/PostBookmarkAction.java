@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.svenehrke.mybookmarks.service.BookmarkSessionService;
-import org.svenehrke.mybookmarks.service.BookmarkSessionStore;
 
 /**
  * Smart Component
@@ -22,7 +21,6 @@ public class PostBookmarkAction {
 
 	public static final String URL = "/bookmark";
 
-	public final BookmarkSessionStore bookmarkSessionStore;
 	public final BookmarkSessionService bookmarkSessionService;
 
 
@@ -44,9 +42,9 @@ public class PostBookmarkAction {
 
 	private void addBookmark(String bmUrl) {
 		bookmarkSessionService.loadBookmarksIntoSessionIfNecessary();
-		var csv = addUrlToCsv(bookmarkSessionStore.getBookmarksCSV(), bmUrl);
+		var csv = addUrlToCsv(bookmarkSessionService.store().getBookmarksCSV(), bmUrl);
 		bookmarkSessionService.handleNewCsvString(csv);
-		bookmarkSessionStore.setPreviewBookmark(null);
+		bookmarkSessionService.store().setPreviewBookmark(null);
 	}
 
 	private String addUrlToCsv(String currentCsv, String bmUrl) {

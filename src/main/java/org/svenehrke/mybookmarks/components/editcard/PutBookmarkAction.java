@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.svenehrke.mybookmarks.model.CsvInfo;
 import org.svenehrke.mybookmarks.service.BookmarkSessionService;
-import org.svenehrke.mybookmarks.service.BookmarkSessionStore;
 import org.svenehrke.mybookmarks.service.CsvReader;
 
 import java.math.BigInteger;
@@ -23,13 +22,12 @@ public class PutBookmarkAction {
 
 	public static final String URL = "/edit/inline/putbookmark";
 
-	public final BookmarkSessionStore bookmarkSessionStore;
 	public final BookmarkSessionService bookmarkSessionService;
 
 	public record Ctx(PutBookmarkAction ME, BigInteger id) implements ViewContext {
 		public Ctx putBookmark(String url, String tags) {
 			ME.bookmarkSessionService.handleNewCsvString(
-				putEntryIntoCSV(id, url, tags, ME.bookmarkSessionStore.getBookmarksCSV())
+				putEntryIntoCSV(id, url, tags, ME.bookmarkSessionService.store().getBookmarksCSV())
 			);
 			return this;
 		}

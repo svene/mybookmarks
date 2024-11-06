@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.view.RedirectView;
 import org.svenehrke.mybookmarks.service.BookmarkSessionService;
-import org.svenehrke.mybookmarks.service.BookmarkSessionStore;
 
 @ViewComponent
 @RequiredArgsConstructor
@@ -16,7 +15,6 @@ public class MainComponent {
 
 	public static final String URL = "/bookmarks";
 
-	public final BookmarkSessionStore bookmarkSessionStore;
 	public final BookmarkSessionService bookmarkSessionService;
 
 	public record Ctx(MainComponent ME) implements ViewContext {}

@@ -17,9 +17,9 @@ import java.util.stream.Collectors;
 @Controller
 public class BookmarkRowsComponent {
 
-	public record Ctx(BookmarkSessionStore bookmarkSessionStore, BookmarkSessionService bookmarkSessionService) implements ViewContext {
+	public record Ctx(BookmarkSessionService bookmarkSessionService) implements ViewContext {
 		public List<Bookmark> buildBookmarks() {
-			return findAllByTag(bookmarkSessionStore.getSearchTags());
+			return findAllByTag(bookmarkSessionService.store().getSearchTags());
 		}
 		private List<Bookmark> findAllByTag(String tagsString) {
 			if (!StringUtils.hasLength(tagsString)) {

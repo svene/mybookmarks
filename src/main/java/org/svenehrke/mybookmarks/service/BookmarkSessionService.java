@@ -13,6 +13,10 @@ public class BookmarkSessionService {
 	private final BookmarkService bookmarkService;
 	private final BookmarkSessionStore bookmarkSessionStore;
 
+	public BookmarkSessionStore store() {
+		return bookmarkSessionStore;
+	}
+
 	public Bookmark getById(BigInteger id) {
 		return bookmarkService.getById(id, getCsvParseResult().bookmarks());
 	}

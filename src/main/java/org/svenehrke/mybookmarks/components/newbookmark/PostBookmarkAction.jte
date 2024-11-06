@@ -11,6 +11,6 @@
 </div>
 
 <div id="search-result" hx-swap-oob="innerHTML">
-	${new BookmarkRowsComponent.Ctx(ctx.ME().bookmarkSessionStore, ctx.ME().bookmarkSessionService)}
+	${new BookmarkRowsComponent.Ctx(ctx.ME().bookmarkSessionService)}
 </div>
 

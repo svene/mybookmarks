@@ -7,13 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.svenehrke.mybookmarks.service.BookmarkSessionService;
-import org.svenehrke.mybookmarks.service.BookmarkSessionStore;
 
 @ViewComponent
 @RequiredArgsConstructor
 @Controller
 public class SearchByTagsAction {
-	public final BookmarkSessionStore bookmarkSessionStore;
 	public final BookmarkSessionService bookmarkSessionService;
 
 	public record Ctx(SearchByTagsAction ME) implements ViewContext {}
@@ -29,7 +27,7 @@ public class SearchByTagsAction {
 	public Ctx searchTags(
 		@RequestParam(required = false, name = "search_by_tags") String searchByTags
 	) {
-		bookmarkSessionStore.setSearchTags(searchByTags);
+		bookmarkSessionService.store().setSearchTags(searchByTags);
 		return ctx;
 	}
 

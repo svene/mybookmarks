@@ -14,8 +14,7 @@ import org.svenehrke.mybookmarks.service.BookmarkSessionService;
 public class SearchByTagsAction {
 	public final BookmarkSessionService bookmarkSessionService;
 
-	public record Ctx(SearchByTagsAction ME) implements ViewContext {}
-	public final Ctx ctx = new Ctx(this);
+	public record Ctx(BookmarkSessionService bookmarkSessionService) implements ViewContext {}
 
 	/**
 	 * Meant to be called by a normal input widget (comma separated list of search tags, optionally with minus-prefix)
@@ -28,7 +27,7 @@ public class SearchByTagsAction {
 		@RequestParam(required = false, name = "search_by_tags") String searchByTags
 	) {
 		bookmarkSessionService.store().setSearchTags(searchByTags);
-		return ctx;
+		return new Ctx(bookmarkSessionService);
 	}
 
 }

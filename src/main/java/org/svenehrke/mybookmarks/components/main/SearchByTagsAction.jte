@@ -4,6 +4,6 @@
 @param Ctx ctx
 
 <div id="search-result" hx-swap-oob="outerHTML">
-	${new BookmarkRowsComponent.Ctx(ctx.ME().bookmarkSessionService)}
+	${new BookmarkRowsComponent.Ctx(ctx.bookmarkSessionService())}
 </div>
 

@@ -4,9 +4,9 @@ import de.tschuehly.spring.viewcomponent.core.component.ViewComponent;
 import de.tschuehly.spring.viewcomponent.jte.ViewContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
-import org.svenehrke.mybookmarks.service.*;
 import org.svenehrke.mybookmarks.model.Bookmark;
+import org.svenehrke.mybookmarks.service.BookmarkSessionService;
+import org.svenehrke.mybookmarks.service.BookmarkSessionStore;
 
 import java.util.Collections;
 import java.util.List;
@@ -19,35 +19,22 @@ public class BookmarkRowsComponent {
 
 	public record Ctx(BookmarkSessionService bookmarkSessionService) implements ViewContext {
 		public List<Bookmark> buildBookmarks() {
-			return findAllByTag(bookmarkSessionService.store().getSearchTags());
+			return findAllByTag();
 		}
-		private List<Bookmark> findAllByTag(String tagsString) {
-			if (!StringUtils.hasLength(tagsString)) {
+		private List<Bookmark> findAllByTag() {
+			if (tags.isEmpty()) {
 				return bookmarkSessionService.getCsvParseResult().bookmarks();
 			}
 
-			var tags = parseTagsString(tagsString);
-			// Check that it.tags() does not contain any item from minusTags
+			var exclusionTags = bookmarkSessionService.getFilteredTags(BookmarkSessionStore.TagSelection.EXCLUDE);
+			var inclusionTags = bookmarkSessionService.getFilteredTags(BookmarkSessionStore.TagSelection.INCLUDE);
 			return bookmarkSessionService.getCsvParseResult().bookmarks().stream()
-				.filter(it -> tags.normalTags().isEmpty() || !Collections.disjoint(it.tags(), tags.normalTags()))
-				.filter(it -> tags.minusTags().isEmpty() || it.tags().stream().noneMatch(tags.minusTags()::contains)) // Check that it.tags() does not contain any item from minusTags
+				.filter(it -> inclusionTags.isEmpty() || !Collections.disjoint(it.tags(), inclusionTags))
+				.filter(it -> exclusionTags.isEmpty() || it.tags().stream().noneMatch(exclusionTags::contains)) // Check that it.tags() does not contain any item from minusTags
 				.collect(Collectors.toList());
 		}
-		private TagsStringParseResult parseTagsString(String tagsString) {
-			var tags = BookmarkUtil.tagsStringToList(tagsString).stream().map(String::trim).toList();
-			List<String> plusTags = MishMash.filterList(tags, it -> it.startsWith("+")).stream().map(it -> it.substring(1)).toList();
-			List<String> minusTags = MishMash.filterList(tags, it -> it.startsWith("-")).stream().map(it -> it.substring(1)).toList();
-			List<String> normalTags = MishMash.filterList(tags, s -> !s.startsWith("+") && !s.startsWith("-"));
 
-			return new TagsStringParseResult(tags, plusTags, minusTags, normalTags);
-		}
 
-		private record TagsStringParseResult(
-			List<String> tags,
-			List<String> plusTags,
-			List<String> minusTags,
-			List<String> normalTags
-		) {}
 	}
 
 }

@@ -1,3 +1,4 @@
+@import org.svenehrke.mybookmarks.components.main.SearchByTagsAction
 @import org.svenehrke.mybookmarks.components.existingtags.ExistingTagsComponent.Ctx
 @import org.svenehrke.mybookmarks.components.existingtags.ExistingTagsComponent.TagAndCount
 
@@ -7,9 +8,10 @@
 
 <bal-card-content>
     @for(TagAndCount tag : ctx.existingTags())
-    <bal-tag color="green"
+        !{var color = ctx.colorForTag(tag.tag());}
+    <bal-tag color="${color}"
              hx-trigger="click"
-             hx-put="/search/tags"
+             hx-put="${SearchByTagsAction.URL}"
              hx-vals='{"search_by_tags": "${tag.tag()}"}'
              hx-swap="none"
     >

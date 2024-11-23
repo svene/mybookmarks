@@ -1,4 +1,5 @@
 @import org.svenehrke.mybookmarks.components.search.SearchComponent.Ctx
+@import org.svenehrke.mybookmarks.components.main.SearchByTagsAction
 @import org.svenehrke.mybookmarks.components.settings.SettingsComponent
 @import org.svenehrke.mybookmarks.components.existingtags.ExistingTagsComponent
 
@@ -20,7 +21,7 @@
                    type="search"
                    placeholder="Search tags"
                    hx-trigger="keyup delay:300ms"
-                   hx-put="/search/tags"
+                   hx-put="${SearchByTagsAction.URL}"
                    hx-swap="none"
                    hx-include="#search-tags"
         ></bal-input>

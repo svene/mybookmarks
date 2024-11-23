@@ -8,25 +8,36 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.svenehrke.mybookmarks.service.BookmarkSessionService;
 
+import static org.svenehrke.mybookmarks.service.BookmarkSessionStore.TagSelection.EXCLUDE;
+import static org.svenehrke.mybookmarks.service.BookmarkSessionStore.TagSelection.INCLUDE;
+
+
 @ViewComponent
 @RequiredArgsConstructor
 @Controller
 public class SearchByTagsAction {
+	public static final String URL = "/search/tags";
+
 	public final BookmarkSessionService bookmarkSessionService;
 
-	public record Ctx(BookmarkSessionService bookmarkSessionService) implements ViewContext {}
+	public record Ctx(BookmarkSessionService bookmarkSessionService) implements ViewContext {
 
-	/**
-	 * Meant to be called by a normal input widget (comma separated list of search tags, optionally with minus-prefix)
-	 * NOTE: Used to ease the implementation.
-	 * Final UX should not be made with an input widget but with tag widgets
-	 * (or checkbox widgets (with undetermined state for minus maybe))
-	 */
-	@PutMapping("/search/tags")
+	}
+
+	@PutMapping(URL)
 	public Ctx searchTags(
-		@RequestParam(required = false, name = "search_by_tags") String searchByTags
+		@RequestParam(required = false, name = "search_by_tags") String tag
 	) {
-		bookmarkSessionService.store().setSearchTags(searchByTags);
+
+		var x = bookmarkSessionService.store().getTagsWithSelection();
+		x.compute(tag,
+			(k, v) -> switch (v) {
+				case null -> INCLUDE;
+				case INCLUDE -> EXCLUDE;
+				case EXCLUDE -> null;
+			}
+		);
+
 		return new Ctx(bookmarkSessionService);
 	}
 

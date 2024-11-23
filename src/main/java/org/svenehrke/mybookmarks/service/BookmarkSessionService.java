@@ -6,6 +6,8 @@ import org.svenehrke.mybookmarks.model.Bookmark;
 import org.svenehrke.mybookmarks.model.BookmarkEx;
 
 import java.math.BigInteger;
+import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -49,6 +51,14 @@ public class BookmarkSessionService {
 	public void handleNewCsvString(String csv) {
 		bookmarkSessionStore.setBookmarksCSV(csv);
 		bookmarkSessionStore.setCsvParseResult(bookmarkService.parse(csv));
+	}
+	public List<String> getFilteredTags(BookmarkSessionStore.TagSelection selectionType) {
+		var tags = store().getTagsWithSelection();
+		var result = tags.entrySet().stream()
+			.filter(it -> it.getValue() == selectionType)
+			.map(Map.Entry::getKey)
+			.toList();
+		return result;
 	}
 
 }

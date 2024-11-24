@@ -4,10 +4,12 @@ import de.tschuehly.spring.viewcomponent.core.component.ViewComponent;
 import de.tschuehly.spring.viewcomponent.jte.ViewContext;
 import lombok.RequiredArgsConstructor;
 import org.svenehrke.mybookmarks.service.BookmarkSessionService;
-import org.svenehrke.mybookmarks.service.BookmarkSessionStore;
 
 import java.util.Comparator;
 import java.util.List;
+
+import static org.svenehrke.mybookmarks.service.BookmarkSessionService.EXCLUDED_TAGS_PREDICATE;
+import static org.svenehrke.mybookmarks.service.BookmarkSessionService.INCLUDED_TAGS_PREDICATE;
 
 @ViewComponent
 @RequiredArgsConstructor
@@ -26,16 +28,16 @@ public class ExistingTagsComponent {
 				;
 		}
 		public String colorForTag(String tag) {
-			var exclusionTags = bookmarkSessionService.getFilteredTags(BookmarkSessionStore.TagSelection.EXCLUDE);
-			var inclusionTags = bookmarkSessionService.getFilteredTags(BookmarkSessionStore.TagSelection.INCLUDE);
+			var excludedTags = bookmarkSessionService.getFilteredTags(EXCLUDED_TAGS_PREDICATE);
+			var includedTags = bookmarkSessionService.getFilteredTags(INCLUDED_TAGS_PREDICATE);
 			String result;
-			if (exclusionTags.contains(tag)) {
+			if (excludedTags.contains(tag)) {
 				result = "red";
 			} else {
-				if (inclusionTags.contains(tag)) {
+				if (includedTags.contains(tag)) {
 					result = "green";
 				} else {
-					result = "blue";
+					result = "";
 				}
 			}
 			return result;

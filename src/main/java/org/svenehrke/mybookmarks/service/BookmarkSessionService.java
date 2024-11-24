@@ -8,6 +8,7 @@ import org.svenehrke.mybookmarks.model.BookmarkEx;
 import java.math.BigInteger;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 
 @Service
 @RequiredArgsConstructor
@@ -52,13 +53,17 @@ public class BookmarkSessionService {
 		bookmarkSessionStore.setBookmarksCSV(csv);
 		bookmarkSessionStore.setCsvParseResult(bookmarkService.parse(csv));
 	}
-	public List<String> getFilteredTags(BookmarkSessionStore.TagSelection selectionType) {
+	public List<String> getFilteredTags(Predicate<Map.Entry<String, BookmarkSessionStore.TagSelection>> entryPredicate) {
 		var tags = store().getTagsWithSelection();
 		var result = tags.entrySet().stream()
-			.filter(it -> it.getValue() == selectionType)
+			.filter(entryPredicate)
 			.map(Map.Entry::getKey)
 			.toList();
 		return result;
 	}
 
+	public static final Predicate<Map.Entry<String, BookmarkSessionStore.TagSelection>> EXCLUDED_TAGS_PREDICATE =
+		it -> it.getValue() == BookmarkSessionStore.TagSelection.EXCLUDE;
+	public static final Predicate<Map.Entry<String, BookmarkSessionStore.TagSelection>> INCLUDED_TAGS_PREDICATE =
+		it -> it.getValue() == BookmarkSessionStore.TagSelection.INCLUDE;
 }

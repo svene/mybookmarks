@@ -6,11 +6,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.svenehrke.mybookmarks.model.Bookmark;
 import org.svenehrke.mybookmarks.service.BookmarkSessionService;
-import org.svenehrke.mybookmarks.service.BookmarkSessionStore;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static org.svenehrke.mybookmarks.service.BookmarkSessionService.EXCLUDED_TAGS_PREDICATE;
+import static org.svenehrke.mybookmarks.service.BookmarkSessionService.INCLUDED_TAGS_PREDICATE;
 
 @ViewComponent
 @RequiredArgsConstructor
@@ -22,15 +24,15 @@ public class BookmarkRowsComponent {
 			return findAllByTag();
 		}
 		private List<Bookmark> findAllByTag() {
-			if (tags.isEmpty()) {
+
+			var excludedTags = bookmarkSessionService.getFilteredTags(EXCLUDED_TAGS_PREDICATE);
+			var includedTags = bookmarkSessionService.getFilteredTags(INCLUDED_TAGS_PREDICATE);
+			if (excludedTags.isEmpty() && includedTags.isEmpty()) {
 				return bookmarkSessionService.getCsvParseResult().bookmarks();
 			}
-
-			var exclusionTags = bookmarkSessionService.getFilteredTags(BookmarkSessionStore.TagSelection.EXCLUDE);
-			var inclusionTags = bookmarkSessionService.getFilteredTags(BookmarkSessionStore.TagSelection.INCLUDE);
 			return bookmarkSessionService.getCsvParseResult().bookmarks().stream()
-				.filter(it -> inclusionTags.isEmpty() || !Collections.disjoint(it.tags(), inclusionTags))
-				.filter(it -> exclusionTags.isEmpty() || it.tags().stream().noneMatch(exclusionTags::contains)) // Check that it.tags() does not contain any item from minusTags
+				.filter(it -> includedTags.isEmpty() || !Collections.disjoint(it.tags(), includedTags))
+				.filter(it -> excludedTags.isEmpty() || it.tags().stream().noneMatch(excludedTags::contains)) // Check that it.tags() does not contain any item from minusTags
 				.collect(Collectors.toList());
 		}
 

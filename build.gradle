@@ -1,8 +1,9 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '3.2.0'
-    id 'io.spring.dependency-management' version '1.1.4'
-    id("gg.jte.gradle") version("3.1.12")
+    id "com.github.ben-manes.versions" version "0.51.0"
+    id 'org.springframework.boot' version '3.4.0'
+    id 'io.spring.dependency-management' version '1.1.6'
+    id("gg.jte.gradle") version("3.1.15")
 }
 
 group = 'org.svenehrke'
@@ -26,8 +27,8 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.testcontainers:junit-jupiter'
 
-    annotationProcessor 'io.soabase.record-builder:record-builder-processor:37'
-    compileOnly 'io.soabase.record-builder:record-builder-core:37'
+    annotationProcessor 'io.soabase.record-builder:record-builder-processor:43'
+    compileOnly 'io.soabase.record-builder:record-builder-core:43'
 
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
@@ -37,14 +38,26 @@ dependencies {
     implementation "gg.jte:jte-spring-boot-starter-3:${deps_jte_version}"
     implementation 'de.tschuehly:spring-view-component-jte:0.8.4'
 
-    implementation 'org.webjars.npm:htmx.org:2.0.2'
-    implementation 'org.webjars.npm:hyperscript.org:0.9.12'
+    implementation 'org.webjars.npm:htmx.org:2.0.3'
+    implementation 'org.webjars.npm:hyperscript.org:0.9.13'
 
-    implementation 'org.webjars.npm:picocss__pico:2.0.0-alpha1'
-    implementation 'org.jsoup:jsoup:1.15.3'
-    implementation 'io.vavr:vavr:0.10.4'
+    implementation 'org.jsoup:jsoup:1.18.1'
+    implementation 'io.vavr:vavr:0.10.5'
     implementation 'com.baloise.webjars:baloise-design-system:16.2.1'
     implementation 'org.webjars:webjars-locator:0.52'
+}
+
+// ben-manes version-plugin:
+def isNonStable = { String version ->
+    def stableKeyword = ['RELEASE', 'FINAL', 'GA'].any { it -> version.toUpperCase().contains(it) }
+    def regex = /^[0-9,.v-]+(-r)?$/
+    return !stableKeyword && !(version ==~ regex)
+}
+// https://github.com/ben-manes/gradle-versions-plugin
+tasks.named("dependencyUpdates").configure {
+    rejectVersionIf {
+        isNonStable(it.candidate.version)
+    }
 }
 
 tasks.named('test') {

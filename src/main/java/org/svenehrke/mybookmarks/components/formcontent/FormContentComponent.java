@@ -25,14 +25,23 @@ public class FormContentComponent {
 	private final BookmarkSessionService bookmarkSessionService;
 
 	public record Ctx(
+		BookmarkSessionService bookmarkSessionService,
 		BigInteger id,
 		String url,
-		String tagString,
+		List<String> tags,
 		Content cancelButtonSlot
-	) implements ViewContext {}
+	) implements ViewContext {
+		public List<String> availableTags() {
+			return bookmarkSessionService.getCsvParseResult().tags().stream()
+				.filter(it -> !tags.contains(it))
+				.sorted()
+				.toList();
+		}
 
-	public Ctx ctx(BigInteger id, String url, String tagString, Content cancelButtonSlot) {
-		return new Ctx(id, url, tagString, cancelButtonSlot);
+	}
+
+	public Ctx ctx(BigInteger id, String url, List<String> tags, Content cancelButtonSlot) {
+		return new Ctx(bookmarkSessionService, id, url, tags, cancelButtonSlot);
 	}
 
 	public Ctx ctx(Ctx ctx) {

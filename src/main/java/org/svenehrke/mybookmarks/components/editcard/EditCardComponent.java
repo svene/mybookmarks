@@ -27,7 +27,8 @@ public class EditCardComponent {
 		public FormContentComponent.Ctx formContentCtx(Content cancelButtonSlot) {
 			Bookmark bookmark = ME.bookmarkSessionService.getById(id);
 			return new FormContentComponent.Ctx(
-				id, bookmark.url(), BookmarkUtil.toTagsString(bookmark.tags()),
+				ME.bookmarkSessionService,
+				id, bookmark.url(), bookmark.tags(),
 				cancelButtonSlot
 			);
 		}

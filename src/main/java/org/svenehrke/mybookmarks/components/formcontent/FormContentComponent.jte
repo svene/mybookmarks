@@ -20,6 +20,16 @@
             </div>
             <p class="help">URL for the bookmark</p>
         </div>
+        <div class="mb-normal">
+            @for(String tag: ctx.tags())
+                <bal-tag color="green">${tag}</bal-tag>
+            @endfor
+        </div>
+        <div class="mb-normal">
+            @for(String tag: ctx.availableTags())
+                <bal-tag color="">${tag}</bal-tag>
+            @endfor
+        </div>
         <div>
             <bal-field>
                 <bal-field-label>Tags</bal-field-label>
@@ -27,7 +37,7 @@
                     <bal-input
                             name="tags"
                             placeholder="Tags"
-                            value="${ctx.tagString()}"
+                            value="---"
                     ></bal-input>
                 </bal-field-control>
             </bal-field>

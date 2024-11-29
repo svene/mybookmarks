@@ -5,6 +5,7 @@ import de.tschuehly.spring.viewcomponent.jte.ViewContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.svenehrke.mybookmarks.service.BookmarkSessionService;
 
 @ViewComponent
 @RequiredArgsConstructor
@@ -13,11 +14,13 @@ public class NewBookmarkFormComponent {
 
 	public static final String URL = "/newbookmark/form";
 
-	public record Ctx() implements ViewContext {}
+	private final BookmarkSessionService bookmarkSessionService;
+
+	public record Ctx(BookmarkSessionService bookmarkSessionService) implements ViewContext {}
 
 	@GetMapping(URL)
 	public ViewContext ui() {
-		return new Ctx();
+		return new Ctx(bookmarkSessionService);
 	}
 
 }

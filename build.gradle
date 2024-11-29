@@ -65,7 +65,13 @@ tasks.named('test') {
 }
 
 jte {
+    generate()
+    sourceDirectory = java.nio.file.Path.of("src/main/java")
+}
+/*
+jte {
     precompile()
 //    sourceDirectory = java.nio.file.Path.of("src/main/java")
     sourceDirectory = java.nio.file.Path.of("src/main/jte")
 }
+*/

@@ -16,6 +16,13 @@ import java.math.BigInteger;
 @RequiredArgsConstructor
 @Controller
 public class CardComponent {
+
+	public static final String URL = "/card/{id}";
+
+	public static final String componentUrl(BigInteger id) {
+		return URL.replace("{id}", id.toString());
+	}
+
 	private final BookmarkSessionService bookmarkSessionService;
 
 	public record Ctx(BookmarkSessionService bookmarkSessionService, BigInteger id) implements ViewContext {
@@ -27,7 +34,7 @@ public class CardComponent {
 		}
 	}
 
-	@GetMapping("/card/{id}")
+	@GetMapping(URL)
 	public Ctx ui(@PathVariable BigInteger id) {
 		return new Ctx(bookmarkSessionService, id);
 	}

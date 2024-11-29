@@ -1,0 +1,15 @@
+= MyBookmarks
+
+== Development
+
+- Start `MybookmarksApplication` with the spring profile 'dev'
+
+== Deployment Build
+
+- `./gradlew clean jar bootJar`
+- open commandline in `build/libs`
+- `export BM_URL=file:../../development/localonly/bookmarks3.csv`
+- run it: `java -jar mybookmarks-0.0.1-SNAPSHOT.jar`
+
+Note the differences of `application.properties`
+and `application-dev.properties`

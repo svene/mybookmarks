@@ -6,8 +6,10 @@ import gg.jte.Content;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.svenehrke.mybookmarks.components.formcontent.FormContentComponent;
+import org.svenehrke.mybookmarks.components.main.SearchByTagsAction;
 import org.svenehrke.mybookmarks.model.Bookmark;
 import org.svenehrke.mybookmarks.service.BookmarkSessionService;
 import org.svenehrke.mybookmarks.service.BookmarkUtil;
@@ -20,6 +22,7 @@ import java.math.BigInteger;
 public class EditCardComponent {
 
 	public static final String COMPONENT_URL = "/edit/inline/form";
+	public static final String ADD_TAG_URL = "/edit/inline/addtag";
 
 	public final BookmarkSessionService bookmarkSessionService;
 
@@ -43,4 +46,11 @@ public class EditCardComponent {
 		return ctx(id);
 	}
 
+	@PutMapping(ADD_TAG_URL)
+	public Ctx add_tag(
+		@RequestParam BigInteger id,
+		@RequestParam(name = "tag") String tag
+	) {
+		return ctx(id);
+	}
 }

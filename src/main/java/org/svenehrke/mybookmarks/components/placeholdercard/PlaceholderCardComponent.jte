@@ -1,10 +1,11 @@
 @import org.svenehrke.mybookmarks.components.placeholdercard.PlaceholderCardComponent.Ctx
+@import org.svenehrke.mybookmarks.components.card.CardComponent
 
 @param Ctx ctx
 
 <bal-card-content id="ogcard_${ctx.id()}"
                   hx-trigger="revealed"
-                  hx-get="/card/${ctx.id()}"
+                  hx-get="${CardComponent.componentUrl(ctx.id())}"
                   hx-vals='{"id": "${ctx.id()}"}'
                   hx-swap="outerHTML"
 >

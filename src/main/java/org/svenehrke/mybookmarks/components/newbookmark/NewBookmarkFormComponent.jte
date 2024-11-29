@@ -4,6 +4,7 @@
 @import org.svenehrke.mybookmarks.components.formcontent.FormContentComponent
 @import org.svenehrke.mybookmarks.components.image.ImageComponent
 @import java.math.BigInteger
+@import java.util.List
 
 @param Ctx ctx
 
@@ -13,7 +14,9 @@ ${new ImageComponent.Ctx("https://placehold.co/640x336/png?text=PREVIEW...")}
         hx-target="closest bal-card-content"
         hx-swap="innerHTML"
 >
-    ${new FormContentComponent.Ctx(BigInteger.ZERO, "", "", @`
+    ${new FormContentComponent.Ctx(
+	ctx.bookmarkSessionService(),
+	BigInteger.ZERO, "", List.of(), @`
     <bal-button color="text"
                 hx-trigger="click"
                 hx-get="${CancelNewBookmarkAction.URL}"

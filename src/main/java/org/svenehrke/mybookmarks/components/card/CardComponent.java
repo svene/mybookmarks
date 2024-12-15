@@ -6,6 +6,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.util.UriComponentsBuilder;
 import org.svenehrke.mybookmarks.model.Bookmark;
 import org.svenehrke.mybookmarks.model.BookmarkEx;
 import org.svenehrke.mybookmarks.service.BookmarkSessionService;
@@ -18,9 +21,17 @@ import java.math.BigInteger;
 public class CardComponent {
 
 	public static final String URL = "/card/{id}";
+	public static final String REMOVE_TAG_URL = "/card/{id}/removetag";
+	private static final UriComponentsBuilder componentUrlBuilder =
+		UriComponentsBuilder.fromPath(URL);
+	private static final UriComponentsBuilder removeTagUrlBuilder =
+		UriComponentsBuilder.fromPath(REMOVE_TAG_URL);
 
-	public static final String componentUrl(BigInteger id) {
-		return URL.replace("{id}", id.toString());
+	public static String componentUrl(BigInteger id) {
+		return componentUrlBuilder.buildAndExpand(id).toUriString();
+	}
+	public static String removeTagUrl(BigInteger id) {
+		return removeTagUrlBuilder.buildAndExpand(id).toUriString();
 	}
 
 	private final BookmarkSessionService bookmarkSessionService;
@@ -36,6 +47,14 @@ public class CardComponent {
 
 	@GetMapping(URL)
 	public Ctx ui(@PathVariable BigInteger id) {
+		return new Ctx(bookmarkSessionService, id);
+	}
+	@PutMapping(REMOVE_TAG_URL)
+	public Ctx remove_tag(
+		@PathVariable("id") BigInteger id,
+		@RequestParam(name = "tag") String tag
+	) {
+		bookmarkSessionService.removeTagFromBookmark(id, tag);
 		return new Ctx(bookmarkSessionService, id);
 	}
 

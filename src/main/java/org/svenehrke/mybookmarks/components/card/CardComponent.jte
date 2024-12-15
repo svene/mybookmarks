@@ -1,3 +1,4 @@
+@import org.svenehrke.mybookmarks.components.card.CardComponent
 @import org.svenehrke.mybookmarks.components.card.CardComponent.Ctx
 @import org.svenehrke.mybookmarks.components.editcard.EditCardComponent
 
@@ -14,7 +15,19 @@
         <bal-card-subtitle>${ogInfo.description()}</bal-card-subtitle>
 
         <bal-card-actions position="right">
-            @template._widget.tags(tags = bm.tags())
+            <bal-card-content>
+                @for(String tag : bm.tags())
+                    <bal-tag color="green"
+                             hx-trigger="click"
+                             hx-put="${CardComponent.removeTagUrl(ctx.id())}"
+                             hx-vals='{"tag": "${tag}"}'
+                             hx-target="closest bal-card-content"
+                             hx-swap="outerHTML"
+                    >
+                        ${tag}
+                    </bal-tag>
+                @endfor
+            </bal-card-content>
             <bal-button
                     square="true"
                     icon="edit"

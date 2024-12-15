@@ -31,12 +31,6 @@ public class FormContentComponent {
 		List<String> tags,
 		Content cancelButtonSlot
 	) implements ViewContext {
-		public List<String> availableTags() {
-			return bookmarkSessionService.getCsvParseResult().tags().stream()
-				.filter(it -> !tags.contains(it))
-				.sorted()
-				.toList();
-		}
 
 	}
 

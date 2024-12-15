@@ -1,3 +1,4 @@
+@import org.svenehrke.mybookmarks.components.editcard.CancelEditBookmarkAction
 @import org.svenehrke.mybookmarks.components.editcard.PutBookmarkAction
 @import org.svenehrke.mybookmarks.components.editcard.EditCardComponent.Ctx
 
@@ -11,11 +12,11 @@
         ${ctx.formContentCtx(@`
                 <bal-button color="text"
                             hx-trigger="click"
-                            hx-get="/canceleditbookmark/${ctx.id()}"
+                            hx-get="${CancelEditBookmarkAction.url(ctx.id())}"
                             hx-target="closest bal-card-content"
                             hx-swap="outerHTML"
                 >
-                        Cancel
+                        Close
                 </bal-button>
         `
         )}

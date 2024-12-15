@@ -7,12 +7,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.svenehrke.mybookmarks.model.CsvInfo;
 import org.svenehrke.mybookmarks.service.BookmarkSessionService;
-import org.svenehrke.mybookmarks.service.CsvReader;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
 
 @ViewComponent
 @Controller
@@ -26,17 +23,8 @@ public class PutBookmarkAction {
 
 	public record Ctx(PutBookmarkAction ME, BigInteger id) implements ViewContext {
 		public Ctx putBookmark(String url, String tags) {
-			ME.bookmarkSessionService.handleNewCsvString(
-				putEntryIntoCSV(id, url, tags, ME.bookmarkSessionService.store().getBookmarksCSV())
-			);
+			ME.bookmarkSessionService.putBookmark(id, url, tags);
 			return this;
-		}
-
-		private static String putEntryIntoCSV(BigInteger id, String url, String tags, String csv) {
-			CsvInfo csvInfo = new CsvReader().getCsvInfo(csv);
-			var records = new ArrayList<>(csvInfo.records());
-			records.set(id.intValue(), url + ";" + tags);
-			return String.join(System.lineSeparator(), records);
 		}
 	}
 

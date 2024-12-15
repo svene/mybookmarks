@@ -1,6 +1,6 @@
+@import org.svenehrke.mybookmarks.components.editcard.EditCardTagsComponent
 @import org.svenehrke.mybookmarks.components.formcontent.FormContentComponent
 @import org.svenehrke.mybookmarks.components.formcontent.FormContentComponent.Ctx
-@import org.svenehrke.mybookmarks.components.editcard.EditCardComponent
 
 @param Ctx ctx
 
@@ -21,24 +21,7 @@
             </div>
             <p class="help">URL for the bookmark</p>
         </div>
-        <div class="mb-normal">
-            @for(String tag: ctx.tags())
-                <bal-tag color="green">${tag}</bal-tag>
-            @endfor
-        </div>
-        <div class="mb-normal">
-            @for(String tag: ctx.availableTags())
-                <bal-tag color=""
-                         hx-trigger="click"
-                         hx-put="${EditCardComponent.ADD_TAG_URL}"
-                         hx-vals='{"id": "${ctx.id()}", "tag": "${tag}"}'
-                         hx-target="closest bal-card-content"
-                         hx-swap="outerHTML"
-                >
-                    ${tag}
-                </bal-tag>
-            @endfor
-        </div>
+        ${new EditCardTagsComponent.Ctx(ctx.bookmarkSessionService(), ctx.id(), ctx.tags())}
         <div>
             <bal-field>
                 <bal-field-label>Tags</bal-field-label>

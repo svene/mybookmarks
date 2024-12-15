@@ -1,0 +1,7 @@
+- when tag is added/modified other parts of the screen need to be updated:
+-- when last reference from a bookmark to a tag is removed it needs to be removed
+   from available tags (on top and on other cards)
+   -> maybe this is better solved using events ?
+
+- add a new tag
+- CancelEditBookmarkAction: maybe directly use CardComponent

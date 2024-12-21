@@ -43,7 +43,7 @@ dependencies {
 
     implementation 'org.jsoup:jsoup:1.18.3'
     implementation 'io.vavr:vavr:0.10.5'
-    implementation 'org.webjars:baloise-design-system:17.1.0'
+    implementation 'org.webjars:baloise-design-system:17.2.1'
     implementation 'org.webjars:webjars-locator-lite:1.0.1'
 }
 

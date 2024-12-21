@@ -22,11 +22,11 @@ public class EditCardComponent {
 
 	public final BookmarkSessionService bookmarkSessionService;
 
-	public record Ctx(EditCardComponent ME, BigInteger id) implements ViewContext {
+	public record Ctx(BookmarkSessionService bookmarkSessionService, BigInteger id) implements ViewContext {
 		public FormContentComponent.Ctx formContentCtx(Content cancelButtonSlot) {
-			Bookmark bookmark = ME.bookmarkSessionService.getById(id);
+			Bookmark bookmark = bookmarkSessionService.getById(id);
 			return new FormContentComponent.Ctx(
-				ME.bookmarkSessionService,
+				bookmarkSessionService,
 				id, bookmark.url(), bookmark.tags(),
 				cancelButtonSlot
 			);
@@ -34,7 +34,7 @@ public class EditCardComponent {
 	}
 
 	public Ctx ctx(BigInteger id) {
-		return new Ctx(this, id);
+		return new Ctx(bookmarkSessionService, id);
 	}
 
 	@GetMapping(COMPONENT_URL)

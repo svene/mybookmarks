@@ -15,18 +15,17 @@ import java.math.BigInteger;
 @RequiredArgsConstructor
 @Controller
 public class CancelEditBookmarkAction {
-	public static final String URL = "/canceleditbookmark/{id}";
-	private static final UriComponentsBuilder urlBuilder =
-		UriComponentsBuilder.fromPath(URL);
+	public static final String UI_URL = "/canceleditbookmark/{id}";
+	private static final UriComponentsBuilder uiUrlBuilder = UriComponentsBuilder.fromPath(UI_URL);
 
 	public final BookmarkSessionService bookmarkSessionService;
 	public record Ctx(CancelEditBookmarkAction ME, BigInteger id) implements ViewContext {}
 
 	public static String url(BigInteger id) {
-		return urlBuilder.buildAndExpand(id).toUriString();
+		return uiUrlBuilder.buildAndExpand(id).toUriString();
 	}
 
-	@GetMapping(URL)
+	@GetMapping(UI_URL)
 	public Ctx doit(@PathVariable BigInteger id) {
 		return new Ctx(this, id);
 	}

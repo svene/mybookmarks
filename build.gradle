@@ -65,7 +65,7 @@ tasks.named('test') {
 }
 
 jte {
-    generate()
+//    generate() // comment out for development. TODO: find out dynamically if in dev mode or not
     sourceDirectory = java.nio.file.Path.of("src/main/java")
 }
 /*

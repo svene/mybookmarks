@@ -5,7 +5,7 @@
 
 <bal-card-content id="ogcard_${ctx.id()}"
                   hx-trigger="revealed"
-                  hx-get="${CardComponent.componentUrl(ctx.id())}"
+                  hx-get="${CardComponent.uiUrl(ctx.id())}"
                   hx-vals='{"id": "${ctx.id()}"}'
                   hx-swap="outerHTML"
 >

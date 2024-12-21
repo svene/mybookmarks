@@ -16,9 +16,35 @@ and `application-dev.properties`
 
 == Patterns (WIP)
 
+=== Pattern: Insertion
+
+==== Intent
+Structure HTML hierachically using components
+
+==== Related Patterns
+
+- Slots
+
 === Slots
 
+==== Intent
 How to pass content from parent to child.
+
+==== Also Known As
+
+- template
+- layout
+- socket and plugin
+- outside in
+
+==== Applicability
+
+Use when
+
+- a child component has a rather large html content
+- a parent component needs to customize a rather small part (or parts) of the child component
+
+==== Implementation
 
 [source,java]
 .ParentComponent.java
@@ -67,4 +93,8 @@ ${ctx.slot1()}
 <div>child: after</div>
 <div>parent: after</div>
 ----
+
+==== Related Patterns
+
+- Insertion
 

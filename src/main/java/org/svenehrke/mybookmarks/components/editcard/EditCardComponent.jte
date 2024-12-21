@@ -9,6 +9,7 @@
         hx-target="closest bal-card-content"
         hx-swap="outerHTML"
 >
+        <%-- cancelButtonSlot: --%>
         ${ctx.formContentCtx(@`
                 <bal-button color="text"
                             hx-trigger="click"

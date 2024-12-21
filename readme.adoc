@@ -13,3 +13,58 @@
 
 Note the differences of `application.properties`
 and `application-dev.properties`
+
+== Patterns (WIP)
+
+=== Slots
+
+How to pass content from parent to child.
+
+[source,java]
+.ParentComponent.java
+----
+class ParentComponent {
+  public record ParentCtx() {
+    public ChildCtx childCtx(Content childSlot1) {
+      return new ChildCtx(childSlot1);
+    }
+  }
+}
+----
+
+[source,html]
+.ParentComponent.jte
+----
+<div>parent: before</div>
+${ctx.childCtx(@`
+  <div>slot-1-content from parent</button>
+`)}
+<div>parent: after</div>
+----
+
+[source,java]
+.ChildComponent.java
+----
+class ChildComponent {
+  public record ChildCtx(Content slot1) {}
+}
+----
+
+[source,html]
+.ChildComponent.jte
+----
+<div>child: before</div>
+${ctx.slot1()}
+<div>child: after</div>
+----
+
+[source,html]
+.Result
+----
+<div>parent: before</div>
+<div>child: before</div>
+<div>slot-1-content from parent</button>
+<div>child: after</div>
+<div>parent: after</div>
+----
+

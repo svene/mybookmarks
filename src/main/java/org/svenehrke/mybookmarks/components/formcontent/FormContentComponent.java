@@ -21,7 +21,7 @@ import java.util.List;
 @Controller
 @AllArgsConstructor
 public class FormContentComponent {
-	public static final String URL_CHANGED = "/urlChanged";
+	public static final String URL_CHANGED_URL = "/urlChanged";
 	private final BookmarkSessionService bookmarkSessionService;
 
 	public record Ctx(
@@ -42,7 +42,7 @@ public class FormContentComponent {
 		return ctx;
 	}
 
-	@GetMapping(URL_CHANGED)
+	@GetMapping(URL_CHANGED_URL)
 	@ResponseBody
 	public String urlchanged(@RequestParam String url, HttpServletResponse response) {
 		setPreviewBookmark(url);

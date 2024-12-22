@@ -13,7 +13,7 @@
         ${ctx.formContentCtx(@`
                 <bal-button color="text"
                             hx-trigger="click"
-                            hx-get="${CancelEditBookmarkAction.url(ctx.id())}"
+                            hx-get="${CancelEditBookmarkAction.uiUrl(ctx.id())}"
                             hx-target="closest bal-card-content"
                             hx-swap="outerHTML"
                 >

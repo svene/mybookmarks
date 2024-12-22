@@ -31,7 +31,7 @@
             <bal-button
                     square="true"
                     icon="edit"
-                    hx-get="${EditCardComponent.COMPONENT_URL}?id=${ctx.id()}"
+                    hx-get="${EditCardComponent.UI_URL}?id=${ctx.id()}"
                     hx-target="closest #card-content-text-${ctx.id()}"
                     hx-swap="innerHTML"
             ></bal-button>

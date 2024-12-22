@@ -21,7 +21,7 @@ public class CancelEditBookmarkAction {
 	public final BookmarkSessionService bookmarkSessionService;
 	public record Ctx(CancelEditBookmarkAction ME, BigInteger id) implements ViewContext {}
 
-	public static String url(BigInteger id) {
+	public static String uiUrl(BigInteger id) {
 		return uiUrlBuilder.buildAndExpand(id).toUriString();
 	}
 

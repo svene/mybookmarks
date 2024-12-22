@@ -15,7 +15,7 @@
                        name="url"
                        value="${ctx.url()}"
                        hx-trigger="keyup delay:800ms"
-                       hx-get='${FormContentComponent.URL_CHANGED}'
+                       hx-get='${FormContentComponent.URL_CHANGED_URL}'
                        hx-swap="none"
                 >
             </div>

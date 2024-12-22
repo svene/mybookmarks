@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.util.UriComponentsBuilder;
 import org.svenehrke.mybookmarks.service.BookmarkSessionService;
+import org.svenehrke.mybookmarks.service.BookmarkUtil;
 
 import java.math.BigInteger;
 
@@ -47,6 +48,10 @@ public class NewTagComponent {
 	@PostMapping(path = ADD_TAGS_URL, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
 	public EditCardTagsComponent.Ctx addTags(@PathVariable("id") BigInteger id, @RequestParam String newtags) {
 		log.info("Add tags to bookmark {}: {}", id, newtags);
+		var tl = BookmarkUtil.tagsStringToList(newtags);
+
+		bookmarkSessionService.addTagToBookmark(id, BookmarkUtil.toTagsString(tl));
+
 		return new EditCardTagsComponent.Ctx(bookmarkSessionService, id, bookmarkSessionService.getById(id).tags()); // TODO: why: caller needs to pass tags
 	}
 

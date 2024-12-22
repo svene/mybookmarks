@@ -3,14 +3,13 @@
 
 @param Ctx ctx
 
-<div>
+<div class="mt-normal">
     <form
             hx-post="${NewTagComponent.addTagsUrl(ctx.id())}"
             hx-target="#edit-card-tags_${ctx.id()}"
             hx-swap="outerHTML"
     >
         <bal-field>
-            <bal-field-label>New Tags</bal-field-label>
             <bal-field-control>
                 <bal-input name="newtags" placeholder="enter new tag(s)"></bal-input>
                 <bal-button element-type="submit" color="primary">Add</bal-button>
@@ -18,4 +17,3 @@
         </bal-field>
     </form>
 </div>
-

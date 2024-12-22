@@ -8,7 +8,7 @@
 <bal-card-content>
     <bal-card-content>
         <div id="csv-text">
-            ${new CsvTextComponent.Ctx(ctx.ME().bookmarkSessionService)}
+            ${new CsvTextComponent.Ctx(ctx.bookmarkSessionService())}
         </div>
     </bal-card-content>
 </bal-card-content>

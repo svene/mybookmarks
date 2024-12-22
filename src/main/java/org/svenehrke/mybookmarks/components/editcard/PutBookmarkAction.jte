@@ -4,9 +4,9 @@
 
 @param Ctx ctx
 
-${new CardComponent.Ctx(ctx.ME().bookmarkSessionService, ctx.id())}
+${new CardComponent.Ctx(ctx.bookmarkSessionService(), ctx.id())}
 
 <div id="existing-tags" hx-swap-oob="innerHTML">
-    ${new ExistingTagsComponent.Ctx(ctx.ME().bookmarkSessionService)}
+    ${new ExistingTagsComponent.Ctx(ctx.bookmarkSessionService())}
 </div>
 

@@ -3,4 +3,4 @@
 
 @param Ctx ctx
 
-${new CardComponent.Ctx(ctx.ME().bookmarkSessionService, ctx.id())}
+${new CardComponent.Ctx(ctx.bookmarkSessionService(), ctx.id())}

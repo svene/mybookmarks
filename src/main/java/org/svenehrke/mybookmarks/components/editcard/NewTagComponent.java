@@ -36,13 +36,13 @@ public class NewTagComponent {
 
 	public final BookmarkSessionService bookmarkSessionService;
 
-	public record Ctx(NewTagComponent ME, BigInteger id) implements ViewContext {
+	public record Ctx(BigInteger id) implements ViewContext {
 
 	}
 
 	@GetMapping(UI_URL)
 	public Ctx ui(@PathVariable("id") BigInteger id) {
-		return new Ctx(this, id);
+		return new Ctx(id);
 	}
 
 	@PostMapping(path = ADD_TAGS_URL, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})

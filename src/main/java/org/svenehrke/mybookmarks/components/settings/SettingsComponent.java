@@ -16,11 +16,11 @@ public class SettingsComponent {
 
 	public final BookmarkSessionService bookmarkSessionService;
 
-	public record Ctx(SettingsComponent ME) implements ViewContext {}
+	public record Ctx(BookmarkSessionService bookmarkSessionService) implements ViewContext {}
 
 	@GetMapping(UI_URL)
 	public Ctx ui() {
-		return new Ctx(this);
+		return new Ctx(bookmarkSessionService);
 	}
 
 }

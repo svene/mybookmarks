@@ -17,8 +17,7 @@ public class MainComponent {
 
 	public final BookmarkSessionService bookmarkSessionService;
 
-	public record Ctx(MainComponent ME) implements ViewContext {}
-	public final Ctx ctx = new Ctx(this);
+	public record Ctx(BookmarkSessionService bookmarkSessionService) implements ViewContext {}
 
 	@GetMapping("/")
 	public RedirectView index() {
@@ -27,6 +26,6 @@ public class MainComponent {
 
 	@GetMapping(UI_URL)
 	public ViewContext ui() {
-		return ctx;
+		return new Ctx(bookmarkSessionService);
 	}
 }

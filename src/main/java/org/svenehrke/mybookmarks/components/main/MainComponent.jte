@@ -13,7 +13,7 @@ content = @`
 		</style>
 
 		<bal-card id="first_card">
-			${new SearchComponent.Ctx(ctx.ME().bookmarkSessionService)}
+			${new SearchComponent.Ctx(ctx.bookmarkSessionService())}
 		</bal-card>
 	</bal-stack>
 
@@ -29,7 +29,7 @@ content = @`
 	</bal-stack>
 
 	<div id="search-result">
-		${new BookmarkRowsComponent.Ctx(ctx.ME().bookmarkSessionService)}
+		${new BookmarkRowsComponent.Ctx(ctx.bookmarkSessionService())}
 	</div>
 
 `)

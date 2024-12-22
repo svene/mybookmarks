@@ -17,7 +17,7 @@ import org.svenehrke.mybookmarks.service.BookmarkSessionService;
 @Controller
 public class PostBookmarkAction {
 
-	public record Ctx(PostBookmarkAction ME) implements ViewContext {}
+	public record Ctx(BookmarkSessionService bookmarkSessionService) implements ViewContext {}
 
 	public static final String URL = "/bookmark";
 
@@ -37,7 +37,7 @@ public class PostBookmarkAction {
 	@PostMapping(path = URL, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
 	public ViewContext doit(@RequestParam String url) {
 		addBookmark(url);
-		return new Ctx(this);
+		return new Ctx(bookmarkSessionService);
 	}
 
 	private void addBookmark(String bmUrl) {

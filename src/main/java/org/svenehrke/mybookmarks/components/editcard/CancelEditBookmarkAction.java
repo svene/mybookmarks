@@ -19,7 +19,7 @@ public class CancelEditBookmarkAction {
 	private static final UriComponentsBuilder uiUrlBuilder = UriComponentsBuilder.fromPath(UI_URL);
 
 	public final BookmarkSessionService bookmarkSessionService;
-	public record Ctx(CancelEditBookmarkAction ME, BigInteger id) implements ViewContext {}
+	public record Ctx(BookmarkSessionService bookmarkSessionService, BigInteger id) implements ViewContext {}
 
 	public static String uiUrl(BigInteger id) {
 		return uiUrlBuilder.buildAndExpand(id).toUriString();
@@ -27,7 +27,7 @@ public class CancelEditBookmarkAction {
 
 	@GetMapping(UI_URL)
 	public Ctx doit(@PathVariable BigInteger id) {
-		return new Ctx(this, id);
+		return new Ctx(bookmarkSessionService, id);
 	}
 
 }

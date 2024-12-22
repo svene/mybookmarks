@@ -7,10 +7,10 @@
 @template._widget.addbookmark()
 
 <div id="existing-tags" hx-swap-oob="innerHTML">
-	${new ExistingTagsComponent.Ctx(ctx.ME().bookmarkSessionService)}
+	${new ExistingTagsComponent.Ctx(ctx.bookmarkSessionService())}
 </div>
 
 <div id="search-result" hx-swap-oob="innerHTML">
-	${new BookmarkRowsComponent.Ctx(ctx.ME().bookmarkSessionService)}
+	${new BookmarkRowsComponent.Ctx(ctx.bookmarkSessionService())}
 </div>
 

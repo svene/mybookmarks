@@ -21,9 +21,9 @@ public class PutBookmarkAction {
 
 	public final BookmarkSessionService bookmarkSessionService;
 
-	public record Ctx(PutBookmarkAction ME, BigInteger id) implements ViewContext {
+	public record Ctx(BookmarkSessionService bookmarkSessionService, BigInteger id) implements ViewContext {
 		public Ctx putBookmark(String url, String tags) {
-			ME.bookmarkSessionService.putBookmark(id, url, tags);
+			bookmarkSessionService.putBookmark(id, url, tags);
 			return this;
 		}
 	}
@@ -34,7 +34,7 @@ public class PutBookmarkAction {
 		@RequestParam String url,
 		@RequestParam String tags
 	) {
-		return new Ctx(this, id).putBookmark(url, tags);
+		return new Ctx(bookmarkSessionService, id).putBookmark(url, tags);
 	}
 
 }

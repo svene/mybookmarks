@@ -14,12 +14,12 @@ public class ReloadAction {
 	public static final String URL = "/reload";
 	public final BookmarkSessionService bookmarkSessionService;
 
-	public record Ctx(ReloadAction ME) implements ViewContext {}
+	public record Ctx(BookmarkSessionService bookmarkSessionService) implements ViewContext {}
 
 	@PostMapping(URL)
 	public Ctx doit() {
 		bookmarkSessionService.reload();
-		return new Ctx(this);
+		return new Ctx(bookmarkSessionService);
 	}
 
 }

@@ -3,6 +3,8 @@ package org.svenehrke.mybookmarks.components.existingtags;
 import de.tschuehly.spring.viewcomponent.core.component.ViewComponent;
 import de.tschuehly.spring.viewcomponent.jte.ViewContext;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.svenehrke.mybookmarks.service.BookmarkSessionService;
 
 import java.util.Comparator;
@@ -12,8 +14,11 @@ import static org.svenehrke.mybookmarks.service.BookmarkSessionService.EXCLUDED_
 import static org.svenehrke.mybookmarks.service.BookmarkSessionService.INCLUDED_TAGS_PREDICATE;
 
 @ViewComponent
+@Controller
 @RequiredArgsConstructor
 public class ExistingTagsComponent {
+
+	public static final String UI_URL = "/ui/existingtags";
 
 	public final BookmarkSessionService bookmarkSessionService;
 
@@ -42,6 +47,11 @@ public class ExistingTagsComponent {
 			}
 			return result;
 		}
+	}
+
+	@GetMapping(UI_URL)
+	public Ctx ui() {
+		return new Ctx(bookmarkSessionService);
 	}
 
 }

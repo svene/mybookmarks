@@ -2,6 +2,7 @@ package org.svenehrke.mybookmarks.components.editcard;
 
 import de.tschuehly.spring.viewcomponent.core.component.ViewComponent;
 import de.tschuehly.spring.viewcomponent.jte.ViewContext;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -46,12 +47,17 @@ public class NewTagComponent {
 	}
 
 	@PostMapping(path = ADD_TAGS_URL, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-	public EditCardTagsComponent.Ctx addTags(@PathVariable("id") BigInteger id, @RequestParam String newtags) {
+	public EditCardTagsComponent.Ctx addTags(
+		@PathVariable("id") BigInteger id,
+		@RequestParam String newtags,
+		HttpServletResponse response
+	) {
 		log.info("Add tags to bookmark {}: {}", id, newtags);
 		var tl = BookmarkUtil.tagsStringToList(newtags);
 
 		bookmarkSessionService.addTagToBookmark(id, BookmarkUtil.toTagsString(tl));
 
+		response.setHeader("HX-Trigger", "tags-changed"); // use comma separation for multiple events
 		return new EditCardTagsComponent.Ctx(bookmarkSessionService, id, bookmarkSessionService.getById(id).tags()); // TODO: why: caller needs to pass tags
 	}
 

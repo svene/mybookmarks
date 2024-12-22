@@ -21,6 +21,24 @@ and `application-dev.properties`
 ==== Intent
 Structure HTML hierachically using components
 
+==== Implementation
+
+[source,html]
+.SomeComponent.jte
+----
+<div>
+  ${new ExistingTagsComponent.Ctx(ctx.bookmarkSessionService())}
+</div>
+----
+
+[source,html]
+.SomeComponent.jte, with event-support
+----
+<div hx-trigger="some-event from:body" hx-get="${ExistingTags.URL}">
+  ${new ExistingTagsComponent.Ctx(ctx.bookmarkSessionService())}
+</div>
+----
+
 ==== Related Patterns
 
 - Slots

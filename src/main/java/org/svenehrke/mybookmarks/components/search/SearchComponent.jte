@@ -7,7 +7,11 @@
 
 <bal-card-content>
     <bal-card-title level="x-large">Search</bal-card-title>
-    <div id="existing-tags" class="mb-normal">
+    <div id="existing-tags"
+         class="mb-normal"
+         hx-trigger="tags-changed from:body"
+         hx-get="${ExistingTagsComponent.UI_URL}"
+    >
         ${new ExistingTagsComponent.Ctx(ctx.bookmarkSessionService())}
     </div>
 </bal-card-content>

@@ -7,7 +7,10 @@
 !{var bm = ctx.getBookmark();}
 !{var ogInfo = ctx.getOgInfo();}
 
-<bal-card-content>
+<%--<bal-card-content--%> <%-- TODO: find out why: class 'bal-card-content' is missing after htmx-swap. Workaround: div + classes --%>
+<div class="bal-card-content" style="padding-left: 1.5rem; padding-right: 1.5rem"
+>
+<%--    <div class="flex align-items-center justify-content-start flex-direction-column">--%>
     <img class="mb-normal" src="${ogInfo.imageUrl()}">
     <div id="card-content-text-${ctx.id()}">
         <bal-card-title level="x-large">${ogInfo.title()}</bal-card-title>
@@ -37,4 +40,6 @@
             ></bal-button>
         </bal-card-actions>
     </div>
-</bal-card-content>
+<%--    </div>--%>
+</div>
+<%--</bal-card-content>--%>

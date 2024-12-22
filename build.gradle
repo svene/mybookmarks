@@ -38,7 +38,7 @@ dependencies {
     implementation "gg.jte:jte-spring-boot-starter-3:${deps_jte_version}"
     implementation 'de.tschuehly:spring-view-component-jte:0.8.4'
 
-    implementation 'org.webjars.npm:htmx.org:2.0.3'
+    implementation 'org.webjars.npm:htmx.org:2.0.4'
     implementation 'org.webjars.npm:hyperscript.org:0.9.13'
 
     implementation 'org.jsoup:jsoup:1.18.3'

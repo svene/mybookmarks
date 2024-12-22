@@ -13,7 +13,7 @@
 	<link rel="stylesheet" href="/assets/main.css"/>
 	<script type="module" src="/assets/main.js" defer></script>
 
-	<script src="/webjars/htmx.org/2.0.3/dist/htmx.js"></script>
+	<script src="/webjars/htmx.org/2.0.4/dist/htmx.js"></script>
 	<script src="/webjars/hyperscript.org/0.9.13/dist/_hyperscript.js"></script>
 	<script src="/assets/css-scope-inline.js"></script>
 	<script>

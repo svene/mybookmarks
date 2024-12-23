@@ -11,7 +11,7 @@
     >
         <bal-field>
             <bal-field-control>
-                <bal-input name="newtags" placeholder="enter new tag(s)"></bal-input>
+                <bal-input name="newtags" placeholder="enter new tag(s), e.g.: htmx,css,angular"></bal-input>
                 <bal-button element-type="submit" color="primary">Add</bal-button>
             </bal-field-control>
         </bal-field>

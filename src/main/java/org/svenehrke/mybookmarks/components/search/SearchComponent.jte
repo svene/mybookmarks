@@ -19,6 +19,7 @@
 <bal-card-content>
     <bal-field>
         <bal-field-label>Search</bal-field-label>
+        <%-- TODO: convert to search by title etc. (but: needs retrieval of og-info) --%>
         <bal-field-hint subject="Search by Tag">Comma separated List of tags. E.g.: htmx,css,-angular. Use a - prefix for exclusion</bal-field-hint>
         <bal-input id="search-tags"
                    name="search_by_tags"

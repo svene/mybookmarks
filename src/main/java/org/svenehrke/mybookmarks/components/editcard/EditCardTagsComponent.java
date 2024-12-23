@@ -2,6 +2,7 @@ package org.svenehrke.mybookmarks.components.editcard;
 
 import de.tschuehly.spring.viewcomponent.core.component.ViewComponent;
 import de.tschuehly.spring.viewcomponent.jte.ViewContext;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -39,17 +40,21 @@ public class EditCardTagsComponent {
 	@PutMapping(ADD_TAG_URL)
 	public Ctx add_tag(
 		@RequestParam BigInteger id,
-		@RequestParam(name = "tag") String tag
+		@RequestParam(name = "tag") String tag,
+		HttpServletResponse response
 	) {
 		bookmarkSessionService.addTagToBookmark(id, tag);
+		response.setHeader("HX-Trigger", "tags-changed"); // use comma separation for multiple events
 		return new Ctx(bookmarkSessionService, id, bookmarkSessionService.getById(id).tags());
 	}
 	@PutMapping(REMOVE_TAG_URL)
 	public Ctx remove_tag(
 		@RequestParam BigInteger id,
-		@RequestParam(name = "tag") String tag
+		@RequestParam(name = "tag") String tag,
+		HttpServletResponse response
 	) {
 		bookmarkSessionService.removeTagFromBookmark(id, tag);
+		response.setHeader("HX-Trigger", "tags-changed"); // use comma separation for multiple events
 		return new Ctx(bookmarkSessionService, id, bookmarkSessionService.getById(id).tags());
 	}
 }

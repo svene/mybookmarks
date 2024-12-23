@@ -35,7 +35,7 @@ public class PostBookmarkAction {
 	 *  You can directly return the new HTML fragment."
 	 */
 	@PostMapping(path = URL, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-	public ViewContext doit(@RequestParam String url) {
+	public Ctx doit(@RequestParam String url) {
 		addBookmark(url);
 		return new Ctx(bookmarkSessionService);
 	}

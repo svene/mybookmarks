@@ -32,6 +32,10 @@ public class CardComponent {
 		return removeTagUrlBuilder.buildAndExpand(id).toUriString();
 	}
 
+	public static String cssCardSelector(BigInteger id) {
+		return "bal-card[data-id=card-" + id + "]";
+	}
+
 	private final BookmarkSessionService bookmarkSessionService;
 
 	public record Ctx(BookmarkSessionService bookmarkSessionService, BigInteger id) implements ViewContext {

@@ -1,3 +1,4 @@
+@import org.svenehrke.mybookmarks.components.editcard.EditCardTagsComponent
 @import org.svenehrke.mybookmarks.components.newbookmark.NewBookmarkFormComponent.Ctx
 @import org.svenehrke.mybookmarks.components.newbookmark.CancelNewBookmarkAction
 @import org.svenehrke.mybookmarks.components.newbookmark.PostBookmarkAction
@@ -14,6 +15,7 @@ ${new ImageComponent.Ctx("https://placehold.co/640x336/png?text=PREVIEW...")}
         hx-target="closest bal-card-content"
         hx-swap="innerHTML"
 >
+<%--
     ${new FormContentComponent.Ctx(
 	ctx.bookmarkSessionService(),
 	BigInteger.ZERO, "", List.of(), @`
@@ -26,4 +28,43 @@ ${new ImageComponent.Ctx("https://placehold.co/640x336/png?text=PREVIEW...")}
         Cancel
     </bal-button>
     ` )}
+--%>
+
+    <bal-form-grid>
+    <bal-form-col>
+        <div class="field">
+            <label class="label">URL</label>
+            <div class="control">
+                <input class="input"
+                       placeholder="URL"
+                       name="url"
+                       value=""
+                       hx-trigger="keyup delay:800ms"
+                       hx-get='${FormContentComponent.URL_CHANGED_URL}'
+                       hx-swap="none"
+                >
+            </div>
+            <p class="help">URL for the bookmark</p>
+        </div>
+        ${new EditCardTagsComponent.Ctx(ctx.bookmarkSessionService(), BigInteger.ZERO, List.of())}
+    </bal-form-col>
+
+    <bal-form-col>
+        <bal-button-group position="right" reverse="true">
+            <bal-button color="text"
+                        hx-trigger="click"
+                        hx-get="${CancelNewBookmarkAction.URL}"
+                        hx-target="closest bal-card-content"
+                        hx-swap="innerHTML"
+            >
+                Cancel
+            </bal-button>
+            <bal-button element-type="submit" color="primary">
+                Submit
+            </bal-button>
+        </bal-button-group>
+    </bal-form-col>
+
+    </bal-form-grid>
+
 </form>

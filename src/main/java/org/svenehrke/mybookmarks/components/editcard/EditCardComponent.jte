@@ -34,7 +34,7 @@
         <bal-form-col>
                 <form
                         hx-put="${PutBookmarkUrlAction.url(ctx.id())}"
-                        hx-target="#card-${ctx.id()}"
+                        hx-target="${CardComponent.cssCardSelector(ctx.id())}"
                         hx-swap="innerHTML"
                 >
                 <bal-field>
@@ -58,8 +58,7 @@
                         <bal-button color="text"
                                     hx-trigger="click"
                                     hx-get="${CardComponent.uiUrl(ctx.id())}"
-                                    xhx-get="${CancelEditBookmarkAction.uiUrl(ctx.id())}"
-                                    hx-target="#card-${ctx.id()}"
+                                    hx-target="${CardComponent.cssCardSelector(ctx.id())}"
                                     hx-swap="innerHTML"
                         >
                                 Close

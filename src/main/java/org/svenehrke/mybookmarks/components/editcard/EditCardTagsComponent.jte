@@ -30,7 +30,6 @@
     <bal-tag color=""
              hx-trigger="click"
              hx-get="${NewTagComponent.uiUrl(ctx.id())}"
-             hx-target="#new-tag-button"
              hx-swap="outerHTML"
     >+</bal-tag>
 </div>

@@ -27,12 +27,12 @@
             ${tag}
         </bal-tag>
     @endfor
-    <bal-tag id="new-tag-button" color=""
+    <bal-tag color=""
              hx-trigger="click"
              hx-get="${NewTagComponent.uiUrl(ctx.id())}"
              hx-target="#new-tag-button"
              hx-swap="outerHTML"
-    >+</bal-tag> <%-- TODO: css-class 'bal-tag' disappears after an available tag was clicked --%>
+    >+</bal-tag>
 </div>
 <div class="mb-normal">
 </div>

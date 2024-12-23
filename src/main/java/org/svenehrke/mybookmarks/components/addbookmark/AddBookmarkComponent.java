@@ -1,4 +1,4 @@
-package org.svenehrke.mybookmarks.components.newbookmark;
+package org.svenehrke.mybookmarks.components.addbookmark;
 
 import de.tschuehly.spring.viewcomponent.core.component.ViewComponent;
 import de.tschuehly.spring.viewcomponent.jte.ViewContext;
@@ -9,15 +9,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 @ViewComponent
 @RequiredArgsConstructor
 @Controller
-public class CancelNewBookmarkAction {
-
+public class AddBookmarkComponent {
 	public record Ctx() implements ViewContext {}
 
-	public static final String URL = "/cancelnewbookmark";
+	public static final String URL = "/ui/addbookmark";
 
 	@GetMapping(path = URL)
 	public ViewContext doit() {
 		return new Ctx();
 	}
-
 }

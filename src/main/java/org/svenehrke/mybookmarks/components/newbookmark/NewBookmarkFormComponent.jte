@@ -1,6 +1,6 @@
+@import org.svenehrke.mybookmarks.components.addbookmark.AddBookmarkComponent
 @import org.svenehrke.mybookmarks.components.editcard.EditCardTagsComponent
 @import org.svenehrke.mybookmarks.components.newbookmark.NewBookmarkFormComponent.Ctx
-@import org.svenehrke.mybookmarks.components.newbookmark.CancelNewBookmarkAction
 @import org.svenehrke.mybookmarks.components.newbookmark.PostBookmarkAction
 @import org.svenehrke.mybookmarks.components.formcontent.FormContentComponent
 @import org.svenehrke.mybookmarks.components.image.ImageComponent
@@ -15,21 +15,6 @@ ${new ImageComponent.Ctx("https://placehold.co/640x336/png?text=PREVIEW...")}
         hx-target="closest bal-card-content"
         hx-swap="innerHTML"
 >
-<%--
-    ${new FormContentComponent.Ctx(
-	ctx.bookmarkSessionService(),
-	BigInteger.ZERO, "", List.of(), @`
-    <bal-button color="text"
-                hx-trigger="click"
-                hx-get="${CancelNewBookmarkAction.URL}"
-                hx-target="closest bal-card-content"
-                hx-swap="innerHTML"
-    >
-        Cancel
-    </bal-button>
-    ` )}
---%>
-
     <bal-form-grid>
     <bal-form-col>
         <div class="field">
@@ -53,7 +38,7 @@ ${new ImageComponent.Ctx("https://placehold.co/640x336/png?text=PREVIEW...")}
         <bal-button-group position="right" reverse="true">
             <bal-button color="text"
                         hx-trigger="click"
-                        hx-get="${CancelNewBookmarkAction.URL}"
+                        hx-get="${AddBookmarkComponent.URL}"
                         hx-target="closest bal-card-content"
                         hx-swap="innerHTML"
             >

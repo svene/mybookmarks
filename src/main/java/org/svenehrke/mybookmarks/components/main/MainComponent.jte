@@ -1,3 +1,4 @@
+@import org.svenehrke.mybookmarks.components.addbookmark.AddBookmarkComponent
 @import org.svenehrke.mybookmarks.components.main.MainComponent.Ctx
 @import org.svenehrke.mybookmarks.components.bookmarkrows.BookmarkRowsComponent
 @import org.svenehrke.mybookmarks.components.search.SearchComponent
@@ -23,7 +24,7 @@ content = @`
 		</style>
 		<bal-card>
 			<bal-card-content>
-				@template._widget.addbookmark()
+				${new AddBookmarkComponent.Ctx()}
 			</bal-card-content>
 		</bal-card>
 	</bal-stack>

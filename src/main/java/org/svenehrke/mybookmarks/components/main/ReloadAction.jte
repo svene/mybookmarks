@@ -1,10 +1,11 @@
+@import org.svenehrke.mybookmarks.components.addbookmark.AddBookmarkComponent
 @import org.svenehrke.mybookmarks.components.main.ReloadAction.Ctx
 @import org.svenehrke.mybookmarks.components.existingtags.ExistingTagsComponent
 @import org.svenehrke.mybookmarks.components.bookmarkrows.BookmarkRowsComponent
 
 @param Ctx ctx
 
-@template._widget.addbookmark()
+${new AddBookmarkComponent.Ctx()}
 
 <div id="existing-tags" hx-swap-oob="innerHTML">
 	${new ExistingTagsComponent.Ctx(ctx.bookmarkSessionService())}

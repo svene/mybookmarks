@@ -1,8 +1,8 @@
 @import org.svenehrke.mybookmarks.components.addbookmark.AddBookmarkComponent
 @import org.svenehrke.mybookmarks.components.editcard.EditCardTagsComponent
+@import org.svenehrke.mybookmarks.components.newbookmark.NewBookmarkFormComponent
 @import org.svenehrke.mybookmarks.components.newbookmark.NewBookmarkFormComponent.Ctx
 @import org.svenehrke.mybookmarks.components.newbookmark.PostBookmarkAction
-@import org.svenehrke.mybookmarks.components.formcontent.FormContentComponent
 @import org.svenehrke.mybookmarks.components.image.ImageComponent
 @import java.math.BigInteger
 @import java.util.List
@@ -25,7 +25,7 @@ ${new ImageComponent.Ctx("https://placehold.co/640x336/png?text=PREVIEW...")}
                        name="url"
                        value=""
                        hx-trigger="keyup delay:800ms"
-                       hx-get='${FormContentComponent.URL_CHANGED_URL}'
+                       hx-get='${NewBookmarkFormComponent.URL_CHANGED_URL}'
                        hx-swap="none"
                 >
             </div>

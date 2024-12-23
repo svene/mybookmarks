@@ -5,6 +5,6 @@
 <img class="mb-normal"
      src="${ctx.url()}"
      hx-trigger="${ImageComponent.EVENT_URL_CHANGED} from:body"
-     hx-get="/image"
+     hx-get="${ImageComponent.UI_URL}"
      hx-swap="outerHTML"
 >

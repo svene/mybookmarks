@@ -116,3 +116,6 @@ ${ctx.slot1()}
 
 - Insertion
 
+== TODO
+
+- keep frontendstate in hidden input fields ?

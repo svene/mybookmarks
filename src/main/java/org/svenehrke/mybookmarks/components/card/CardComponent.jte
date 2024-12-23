@@ -40,6 +40,5 @@
             ></bal-button>
         </bal-card-actions>
     </div>
-<%--    </div>--%>
 </div>
 <%--</bal-card-content>--%>

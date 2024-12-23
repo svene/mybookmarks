@@ -31,6 +31,11 @@ public class EditCardTagsComponent {
 		}
 	}
 
+	public static Ctx ctx(BookmarkSessionService bookmarkSessionService, BigInteger id) {
+		var bm = bookmarkSessionService.getById(id);
+		return new Ctx(bookmarkSessionService, id, bm.tags());
+	}
+
 	@PutMapping(ADD_TAG_URL)
 	public Ctx add_tag(
 		@RequestParam BigInteger id,

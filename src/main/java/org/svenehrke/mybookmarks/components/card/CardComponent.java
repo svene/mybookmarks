@@ -43,6 +43,9 @@ public class CardComponent {
 		}
 	}
 
+	public static Ctx ctx(BookmarkSessionService bookmarkSessionService, BigInteger id) {
+		return new Ctx(bookmarkSessionService, id);
+	}
 	@GetMapping(UI_URL)
 	public Ctx ui(@PathVariable BigInteger id) {
 		return new Ctx(bookmarkSessionService, id);

@@ -32,7 +32,7 @@
              hx-get="${NewTagComponent.uiUrl(ctx.id())}"
              hx-target="#new-tag-button"
              hx-swap="outerHTML"
-    >+</bal-tag>
+    >+</bal-tag> <%-- TODO: css-class 'bal-tag' disappears after an available tag was clicked --%>
 </div>
 <div class="mb-normal">
 </div>

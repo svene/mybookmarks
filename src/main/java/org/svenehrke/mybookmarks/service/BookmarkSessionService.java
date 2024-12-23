@@ -58,7 +58,7 @@ public class BookmarkSessionService {
 	public void addTagToBookmark(BigInteger id, String tag) {
 		Bookmark bookmark = getById(id);
 		var newTags = BookmarkUtil.toTagsString(bookmark.tags()) + "," + tag;
-		putBookmark(id, bookmark.url(), newTags);
+		setBookmarkTags(id, newTags);
 	}
 	public void removeTagFromBookmark(BigInteger id, String tag) {
 		Bookmark bookmark = getById(id);
@@ -66,7 +66,15 @@ public class BookmarkSessionService {
 			return;
 		}
 		var newTags = bookmark.tags().stream().filter(it -> !it.equals(tag)).toList();
-		putBookmark(id, bookmark.url(), BookmarkUtil.toTagsString(newTags));
+		setBookmarkTags(id, BookmarkUtil.toTagsString(newTags));
+	}
+	public void setBookmarkUrl(BigInteger id, String url) {
+		var bm = getById(id);
+		putBookmark(id, url, BookmarkUtil.toTagsString(bm.tags()));
+	}
+	public void setBookmarkTags(BigInteger id, String tags) {
+		var bm = getById(id);
+		putBookmark(id, bm.url(), tags);
 	}
 	public void putBookmark(BigInteger id, String url, String tags) {
 		CsvInfo csvInfo = new CsvReader().getCsvInfo(store().getBookmarksCSV());

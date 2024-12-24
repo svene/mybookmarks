@@ -16,8 +16,9 @@ and `application-dev.properties`
 
 == TODO
 
-- search by title etc.
+- delete bookmark
 - show modification indicator (save needed)
+- search by title etc.
 
 == Patterns (WIP)
 
@@ -121,6 +122,35 @@ ${ctx.slot1()}
 
 - Insertion
 
+=== spring viewcomponent: component forwarder
+
+==== Intent
+forward a request from one component it to another one
+
+==== Applicability
+
+Use when
+
+- a component recognizes that it cannot
+handle the request itself
+
+==== Implementation
+
+[source,java]
+.ParentComponent.java
+----
+class FirstComponent {
+  public record FirstCtx() {}
+    @PostMapping(path = URL)
+    public ViewContext doit() {
+        if (someCondition) {
+            // forward:
+            return new OtherComponent.Ctx();
+        }
+        return new FirstCtx();
+    }
+}
+----
 == TODO
 
 - keep frontendstate in hidden input fields ?

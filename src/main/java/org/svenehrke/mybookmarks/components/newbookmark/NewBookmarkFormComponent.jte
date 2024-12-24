@@ -4,8 +4,7 @@
 @import org.svenehrke.mybookmarks.components.newbookmark.NewBookmarkFormComponent.Ctx
 @import org.svenehrke.mybookmarks.components.newbookmark.PostBookmarkAction
 @import org.svenehrke.mybookmarks.components.image.ImageComponent
-@import java.math.BigInteger
-@import java.util.List
+@import org.svenehrke.mybookmarks.service.BookmarkSessionService
 
 @param Ctx ctx
 
@@ -31,7 +30,7 @@ ${new ImageComponent.Ctx("https://placehold.co/640x336/png?text=PREVIEW...")}
             </div>
             <p class="help">URL for the bookmark</p>
         </div>
-        ${new EditCardTagsComponent.Ctx(ctx.bookmarkSessionService(), BigInteger.ZERO, List.of())}
+        ${EditCardTagsComponent.ctx(ctx.bookmarkSessionService(), BookmarkSessionService.PREVIEW_BM_ID)}
     </bal-form-col>
 
     <bal-form-col>

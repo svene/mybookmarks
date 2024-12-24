@@ -10,12 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.svenehrke.mybookmarks.components.image.ImageComponent;
-import org.svenehrke.mybookmarks.model.Bookmark;
-import org.svenehrke.mybookmarks.model.BookmarkBuilder;
 import org.svenehrke.mybookmarks.service.BookmarkSessionService;
-
-import java.math.BigInteger;
-import java.util.List;
 
 @ViewComponent
 @RequiredArgsConstructor
@@ -49,16 +44,8 @@ public class NewBookmarkFormComponent {
 	}
 
 	public void setPreviewBookmark(String bmUrl) {
-		var previewBookmark = newPreviewBookmark(bmUrl);
-		bookmarkSessionService.store().setPreviewBookmark(previewBookmark);
-	}
-
-	private Bookmark newPreviewBookmark(String bmUrl) {
-		return BookmarkBuilder.builder()
-			.id(BigInteger.valueOf(1L))
-			.url(bmUrl)
-			.tags(List.of("todo"))
-			.build();
+		var bm = bookmarkSessionService.getById(BookmarkSessionService.PREVIEW_BM_ID).withUrl(bmUrl);
+		bookmarkSessionService.store().setPreviewBookmark(bm);
 	}
 
 }

@@ -3,6 +3,7 @@ package org.svenehrke.mybookmarks.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.svenehrke.mybookmarks.model.Bookmark;
+import org.svenehrke.mybookmarks.model.BookmarkBuilder;
 import org.svenehrke.mybookmarks.model.BookmarkEx;
 import org.svenehrke.mybookmarks.model.CsvInfo;
 
@@ -18,12 +19,26 @@ public class BookmarkSessionService {
 	private final BookmarkService bookmarkService;
 	private final BookmarkSessionStore bookmarkSessionStore;
 
+	public static final BigInteger PREVIEW_BM_ID = BigInteger.valueOf(-1L);
+
 	public BookmarkSessionStore store() {
 		return bookmarkSessionStore;
 	}
 
 	public Bookmark getById(BigInteger id) {
-		return bookmarkService.getById(id, getCsvParseResult().bookmarks());
+		if (!PREVIEW_BM_ID.equals(id)) {
+			return bookmarkService.getById(id, getCsvParseResult().bookmarks());
+		}
+		var result = store().getPreviewBookmark();
+		if (result == null) {
+			result = BookmarkBuilder.builder()
+				.id(BookmarkSessionService.PREVIEW_BM_ID)
+				.url("")
+				.tags(List.of())
+				.build();
+			store().setPreviewBookmark(result);
+		}
+		return result;
 	}
 
 	public BookmarkEx getBookmarkEx(Bookmark bm) {
@@ -57,8 +72,8 @@ public class BookmarkSessionService {
 	}
 	public void addTagToBookmark(BigInteger id, String tag) {
 		Bookmark bookmark = getById(id);
-		var newTags = BookmarkUtil.toTagsString(bookmark.tags()) + "," + tag;
-		setBookmarkTags(id, newTags);
+		var newTags = BookmarkUtil.concatTags(bookmark.tags(), BookmarkUtil.tagsStringToList(tag));
+		setBookmarkTags(id, BookmarkUtil.toTagsString(newTags));
 	}
 	public void removeTagFromBookmark(BigInteger id, String tag) {
 		Bookmark bookmark = getById(id);
@@ -77,10 +92,15 @@ public class BookmarkSessionService {
 		putBookmark(id, bm.url(), tags);
 	}
 	public void putBookmark(BigInteger id, String url, String tags) {
-		CsvInfo csvInfo = new CsvReader().getCsvInfo(store().getBookmarksCSV());
-		var records = new ArrayList<>(csvInfo.records());
-		records.set(id.intValue(), url + ";" + tags);
-		handleNewCsvString(String.join(System.lineSeparator(), records));
+		if (PREVIEW_BM_ID.equals(id)) {
+			Bookmark bm = getById(PREVIEW_BM_ID);
+			store().setPreviewBookmark(bm.withTags(BookmarkUtil.tagsStringToList(tags)));
+		} else {
+			CsvInfo csvInfo = new CsvReader().getCsvInfo(store().getBookmarksCSV());
+			var records = new ArrayList<>(csvInfo.records());
+			records.set(id.intValue(), url + ";" + tags);
+			handleNewCsvString(String.join(System.lineSeparator(), records));
+		}
 	}
 	public List<String> getFilteredTags(Predicate<Map.Entry<String, BookmarkSessionStore.TagSelection>> entryPredicate) {
 		var tags = store().getTagsWithSelection();

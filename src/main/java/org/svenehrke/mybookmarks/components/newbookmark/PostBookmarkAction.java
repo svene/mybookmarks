@@ -3,11 +3,12 @@ package org.svenehrke.mybookmarks.components.newbookmark;
 import de.tschuehly.spring.viewcomponent.core.component.ViewComponent;
 import de.tschuehly.spring.viewcomponent.jte.ViewContext;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.svenehrke.mybookmarks.service.BookmarkSessionService;
+import org.svenehrke.mybookmarks.service.BookmarkUtil;
+
+import java.util.List;
 
 /**
  * Smart Component
@@ -34,21 +35,22 @@ public class PostBookmarkAction {
 	 *  you don’t need to return a HTTP 302 (Redirect).
 	 *  You can directly return the new HTML fragment."
 	 */
-	@PostMapping(path = URL, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-	public Ctx doit(@RequestParam String url) {
-		addBookmark(url);
+	@PostMapping(path = URL)
+	public Ctx doit() {
+		addBookmark();
 		return new Ctx(bookmarkSessionService);
 	}
 
-	private void addBookmark(String bmUrl) {
+	private void addBookmark() {
+		var bm = bookmarkSessionService.store().getPreviewBookmark();
 		bookmarkSessionService.loadBookmarksIntoSessionIfNecessary();
-		var csv = addUrlToCsv(bookmarkSessionService.store().getBookmarksCSV(), bmUrl);
+		var csv = addUrlToCsv(bookmarkSessionService.store().getBookmarksCSV(), bm.url(), bm.tags());
 		bookmarkSessionService.handleNewCsvString(csv);
 		bookmarkSessionService.store().setPreviewBookmark(null);
 	}
 
-	private String addUrlToCsv(String currentCsv, String bmUrl) {
-		var newLine = bmUrl + ";anew" + System.lineSeparator(); // TODO: remove 'anew' (only for dev purposes)
+	private String addUrlToCsv(String currentCsv, String bmUrl, List<String> tags) {
+		var newLine = bmUrl + ";" + BookmarkUtil.toTagsString(tags) + System.lineSeparator();
 		return newLine + currentCsv;
 	}
 

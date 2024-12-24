@@ -1,5 +1,4 @@
 @import org.svenehrke.mybookmarks.components.search.SearchComponent.Ctx
-@import org.svenehrke.mybookmarks.components.main.SearchByTagsAction
 @import org.svenehrke.mybookmarks.components.settings.SettingsComponent
 @import org.svenehrke.mybookmarks.components.existingtags.ExistingTagsComponent
 

@@ -4,8 +4,6 @@
 
 @param Ctx ctx
 
-<bal-card-subtitle>All tags</bal-card-subtitle>
-
 <bal-card-content>
     @for(TagAndCount tag : ctx.existingTags())
         !{var color = ctx.colorForTag(tag.tag());}

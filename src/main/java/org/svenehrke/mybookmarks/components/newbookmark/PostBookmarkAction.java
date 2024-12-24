@@ -2,9 +2,12 @@ package org.svenehrke.mybookmarks.components.newbookmark;
 
 import de.tschuehly.spring.viewcomponent.core.component.ViewComponent;
 import de.tschuehly.spring.viewcomponent.jte.ViewContext;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.svenehrke.mybookmarks.components.image.ImageComponent;
+import org.svenehrke.mybookmarks.components.other.Nothing;
 import org.svenehrke.mybookmarks.service.BookmarkSessionService;
 import org.svenehrke.mybookmarks.service.BookmarkUtil;
 
@@ -36,7 +39,12 @@ public class PostBookmarkAction {
 	 *  You can directly return the new HTML fragment."
 	 */
 	@PostMapping(path = URL)
-	public Ctx doit() {
+	public ViewContext doit(HttpServletResponse response) {
+		var bm = bookmarkSessionService.store().getPreviewBookmark();
+		if (!BookmarkUtil.isBookmarkValid(bm)) {
+			response.setHeader("HX-Reswap", "none");
+			return new Nothing.Ctx();
+		}
 		addBookmark();
 		return new Ctx(bookmarkSessionService);
 	}

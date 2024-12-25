@@ -20,6 +20,9 @@ import java.util.stream.Collectors;
 @Service
 public class BookmarkService {
 
+	/*
+	 * TODO: make optional, split into Optional findById and Bookmark getById ?
+	 */
 	public Bookmark getById(BigInteger id, List<Bookmark> bookmarks) {
 		return bookmarks
 			.stream()

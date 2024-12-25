@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.svenehrke.mybookmarks.components.image.ImageComponent;
 import org.svenehrke.mybookmarks.service.BookmarkSessionService;
+import org.svenehrke.mybookmarks.htmx.HtmxResponseUtils;
 
 @ViewComponent
 @RequiredArgsConstructor
@@ -39,7 +40,7 @@ public class NewBookmarkFormComponent {
 
 		// Pattern: Example of event usage with HTMX:
 		// (search for usages of ImageComponent.EVENT_URL_CHANGED to understand the associations)
-		response.setHeader("HX-Trigger", ImageComponent.EVENT_URL_CHANGED);
+		HtmxResponseUtils.setHxTrigger(response, ImageComponent.EVENT_URL_CHANGED);
 		return "";
 	}
 

@@ -8,6 +8,9 @@ import java.util.List;
 import java.util.stream.Stream;
 
 public class BookmarkUtil {
+
+	public static final String EVENT_TAGS_CHANGED = "tags-changed";
+
 	public static List<String> tagsStringToList(String tagsString) {
 		return Arrays.stream(tagsString.split(",")).map(String::trim).toList();
 	}

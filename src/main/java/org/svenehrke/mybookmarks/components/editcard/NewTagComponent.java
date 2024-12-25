@@ -14,8 +14,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.util.UriComponentsBuilder;
 import org.svenehrke.mybookmarks.service.BookmarkSessionService;
 import org.svenehrke.mybookmarks.service.BookmarkUtil;
+import org.svenehrke.mybookmarks.htmx.HtmxResponseUtils;
 
 import java.math.BigInteger;
+
+import static org.svenehrke.mybookmarks.service.BookmarkUtil.EVENT_TAGS_CHANGED;
 
 @ViewComponent
 @Controller
@@ -57,7 +60,7 @@ public class NewTagComponent {
 
 		bookmarkSessionService.addTagToBookmark(id, BookmarkUtil.toTagsString(tl));
 
-		response.setHeader("HX-Trigger", "tags-changed"); // use comma separation for multiple events
+		HtmxResponseUtils.setHxTrigger(response, EVENT_TAGS_CHANGED);
 		return new EditCardTagsComponent.Ctx(bookmarkSessionService, id, bookmarkSessionService.getById(id).tags()); // TODO: why: caller needs to pass tags
 	}
 

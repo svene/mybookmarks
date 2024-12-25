@@ -9,9 +9,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.svenehrke.mybookmarks.service.BookmarkFunctions;
 import org.svenehrke.mybookmarks.service.BookmarkSessionService;
+import org.svenehrke.mybookmarks.htmx.HtmxResponseUtils;
 
 import java.math.BigInteger;
 import java.util.List;
+
+import static org.svenehrke.mybookmarks.service.BookmarkUtil.EVENT_TAGS_CHANGED;
 
 @ViewComponent
 @RequiredArgsConstructor
@@ -44,7 +47,7 @@ public class EditCardTagsComponent {
 		HttpServletResponse response
 	) {
 		bookmarkSessionService.addTagToBookmark(id, tag);
-		response.setHeader("HX-Trigger", "tags-changed"); // use comma separation for multiple events
+		HtmxResponseUtils.setHxTrigger(response, EVENT_TAGS_CHANGED);
 		return new Ctx(bookmarkSessionService, id, bookmarkSessionService.getById(id).tags());
 	}
 	@PutMapping(REMOVE_TAG_URL)
@@ -54,7 +57,7 @@ public class EditCardTagsComponent {
 		HttpServletResponse response
 	) {
 		bookmarkSessionService.removeTagFromBookmark(id, tag);
-		response.setHeader("HX-Trigger", "tags-changed"); // use comma separation for multiple events
+		HtmxResponseUtils.setHxTrigger(response, EVENT_TAGS_CHANGED);
 		return new Ctx(bookmarkSessionService, id, bookmarkSessionService.getById(id).tags());
 	}
 }

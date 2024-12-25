@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.svenehrke.mybookmarks.components.image.ImageComponent;
 import org.svenehrke.mybookmarks.components.other.Nothing;
+import org.svenehrke.mybookmarks.htmx.HtmxResponseUtils;
+import org.svenehrke.mybookmarks.htmx.HxSwapValues;
 import org.svenehrke.mybookmarks.service.BookmarkSessionService;
 import org.svenehrke.mybookmarks.service.BookmarkUtil;
 
@@ -42,7 +44,7 @@ public class PostBookmarkAction {
 	public ViewContext doit(HttpServletResponse response) {
 		var bm = bookmarkSessionService.store().getPreviewBookmark();
 		if (!BookmarkUtil.isBookmarkValid(bm)) {
-			response.setHeader("HX-Reswap", "none");
+			HtmxResponseUtils.setHxReSwap(response, HxSwapValues.NONE);
 			return new Nothing.Ctx();
 		}
 		addBookmark();

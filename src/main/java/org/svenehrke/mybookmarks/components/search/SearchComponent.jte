@@ -9,7 +9,7 @@
     <div id="existing-tags"
          class="mb-normal"
          hx-trigger="tags-changed from:body"
-         hx-get="${ExistingTagsComponent.UI_URL}"
+         hx-get="${ExistingTagsComponent.URL}"
     >
         ${new ExistingTagsComponent.Ctx(ctx.bookmarkSessionService())}
     </div>
@@ -18,7 +18,7 @@
 <bal-card-actions position="right">
     <bal-icon
             name="settings"
-            hx-get="${SettingsComponent.UI_URL}"
+            hx-get="${SettingsComponent.URL}"
             hx-target="#first_card"
             hx-swap="innerHTML"
     ></bal-icon>

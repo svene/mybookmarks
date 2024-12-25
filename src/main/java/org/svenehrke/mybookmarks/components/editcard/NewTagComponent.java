@@ -25,8 +25,8 @@ import static org.svenehrke.mybookmarks.service.BookmarkUtil.EVENT_TAGS_CHANGED;
 @RequiredArgsConstructor
 @Slf4j
 public class NewTagComponent {
-	public static final String UI_URL = "/ui/bookmark/{id}/tags/new";
-	private static final UriComponentsBuilder uiUrlBuilder = UriComponentsBuilder.fromPath(UI_URL);
+	public static final String URL = "/ui/bookmark/{id}/tags/new";
+	private static final UriComponentsBuilder uiUrlBuilder = UriComponentsBuilder.fromPath(URL);
 
 	public static final String ADD_TAGS_URL = "/bookmark/{id}/tags/new";
 	private static final UriComponentsBuilder addTagsUrlBuilder = UriComponentsBuilder.fromPath(ADD_TAGS_URL);
@@ -44,8 +44,8 @@ public class NewTagComponent {
 
 	}
 
-	@GetMapping(UI_URL)
-	public Ctx ui(@PathVariable("id") BigInteger id) {
+	@GetMapping(URL)
+	public Ctx ctx(@PathVariable("id") BigInteger id) {
 		return new Ctx(id);
 	}
 

@@ -15,7 +15,7 @@ import org.svenehrke.mybookmarks.service.BookmarkSessionService;
 public class ImageComponent {
 
 	public static final String EVENT_URL_CHANGED = "urlChanged";
-	public static final String UI_URL = "/image";
+	public static final String URL = "/image";
 
 	private final BookmarkSessionService bookmarkSessionService;
 
@@ -25,8 +25,8 @@ public class ImageComponent {
 		return new Ctx(url);
 	}
 
-	@GetMapping(UI_URL)
-	public Ctx ui() {
+	@GetMapping(URL)
+	public Ctx ctx() {
 		Bookmark previewBookmark = bookmarkSessionService.store().getPreviewBookmark();
 		BookmarkEx ex = bookmarkSessionService.getBookmarkEx(previewBookmark);
 		return new Ctx(ex.imageUrl());

@@ -15,8 +15,8 @@ import java.math.BigInteger;
 @RequiredArgsConstructor
 @Controller
 public class CancelEditBookmarkAction {
-	public static final String UI_URL = "/canceleditbookmark/{id}";
-	private static final UriComponentsBuilder uiUrlBuilder = UriComponentsBuilder.fromPath(UI_URL);
+	public static final String URL = "/canceleditbookmark/{id}";
+	private static final UriComponentsBuilder uiUrlBuilder = UriComponentsBuilder.fromPath(URL);
 
 	public final BookmarkSessionService bookmarkSessionService;
 	public record Ctx(BookmarkSessionService bookmarkSessionService, BigInteger id) implements ViewContext {}
@@ -25,7 +25,7 @@ public class CancelEditBookmarkAction {
 		return uiUrlBuilder.buildAndExpand(id).toUriString();
 	}
 
-	@GetMapping(UI_URL)
+	@GetMapping(URL)
 	public Ctx doit(@PathVariable BigInteger id) {
 		return new Ctx(bookmarkSessionService, id);
 	}

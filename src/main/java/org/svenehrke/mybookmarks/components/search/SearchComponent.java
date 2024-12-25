@@ -12,14 +12,14 @@ import org.svenehrke.mybookmarks.service.BookmarkSessionService;
 @RequiredArgsConstructor
 public class SearchComponent {
 
-	public static final String UI_URL = "/search/ui";
+	public static final String URL = "/search/ui";
 
 	public final BookmarkSessionService bookmarkSessionService;
 
 	public record Ctx(BookmarkSessionService bookmarkSessionService) implements ViewContext {}
 
-	@GetMapping(UI_URL)
-	public Ctx ui() {
+	@GetMapping(URL)
+	public Ctx ctx() {
 		return new Ctx(bookmarkSessionService);
 	}
 

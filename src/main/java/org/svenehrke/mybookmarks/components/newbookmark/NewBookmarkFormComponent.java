@@ -26,7 +26,7 @@ public class NewBookmarkFormComponent {
 	public record Ctx(BookmarkSessionService bookmarkSessionService) implements ViewContext {}
 
 	@GetMapping(URL)
-	public Ctx ui() {
+	public Ctx ctx() {
 		return new Ctx(bookmarkSessionService);
 	}
 

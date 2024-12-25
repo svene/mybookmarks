@@ -18,7 +18,7 @@ import static org.svenehrke.mybookmarks.service.BookmarkSessionService.INCLUDED_
 @RequiredArgsConstructor
 public class ExistingTagsComponent {
 
-	public static final String UI_URL = "/ui/existingtags";
+	public static final String URL = "/ui/existingtags";
 
 	public final BookmarkSessionService bookmarkSessionService;
 
@@ -49,8 +49,8 @@ public class ExistingTagsComponent {
 		}
 	}
 
-	@GetMapping(UI_URL)
-	public Ctx ui() {
+	@GetMapping(URL)
+	public Ctx ctx() {
 		return new Ctx(bookmarkSessionService);
 	}
 

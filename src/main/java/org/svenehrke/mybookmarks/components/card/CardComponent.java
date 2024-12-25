@@ -20,9 +20,9 @@ import java.math.BigInteger;
 @Controller
 public class CardComponent {
 
-	public static final String UI_URL = "/card/{id}";
+	public static final String URL = "/card/{id}";
 	public static final String REMOVE_TAG_URL = "/card/{id}/removetag";
-	private static final UriComponentsBuilder uiUrlBuilder = UriComponentsBuilder.fromPath(UI_URL);
+	private static final UriComponentsBuilder uiUrlBuilder = UriComponentsBuilder.fromPath(URL);
 	private static final UriComponentsBuilder removeTagUrlBuilder = UriComponentsBuilder.fromPath(REMOVE_TAG_URL);
 
 	public static String uiUrl(BigInteger id) {
@@ -50,8 +50,8 @@ public class CardComponent {
 	public static Ctx ctx(BookmarkSessionService bookmarkSessionService, BigInteger id) {
 		return new Ctx(bookmarkSessionService, id);
 	}
-	@GetMapping(UI_URL)
-	public Ctx ui(@PathVariable BigInteger id) {
+	@GetMapping(URL)
+	public Ctx ctx(@PathVariable BigInteger id) {
 		return new Ctx(bookmarkSessionService, id);
 	}
 	@PutMapping(REMOVE_TAG_URL)

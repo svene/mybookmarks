@@ -28,7 +28,7 @@
             inverted="true"
             icon="back"
             hx-trigger="click"
-            hx-get="${SearchComponent.UI_URL}"
+            hx-get="${SearchComponent.URL}"
             hx-target="#first_card"
             hx-swap="innerHTML"
     >Done

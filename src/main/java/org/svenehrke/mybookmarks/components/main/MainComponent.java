@@ -13,7 +13,7 @@ import org.svenehrke.mybookmarks.service.BookmarkSessionService;
 @Controller
 public class MainComponent {
 
-	public static final String UI_URL = "/bookmarks";
+	public static final String URL = "/bookmarks";
 
 	public final BookmarkSessionService bookmarkSessionService;
 
@@ -21,11 +21,11 @@ public class MainComponent {
 
 	@GetMapping("/")
 	public RedirectView index() {
-		return new RedirectView(UI_URL);
+		return new RedirectView(URL);
 	}
 
-	@GetMapping(UI_URL)
-	public ViewContext ui() {
+	@GetMapping(URL)
+	public ViewContext ctx() {
 		return new Ctx(bookmarkSessionService);
 	}
 }

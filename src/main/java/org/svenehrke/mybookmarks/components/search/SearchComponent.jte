@@ -5,7 +5,7 @@
 @param Ctx ctx
 
 <bal-card-content>
-    <bal-card-title level="x-large">Search</bal-card-title>
+    <bal-card-title level="x-large">Tags</bal-card-title>
     <div id="existing-tags"
          class="mb-normal"
          hx-trigger="tags-changed from:body"

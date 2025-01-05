@@ -5,7 +5,7 @@
 @param Ctx ctx
 
 <bal-card-content>
-    @for(TagAndCount tag : ctx.existingTags())
+    @for(TagAndCount tag : ctx.existingTagsSortedByName())
         !{var color = ctx.colorForTag(tag.tag());}
     <bal-tag color="${color}"
              hx-trigger="click"
@@ -13,7 +13,7 @@
              hx-vals='{"search_by_tags": "${tag.tag()}"}'
              hx-swap="none"
     >
-        ${tag.count()} ${tag.tag()}
+        ${tag.tag()} ${tag.count()}
     </bal-tag>
     @endfor
 </bal-card-content>

@@ -32,6 +32,15 @@ public class ExistingTagsComponent {
 				.toList()
 				;
 		}
+		public List<TagAndCount> existingTagsSortedByName() {
+			return bookmarkSessionService.getCsvParseResult()
+				.groupbedByTag().entrySet().stream()
+				.sorted(Comparator.comparingInt(it -> it.getValue().size()))
+				.map(it -> new TagAndCount(it.getKey(), it.getValue().size()))
+				.sorted(Comparator.comparing(o -> o.tag))
+				.toList()
+				;
+		}
 		public String colorForTag(String tag) {
 			var excludedTags = bookmarkSessionService.getFilteredTags(EXCLUDED_TAGS_PREDICATE);
 			var includedTags = bookmarkSessionService.getFilteredTags(INCLUDED_TAGS_PREDICATE);

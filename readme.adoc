@@ -16,7 +16,6 @@ and `application-dev.properties`
 
 == TODO
 
-- existing tags: sort alphabetically or by occurrence
 - delete bookmark
 - show modification indicator (save needed)
 - search by title etc.

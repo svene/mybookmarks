@@ -8,5 +8,5 @@ import java.math.BigInteger;
 @ViewComponent
 @RequiredArgsConstructor
 public class PlaceholderCardComponent {
-	public record Ctx(BigInteger id) implements ViewContext {}
+	public record Ctx(BigInteger id, String url) implements ViewContext {}
 }

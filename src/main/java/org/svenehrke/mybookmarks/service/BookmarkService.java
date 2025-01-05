@@ -3,10 +3,7 @@ package org.svenehrke.mybookmarks.service;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.svenehrke.mybookmarks.model.BookmarkBuilder;
-import org.svenehrke.mybookmarks.model.CsvInfo;
-import org.svenehrke.mybookmarks.model.Bookmark;
-import org.svenehrke.mybookmarks.model.BookmarkEx;
+import org.svenehrke.mybookmarks.model.*;
 
 import java.math.BigInteger;
 import java.util.AbstractMap;
@@ -41,8 +38,14 @@ public class BookmarkService {
 		return new InitialDataLoader().readCsvAsString();
 	}
 
-	public BookmarkEx createBookmarkEx(Bookmark bookmark) {
-		return new BookmarkRetriever().buildBookmarkEx(bookmark);
+	public BookmarkEx createBookmarkEx(Bookmark bm) {
+		BookmarkEx result;
+		try {
+			result = new BookmarkRetriever().buildBookmarkEx(bm);
+		} catch (Exception e) {
+			return BookmarkEx.forException(bm);
+		}
+		return result;
 	}
 
 	public record CsvParseResult(

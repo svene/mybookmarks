@@ -8,7 +8,7 @@
 !{var ogInfo = ctx.getOgInfo();}
 
 <bal-card-content>
-    <img class="mb-normal" src="${ogInfo.imageUrl()}">
+    <a href="${bm.url()}" target="_blank"><img class="mb-normal" src="${ogInfo.imageUrl()}"></a>
     <div id="card-content-text-${ctx.id()}">
         <bal-card-title level="x-large">${ogInfo.title()}</bal-card-title>
         <bal-card-subtitle bold="true">${ogInfo.uri().getHost()}</bal-card-subtitle>

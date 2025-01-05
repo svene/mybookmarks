@@ -22,14 +22,16 @@ public class BookmarkRetriever {
 
 	public BookmarkEx buildBookmarkEx(Bookmark bm) {
 		URI uri = URI.create(bm.url());
-		String html = makeHttpCall(uri, true);
+		String html;
+		try	{
+			html = makeHttpCall(uri, true);
+		} catch (Exception e) {
+			return BookmarkEx.forException(bm);
+		}
 		Document doc = Jsoup.parse(html);
 
 		String ogImageContent = getOpenGraphElementsContent(doc, "og:image", "https://placehold.co/1200x630/png?text=NO PREVIEW");
-		String title = getOpenGraphElementsContent(doc, "og:title", null);
-		if (title == null) {
-			title = getTitle(doc, "...");
-		}
+		String title = getOpenGraphElementsContent(doc, "og:title", getTitle(doc, "..."));
 		BookmarkEx ex = BookmarkExBuilder.builder()
 			.uri(uri)
 			.imageUrl(newUrlFromPossiblyRelativeUrl(uri, ogImageContent))
